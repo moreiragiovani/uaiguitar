@@ -21,6 +21,9 @@ import com.uaiguitar.site.repository.ModuloRepository;
 @Profile("test")
 public class CursoConfig implements CommandLineRunner{
 
+    private static final String video = "https://www.youtube.com/watch?v=RYpSXpf0L8k";
+    private static final String foto ="picsum.photos/200";
+
     @Autowired
     AulaRepository aulaRepository;
 
@@ -36,12 +39,12 @@ public class CursoConfig implements CommandLineRunner{
         Set<Aula> aulas = new HashSet<>();
         List<Modulo> modulos = new ArrayList<>();
         
-        Aula a1 = new Aula(null, "Aula 1", "Nessa aula aprenderemos...", "#", "//#endregion", "//#endregion");
+        Aula a1 = new Aula(null, "Aula 1", "Nessa aula aprenderemos...", "#", foto, video);
         
         aulas.add(a1);
         Modulo m1 = new Modulo(null, "Módulo 1", "Modulo um como afinar", aulas);
         modulos.add(m1);
-        Curso c1 = new Curso(null, "Aulas de violão", "Curso de violão para iniciantes", "//#endregion", "//#endregion", modulos);
+        Curso c1 = new Curso(null, "Aulas de violão", "Curso de violão para iniciantes", foto, video, modulos);
 
         aulaRepository.save(a1);
         moduloRepository.save(m1);
