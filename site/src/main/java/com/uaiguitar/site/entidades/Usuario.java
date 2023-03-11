@@ -1,12 +1,15 @@
 package com.uaiguitar.site.entidades;
 
 import java.io.Serializable;
+import java.util.Set;
 import java.util.UUID;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,15 +26,21 @@ public class Usuario implements Serializable{
     private String email;
     private String senha;
 
+    @OneToMany
+    @JoinTable(name = "tb_cursos_comprados")
+    private Set<Curso> cursosComprados;
+
     public Usuario() {
     }
 
-    public Usuario(UUID id, String uername, String nomeCompleto, String email, String senha) {
+    public Usuario(UUID id, String uername, String nomeCompleto, String email, String senha,
+            Set<Curso> cursosComprados) {
         this.id = id;
         this.uername = uername;
         this.nomeCompleto = nomeCompleto;
         this.email = email;
         this.senha = senha;
+        this.cursosComprados = cursosComprados;
     }
 
     public UUID getId() {
@@ -74,6 +83,14 @@ public class Usuario implements Serializable{
         this.senha = senha;
     }
 
+    public Set<Curso> getCursosComprados() {
+        return cursosComprados;
+    }
+
+    public void setCursosComprados(Set<Curso> cursosComprados) {
+        this.cursosComprados = cursosComprados;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -109,7 +126,5 @@ public class Usuario implements Serializable{
         } else if (!senha.equals(other.senha))
             return false;
         return true;
-    }
-
-    
+    }   
 }
