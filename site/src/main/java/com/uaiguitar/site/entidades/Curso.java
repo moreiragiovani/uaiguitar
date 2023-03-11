@@ -41,29 +41,6 @@ public class Curso implements Serializable{
         this.modulo = modulo;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public String getImagem() {
-        return imagem;
-    }
-
-    public String getVideoApresentacao() {
-        return videoApresentacao;
-    }
-
-    public List<Modulo> getModulo() {
-        return modulo;
-    }
 
     @Override
     public int hashCode() {
@@ -72,6 +49,54 @@ public class Curso implements Serializable{
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((nome == null) ? 0 : nome.hashCode());
         return result;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
+
+    public String getVideoApresentacao() {
+        return videoApresentacao;
+    }
+
+    public void setVideoApresentacao(String videoApresentacao) {
+        this.videoApresentacao = videoApresentacao;
+    }
+
+    public List<Modulo> getModulo() {
+        return modulo;
+    }
+
+    public void setModulo(List<Modulo> modulo) {
+        this.modulo = modulo;
     }
 
     @Override
@@ -94,8 +119,5 @@ public class Curso implements Serializable{
         } else if (!nome.equals(other.nome))
             return false;
         return true;
-    }
-
-    
-
+    }  
 }
