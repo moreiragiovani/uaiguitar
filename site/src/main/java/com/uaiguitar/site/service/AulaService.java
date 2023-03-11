@@ -16,30 +16,30 @@ public class AulaService {
     @Autowired
     AulaRepository aulaRepository;
 
-    public List<Aula> findAllCursos(){
+    public List<Aula> findAllAula(){
         return aulaRepository.findAll();
     }
 
-    public Aula findByIdCurso(UUID id){
+    public Aula findByIdAula(UUID id){
         Optional<Aula> aulaOpt = aulaRepository.findById(id);
         return aulaOpt.get();
     }
 
-    public void createCurso(Aula user){
+    public void createAula(Aula user){
         aulaRepository.save(user);
     }
 
-    public void updateCurso(UUID id, Aula a){
+    public void updateAula(UUID id, Aula a){
         Aula curso = aulaRepository.getReferenceById(id);
-        updateUser(curso, a);
+        updateAula(curso, a);
         aulaRepository.save(curso);
     }
 
-    public void deleteCurso(UUID id){
+    public void deleteAula(UUID id){
         aulaRepository.deleteById(id);
     }
 
-    private void updateUser(Aula aula, Aula a) {
+    private void updateAula(Aula aula, Aula a) {
         aula.setNome(a.getNome());
         aula.setCompletoPdf(a.getCompletoPdf());
         aula.setDescricao(a.getDescricao());

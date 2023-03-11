@@ -16,30 +16,30 @@ public class ModuloService {
     @Autowired
     ModuloRepository moduloRepository;
 
-    public List<Modulo> findAllCursos(){
+    public List<Modulo> findAllModulos(){
         return moduloRepository.findAll();
     }
 
-    public Modulo findByIdCurso(UUID id){
+    public Modulo findByIdModulo(UUID id){
         Optional<Modulo> moduloOpt = moduloRepository.findById(id);
         return moduloOpt.get();
     }
 
-    public void createCurso(Modulo modulo){
+    public void createModulo(Modulo modulo){
         moduloRepository.save(modulo);
     }
 
-    public void updateCurso(UUID id, Modulo m){
+    public void updateModulo(UUID id, Modulo m){
         Modulo modulo = moduloRepository.getReferenceById(id);
-        updateUser(modulo, m);
+        updateModulo(modulo, m);
         moduloRepository.save(modulo);
     }
 
-    public void deleteCurso(UUID id){
+    public void deleteModulo(UUID id){
         moduloRepository.deleteById(id);
     }
 
-    private void updateUser(Modulo modulo, Modulo m) {
+    private void updateModulo(Modulo modulo, Modulo m) {
         modulo.setDescricao(m.getDescricao());
         modulo.setAulas(m.getAulas());
         modulo.setNome(m.getNome());
