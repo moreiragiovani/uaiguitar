@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.uaiguitar.site.entidades.Aula;
 import com.uaiguitar.site.service.AulaService;
 
 @Controller
+@RequestMapping("/aula")
 public class AulaController {
     
     @Autowired

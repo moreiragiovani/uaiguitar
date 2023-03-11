@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.uaiguitar.site.entidades.Modulo;
 import com.uaiguitar.site.service.ModuloService;
 
 @Controller
+@RequestMapping("/modulo")
 public class ModuloController {
     
     @Autowired
