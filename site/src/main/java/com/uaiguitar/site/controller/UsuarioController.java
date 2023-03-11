@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.uaiguitar.site.dto.UsuarioDto;
 import com.uaiguitar.site.entidades.Usuario;
 import com.uaiguitar.site.service.UsuarioService;
 
@@ -23,12 +24,12 @@ public class UsuarioController {
     UsuarioService service;
 
     @GetMapping
-    public List<Usuario> findAllUsuarios(){
+    public List<UsuarioDto> findAllUsuarios(){
         return service.findAllUsuarios();
     }
 
     @GetMapping("/{id}")
-    public Usuario findByUsuario(@PathVariable(value = "id") UUID id){
+    public UsuarioDto findByUsuario(@PathVariable(value = "id") UUID id){
         return service.findByIdUsuario(id);
     }
 
