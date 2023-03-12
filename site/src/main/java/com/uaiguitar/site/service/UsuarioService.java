@@ -15,31 +15,50 @@ import com.uaiguitar.site.repository.UsuarioRepository;
 @Service
 public class UsuarioService {
 
-    private UsuarioDto usuarioDto = new UsuarioDto();
     
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    public UsuarioService(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
+
+    public UsuarioDto findByUsername(String username){
+        UsuarioDto usuarioDto = new UsuarioDto();
+        Optional<Usuario> userOpt = usuarioRepository.findByusername(username);
+        Usuario u = userOpt.get();
+        usuarioDto.setNomeCompleto(u.getNomeCompleto());
+        usuarioDto.setEmail(u.getEmail());
+        usuarioDto.setId(u.getId());
+        usuarioDto.setUsername(u.getUsername());
+        usuarioDto.setRoles(u.getRoles());
+        usuarioDto.setSenha(u.getSenha());
+
+        return usuarioDto;
+    }
+
     public List<UsuarioDto> findAllUsuarios(){
+        UsuarioDto usuarioDto = new UsuarioDto();
         List<UsuarioDto> userListDto = new ArrayList<>();
         List<Usuario> userList = usuarioRepository.findAll();
         for(Usuario u: userList){
             usuarioDto.setNomeCompleto(u.getNomeCompleto());
             usuarioDto.setEmail(u.getEmail());
             usuarioDto.setId(u.getId());
-            usuarioDto.setUername(u.getUername());
+            usuarioDto.setUsername(u.getUsername());
             userListDto.add(usuarioDto);
         }
         return userListDto;
     }
 
     public UsuarioDto findByIdUsuario(UUID id){
+        UsuarioDto usuarioDto = new UsuarioDto();
         Optional<Usuario> userOpt = usuarioRepository.findById(id);
         Usuario u = userOpt.get();
         usuarioDto.setNomeCompleto(u.getNomeCompleto());
         usuarioDto.setEmail(u.getEmail());
         usuarioDto.setId(u.getId());
-        usuarioDto.setUername(u.getUername());
+        usuarioDto.setUsername(u.getUsername());
 
         return usuarioDto;
     }
@@ -59,7 +78,7 @@ public class UsuarioService {
     }
 
     private void updateUser(Usuario usuario, Usuario user) {
-        usuario.setUername(user.getUername());
+        usuario.setUsername(user.getUsername());
         usuario.setNomeCompleto(user.getNomeCompleto());
         usuario.setEmail(user.getEmail());
         usuario.setSenha(user.getSenha());

@@ -1,28 +1,40 @@
 package com.uaiguitar.site.dto;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Set;
 import java.util.UUID;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.uaiguitar.site.entidades.Curso;
+import com.uaiguitar.site.entidades.Role;
 import com.uaiguitar.site.entidades.Usuario;
 
-public class UsuarioDto {
-    
+public class UsuarioDto implements UserDetails {
+
     private UUID id;
-    private String uername;
+    private String username;
     private String nomeCompleto;
     private String email;
     private String senha;
-    
+    private Set<Curso> cursosComprados;
+    private Set<Role> roles;
+  
     public UsuarioDto() {
     }
 
     public UsuarioDto(Usuario usuario) {
         this.id = usuario.getId();
-        this.uername = usuario.getUername();
+        this.username = usuario.getUsername();
         this.nomeCompleto = usuario.getNomeCompleto();
         this.email = usuario.getEmail();
         this.senha = usuario.getSenha();
+        this.cursosComprados = usuario.getCursosComprados();
+        this.roles = usuario.getRoles();
     }
-
+  
     public UUID getId() {
         return id;
     }
@@ -31,12 +43,8 @@ public class UsuarioDto {
         this.id = id;
     }
 
-    public String getUername() {
-        return uername;
-    }
-
-    public void setUername(String uername) {
-        this.uername = uername;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getNomeCompleto() {
@@ -63,12 +71,28 @@ public class UsuarioDto {
         this.senha = senha;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+    
+    public Set<Curso> getCursosComprados() {
+        return cursosComprados;
+    }
+
+    public void setCursosComprados(Set<Curso> cursosComprados) {
+        this.cursosComprados = cursosComprados;
+    }
+    
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((uername == null) ? 0 : uername.hashCode());
+        result = prime * result + ((username == null) ? 0 : username.hashCode());
         return result;
     }
 
@@ -86,11 +110,50 @@ public class UsuarioDto {
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (uername == null) {
-            if (other.uername != null)
+        if (username == null) {
+            if (other.username != null)
                 return false;
-        } else if (!uername.equals(other.uername))
+        } else if (!username.equals(other.username))
             return false;
+        return true;
+    }
+
+// METODOS DO USER DETAILS 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles;
+       
+    }
+
+    @Override
+    public String getPassword() {
+        return this.senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.username;
+        
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
         return true;
     }
 
