@@ -14,8 +14,7 @@ import com.uaiguitar.site.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
-
-    
+ 
     @Autowired
     UsuarioRepository usuarioRepository;
 
@@ -24,9 +23,13 @@ public class UsuarioService {
     }
 
     public UsuarioDto findByUsername(String username){
+
         UsuarioDto usuarioDto = new UsuarioDto();
+
         Optional<Usuario> userOpt = usuarioRepository.findByusername(username);
+
         Usuario u = userOpt.get();
+
         usuarioDto.setNomeCompleto(u.getNomeCompleto());
         usuarioDto.setEmail(u.getEmail());
         usuarioDto.setId(u.getId());
@@ -39,26 +42,40 @@ public class UsuarioService {
 
     public List<UsuarioDto> findAllUsuarios(){
         UsuarioDto usuarioDto = new UsuarioDto();
+
         List<UsuarioDto> userListDto = new ArrayList<>();
+
         List<Usuario> userList = usuarioRepository.findAll();
+
         for(Usuario u: userList){
             usuarioDto.setNomeCompleto(u.getNomeCompleto());
             usuarioDto.setEmail(u.getEmail());
             usuarioDto.setId(u.getId());
             usuarioDto.setUsername(u.getUsername());
+            usuarioDto.setCursosComprados(u.getCursosComprados());
+            usuarioDto.setSenha(u.getSenha());
+            usuarioDto.setRoles(u.getRoles());
             userListDto.add(usuarioDto);
+            
         }
         return userListDto;
     }
 
     public UsuarioDto findByIdUsuario(UUID id){
+
         UsuarioDto usuarioDto = new UsuarioDto();
+
         Optional<Usuario> userOpt = usuarioRepository.findById(id);
+
         Usuario u = userOpt.get();
+
         usuarioDto.setNomeCompleto(u.getNomeCompleto());
         usuarioDto.setEmail(u.getEmail());
         usuarioDto.setId(u.getId());
         usuarioDto.setUsername(u.getUsername());
+        usuarioDto.setSenha(u.getSenha());
+        usuarioDto.setCursosComprados(u.getCursosComprados());
+        usuarioDto.setRoles(u.getRoles());
 
         return usuarioDto;
     }

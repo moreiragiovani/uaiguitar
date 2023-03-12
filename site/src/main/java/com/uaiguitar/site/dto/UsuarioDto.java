@@ -1,6 +1,5 @@
 package com.uaiguitar.site.dto;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 import java.util.UUID;

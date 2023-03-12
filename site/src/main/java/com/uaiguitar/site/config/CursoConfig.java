@@ -69,7 +69,7 @@ public class CursoConfig implements CommandLineRunner{
         cursoRepository.save(c1);
         roles.add(role);
 
-        Usuario usuario = new Usuario(null, "giovanigeo", "Giovani Moreira", "giovani_moreira@hotmail.com", senha, cursos, roles);
+        Usuario usuario = new Usuario(null, "giovanigeo", "Giovani Moreira", "giovani_moreira@hotmail.com", "$2a$10$GZGhNajfLIL5JK8kcCUktOcBjUfQHdVda4uw2am.zXbVezCorSEre", cursos, roles);
 
         usuarioRepository.save(usuario);
     }

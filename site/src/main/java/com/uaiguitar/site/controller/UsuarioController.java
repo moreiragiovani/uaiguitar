@@ -30,8 +30,8 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public UsuarioDto findByUsuario(@PathVariable(value = "id") UUID id){
-        return service.findByIdUsuario(id);
+    public ResponseEntity<UsuarioDto> findByUsuario(@PathVariable(value = "id") UUID id){
+        return ResponseEntity.ok().body(service.findByIdUsuario(id));
     }
 
     @PostMapping
