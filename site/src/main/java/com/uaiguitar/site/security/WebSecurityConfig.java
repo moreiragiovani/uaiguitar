@@ -24,12 +24,13 @@ public class WebSecurityConfig {
             .authorizeHttpRequests()
             // .requestMatchers(HttpMethod.GET, "/login").permitAll()
             .requestMatchers(HttpMethod.GET, "/logout").permitAll()
+            .requestMatchers(HttpMethod.GET, "/login").permitAll()
             .requestMatchers(HttpMethod.GET, "/h2").permitAll()
             .requestMatchers(HttpMethod.GET, "/formulario").permitAll()
             .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
             .requestMatchers(HttpMethod.GET, "/usuario").hasAnyRole("GRATIS")
             .anyRequest().authenticated().and().cors()
-            .and()
+            .and().formLogin().and()
             .csrf().disable();
 
         return http.build();

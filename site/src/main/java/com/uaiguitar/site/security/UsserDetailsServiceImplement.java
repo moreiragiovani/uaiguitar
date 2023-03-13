@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.uaiguitar.site.dto.UsuarioDto;
+import com.uaiguitar.site.entidades.UsuarioDetails;
 import com.uaiguitar.site.service.UsuarioService;
 
 import jakarta.transaction.Transactional;
@@ -26,7 +26,7 @@ public class UsserDetailsServiceImplement implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         
-        UsuarioDto usuario = service.findByUsername(username);
+        UsuarioDetails usuario = service.findByUsername(username);
 
         User user = new User(usuario.getUsername(), usuario.getSenha(), 
         true, true, true,

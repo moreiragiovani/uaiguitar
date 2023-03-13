@@ -18,6 +18,7 @@ import com.uaiguitar.site.dto.UsuarioDto;
 import com.uaiguitar.site.entidades.Usuario;
 import com.uaiguitar.site.service.UsuarioService;
 
+
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
@@ -26,8 +27,8 @@ public class UsuarioController {
     UsuarioService service;
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> getAllUsuarios(){
-        return ResponseEntity.ok().body(service.getAllUsuarios());
+    public ResponseEntity<List<UsuarioDto>> findAllUsuarios(){
+        return ResponseEntity.ok().body(service.findAllUsuarios());
     }
 
     @GetMapping("/{id}")
@@ -49,10 +50,5 @@ public class UsuarioController {
     @DeleteMapping("/{id}")
     public void deleteUsuario(@PathVariable(value = "id") UUID id){
         service.deleteUsuario(id);
-    }
-
-    @GetMapping("/formulario")
-    public String formulario(){
-        return "formulario";
-    }
+    }    
 }

@@ -10,10 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.uaiguitar.site.dto.UsuarioDto;
 import com.uaiguitar.site.entidades.Usuario;
+import com.uaiguitar.site.entidades.UsuarioDetails;
 import com.uaiguitar.site.repository.UsuarioRepository;
 
 @Service
-public class UsuarioService {
+public class UsuarioService{
  
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -22,12 +23,10 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public UsuarioDto findByUsername(String username){
+    public UsuarioDetails findByUsername(String username){
 
-        UsuarioDto usuarioDto = new UsuarioDto();
-
+        UsuarioDetails usuarioDto = new UsuarioDetails();
         Optional<Usuario> userOpt = usuarioRepository.findByusername(username);
-
         Usuario u = userOpt.get();
 
         usuarioDto.setNomeCompleto(u.getNomeCompleto());
@@ -40,32 +39,30 @@ public class UsuarioService {
         return usuarioDto;
     }
 
-    public List<Usuario> getAllUsuarios(){
-      
-        return usuarioRepository.findAll();
+    public List<UsuarioDto> findAllUsuarios(){
+
+        List<UsuarioDto> usuarioDtoList = new ArrayList<>();
+        List<Usuario> usuarioList = usuarioRepository.findAll();
+
+        for(Usuario u: usuarioList){
+            usuarioDtoList.add(usuarioToUsuarioDtoConverter(u, new UsuarioDto()));
+        }
+
+        return usuarioDtoList;
     }
 
     public UsuarioDto findByIdUsuario(UUID id){
 
         UsuarioDto usuarioDto = new UsuarioDto();
-
         Optional<Usuario> userOpt = usuarioRepository.findById(id);
 
-        Usuario u = userOpt.get();
-
-        usuarioDto.setNomeCompleto(u.getNomeCompleto());
-        usuarioDto.setEmail(u.getEmail());
-        usuarioDto.setId(u.getId());
-        usuarioDto.setUsername(u.getUsername());
-        usuarioDto.setSenha(u.getSenha());
-        usuarioDto.setCursosComprados(u.getCursosComprados());
-        usuarioDto.setRoles(u.getRoles());
+        usuarioDto = usuarioToUsuarioDtoConverter(userOpt.get(), usuarioDto);      
 
         return usuarioDto;
     }
 
     public void createUsuario(Usuario user){
-        usuarioRepository.save(user);
+            usuarioRepository.save(user);
     }
 
     public void updateUsuario(UUID id, Usuario user){
@@ -84,6 +81,19 @@ public class UsuarioService {
         usuario.setEmail(user.getEmail());
         usuario.setSenha(user.getSenha());
         
+    }
+
+    public UsuarioDto usuarioToUsuarioDtoConverter(Usuario usuario, UsuarioDto usuarioDto){
+
+        usuarioDto.setId(usuario.getId());
+        usuarioDto.setNomeCompleto(usuario.getNomeCompleto());
+        usuarioDto.setUsername(usuario.getUsername());
+        usuarioDto.setEmail(usuario.getEmail());
+        usuarioDto.setSenha(usuario.getSenha());
+        usuarioDto.setRoles(usuario.getRoles());
+        usuarioDto.setCursosComprados(usuario.getCursosComprados());
+        
+        return usuarioDto;
     }
 
 }
