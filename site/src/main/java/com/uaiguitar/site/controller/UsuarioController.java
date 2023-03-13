@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +19,7 @@ import com.uaiguitar.site.service.UsuarioService;
 
 
 @Controller
-@RequestMapping("/usuario")
+@RequestMapping(value = "/usuario")
 public class UsuarioController {
     
     @Autowired
@@ -37,9 +36,9 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public void createUsuario(Usuario usuario){
-        usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
+    public String createUsuario(Usuario usuario){       
         service.createUsuario(usuario);
+        return "redirect:login";
     }
 
     @PutMapping("/{id}")

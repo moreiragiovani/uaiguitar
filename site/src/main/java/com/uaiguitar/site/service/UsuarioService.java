@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.uaiguitar.site.dto.UsuarioDto;
@@ -62,7 +63,8 @@ public class UsuarioService{
     }
 
     public void createUsuario(Usuario user){
-            usuarioRepository.save(user);
+        user.setSenha(new BCryptPasswordEncoder().encode(user.getSenha()));
+        usuarioRepository.save(user);
     }
 
     public void updateUsuario(UUID id, Usuario user){
