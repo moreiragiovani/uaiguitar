@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +26,8 @@ public class UsuarioController {
     UsuarioService service;
 
     @GetMapping
-    public ResponseEntity<List<UsuarioDto>> findAllUsuarios(){
-        return ResponseEntity.ok().body(service.findAllUsuarios());
+    public ResponseEntity<List<Usuario>> getAllUsuarios(){
+        return ResponseEntity.ok().body(service.getAllUsuarios());
     }
 
     @GetMapping("/{id}")
@@ -36,6 +37,7 @@ public class UsuarioController {
 
     @PostMapping
     public void createUsuario(Usuario usuario){
+        usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
         service.createUsuario(usuario);
     }
 
@@ -47,5 +49,10 @@ public class UsuarioController {
     @DeleteMapping("/{id}")
     public void deleteUsuario(@PathVariable(value = "id") UUID id){
         service.deleteUsuario(id);
+    }
+
+    @GetMapping("/formulario")
+    public String formulario(){
+        return "formulario";
     }
 }

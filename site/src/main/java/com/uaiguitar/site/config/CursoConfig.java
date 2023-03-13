@@ -53,7 +53,7 @@ public class CursoConfig implements CommandLineRunner{
         Set<Curso> cursos = new HashSet<>();
         Set<Role> roles = new HashSet<>();
 
-        Role role = new Role(null, RoleNome.ROLE_USUARIO);
+        Role role = new Role(null, RoleNome.ROLE_GRATIS);
         roleRepository.save(role);
 
         Aula a1 = new Aula(null, "Aula 1", "Nessa aula aprenderemos...", "#", foto, video);
@@ -69,7 +69,7 @@ public class CursoConfig implements CommandLineRunner{
         cursoRepository.save(c1);
         roles.add(role);
 
-        Usuario usuario = new Usuario(null, "giovanigeo", "Giovani Moreira", "giovani_moreira@hotmail.com", "$2a$10$GZGhNajfLIL5JK8kcCUktOcBjUfQHdVda4uw2am.zXbVezCorSEre", cursos, roles);
+        Usuario usuario = new Usuario(null, "giovanigeo", "Giovani Moreira", "giovani_moreira@hotmail.com", senha, cursos, roles);
 
         usuarioRepository.save(usuario);
     }

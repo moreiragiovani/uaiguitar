@@ -40,25 +40,9 @@ public class UsuarioService {
         return usuarioDto;
     }
 
-    public List<UsuarioDto> findAllUsuarios(){
-        UsuarioDto usuarioDto = new UsuarioDto();
-
-        List<UsuarioDto> userListDto = new ArrayList<>();
-
-        List<Usuario> userList = usuarioRepository.findAll();
-
-        for(Usuario u: userList){
-            usuarioDto.setNomeCompleto(u.getNomeCompleto());
-            usuarioDto.setEmail(u.getEmail());
-            usuarioDto.setId(u.getId());
-            usuarioDto.setUsername(u.getUsername());
-            usuarioDto.setCursosComprados(u.getCursosComprados());
-            usuarioDto.setSenha(u.getSenha());
-            usuarioDto.setRoles(u.getRoles());
-            userListDto.add(usuarioDto);
-            
-        }
-        return userListDto;
+    public List<Usuario> getAllUsuarios(){
+      
+        return usuarioRepository.findAll();
     }
 
     public UsuarioDto findByIdUsuario(UUID id){
