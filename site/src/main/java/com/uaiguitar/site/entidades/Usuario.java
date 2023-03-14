@@ -14,6 +14,8 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -24,11 +26,18 @@ public class Usuario implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
+    
+    @NotBlank(message = "Digite um nome de usuario")
     @Column(nullable = false, unique = true)
     private String username;
+
+    @NotBlank(message = "Digite um nome de usuario")
     private String nomeCompleto;
+
+    @Email(message = "Digite um email válido.")
     private String email;
+
+    @NotBlank(message = "Você precisa criar uma senha.")
     private String senha;
 
     @OneToMany

@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uaiguitar.site.dto.UsuarioDto;
 import com.uaiguitar.site.entidades.Usuario;
@@ -62,9 +63,16 @@ public class UsuarioService{
         return usuarioDto;
     }
 
-    public void createUsuario(Usuario user){
-        user.setSenha(new BCryptPasswordEncoder().encode(user.getSenha()));
-        usuarioRepository.save(user);
+    public void createUsuario(Usuario user, RedirectAttributes attributes){
+        try{
+            user.setSenha(new BCryptPasswordEncoder().encode(user.getSenha()));
+            usuarioRepository.save(user);
+        }catch(Exception e){
+            attributes.addFlashAttribute("mensagem", "Nome de Usuario: " + user.getUsername() + 
+                                        " já existe.");
+            // System.out.println("----- erro criação Servico");
+        }
+
     }
 
     public void updateUsuario(UUID id, Usuario user){

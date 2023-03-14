@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uaiguitar.site.dto.UsuarioDto;
 import com.uaiguitar.site.entidades.Usuario;
@@ -36,9 +37,15 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public String createUsuario(Usuario usuario){       
-        service.createUsuario(usuario);
-        return "redirect:login";
+    public String createUsuario(Usuario usuario, RedirectAttributes attributes){
+        try{
+            service.createUsuario(usuario, attributes);
+            return "redirect:formulario";
+           
+        }catch(Exception e){
+            System.out.println("----- erro criação Controller");
+            return "redirect:formulario"; 
+           }
     }
 
     @PutMapping("/{id}")
