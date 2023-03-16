@@ -19,19 +19,29 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain (HttpSecurity http) throws Exception{
         
         http
-            .httpBasic()
-            .and()
             .authorizeHttpRequests()
-            // .requestMatchers(HttpMethod.GET, "/login").permitAll()
-            .requestMatchers(HttpMethod.GET, "/logout").permitAll()
-            .requestMatchers(HttpMethod.GET, "/login").permitAll()
-            .requestMatchers(HttpMethod.GET, "/h2").permitAll()
+            .requestMatchers("/login").permitAll()
             .requestMatchers(HttpMethod.GET, "/formulario").permitAll()
-            .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
+            // .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
             .requestMatchers(HttpMethod.GET, "/usuario").hasAnyRole("GRATIS")
-            .anyRequest().authenticated().and().cors()
-            .and().formLogin().and()
-            .csrf().disable();
+            .anyRequest().authenticated().and().cors().and()
+            .formLogin()
+            .loginPage("/login")
+            .loginProcessingUrl("/process-login")
+            .defaultSuccessUrl("/")
+            .failureUrl("/login?error=true")
+            .usernameParameter("username")
+            .passwordParameter("senha")
+            .permitAll()
+            .and()
+            .logout()
+            .logoutSuccessUrl("/login?logout=true")
+            .invalidateHttpSession(true)
+            .deleteCookies("JSESSIONID")
+            .permitAll().and().rememberMe().key("unicaESegura").tokenValiditySeconds(604800)
+            .and().sessionManagement().sessionFixation().migrateSession().maximumSessions(2).and()
+  
+            .and().csrf().disable();
 
         return http.build();
     }
