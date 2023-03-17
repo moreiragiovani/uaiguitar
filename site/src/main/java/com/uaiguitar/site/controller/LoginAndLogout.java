@@ -9,12 +9,10 @@ public class LoginAndLogout {
     
     @GetMapping("/logout")
     public String logout() {
-	    // session.invalidate();
 	    return "logout";
     }
     @GetMapping("/login")
     public String login() {
-	    // session.invalidate();
 	    return "login";
     }
 

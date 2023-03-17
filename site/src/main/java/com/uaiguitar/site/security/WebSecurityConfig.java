@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+
 @Configuration
 @EnableMethodSecurity
 @EnableWebSecurity
@@ -17,31 +18,52 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain (HttpSecurity http) throws Exception{
-        
         http
-            .authorizeHttpRequests()
-            .requestMatchers("/login").permitAll()
-            .requestMatchers(HttpMethod.GET, "/formulario").permitAll()
-            // .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
-            .requestMatchers(HttpMethod.GET, "/usuario").hasAnyRole("GRATIS")
-            .anyRequest().authenticated().and().cors().and()
-            .formLogin()
-            .loginPage("/login")
-            .loginProcessingUrl("/process-login")
-            .defaultSuccessUrl("/")
-            .failureUrl("/login?error=true")
-            .usernameParameter("username")
-            .passwordParameter("senha")
-            .permitAll()
-            .and()
-            .logout()
-            .logoutSuccessUrl("/login?logout=true")
-            .invalidateHttpSession(true)
-            .deleteCookies("JSESSIONID")
-            .permitAll().and().rememberMe().key("unicaESegura").tokenValiditySeconds(604800)
-            .and().sessionManagement().sessionFixation().migrateSession().maximumSessions(2).and()
-  
-            .and().csrf().disable();
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers("/css/**").permitAll()
+                                .requestMatchers("/img/**").permitAll()
+                                .requestMatchers("/js/**").permitAll()
+                )
+
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers("/login").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/formulario").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/usuario").hasAnyRole("GRATIS")
+                                .anyRequest().authenticated()
+                )
+
+                .cors().and()
+
+                .formLogin(formLogin ->
+                        formLogin
+                                .loginPage("/login")
+                                .loginProcessingUrl("/process-login")
+                                .defaultSuccessUrl("/usuario")
+                                .failureUrl("/login?error=true")
+                                .usernameParameter("username")
+                                .passwordParameter("senha")
+                                .permitAll()
+                )
+                .logout(logout ->
+                        logout
+                                .logoutUrl("/logout")
+                                .logoutSuccessUrl("/login")
+                                .invalidateHttpSession(true)
+                                .deleteCookies("JSESSIONID")
+                )
+
+                .rememberMe(me -> me
+                                .key("unicaESegura")
+                                .tokenValiditySeconds(604800))
+
+                .sessionManagement(management -> management
+                                .sessionFixation()
+                                .migrateSession()
+                                .maximumSessions(2))
+                
+                .csrf().disable();
 
         return http.build();
     }

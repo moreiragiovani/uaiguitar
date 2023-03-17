@@ -38,14 +38,8 @@ public class UsuarioController {
 
     @PostMapping
     public String createUsuario(Usuario usuario, RedirectAttributes attributes){
-        try{
-            service.createUsuario(usuario, attributes);
-            return "redirect:formulario";
-           
-        }catch(Exception e){
-            System.out.println("----- erro criação Controller");
-            return "redirect:formulario"; 
-           }
+        service.createUsuario(usuario, attributes);
+        return "redirect:formulario"; 
     }
 
     @PutMapping("/{id}")
