@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,8 +29,10 @@ public class AulaController {
     }
 
     @GetMapping("/{id}")
-    public Aula findByIdAula(@PathVariable(value = "id") UUID id){
-        return aulaService.findByIdAula(id);
+    public String findByIdAula(@PathVariable(value = "id") UUID id, Model model){
+        model.addAttribute("aula", aulaService.findByIdAula(id));
+        return "aula";
+
     }
 
     @PostMapping

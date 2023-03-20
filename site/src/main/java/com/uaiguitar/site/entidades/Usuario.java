@@ -15,8 +15,6 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -40,8 +38,6 @@ public class Usuario implements Serializable{
     private String email;
 
     @NotBlank(message = "Você precisa criar uma senha.")
-    @Min(6)
-    @Max(12)
     private String senha;
 
     @OneToMany

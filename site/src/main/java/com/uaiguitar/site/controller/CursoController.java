@@ -1,11 +1,10 @@
 package com.uaiguitar.site.controller;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,14 +22,18 @@ public class CursoController {
     @Autowired
     CursoService cursoService;
 
-    @GetMapping
-    public ResponseEntity<List<Curso>> findAlCursos(){
-        return ResponseEntity.ok().body(cursoService.findAllCursos());
+    @GetMapping("/meus-cursos")
+    public String findAlCursos(Model model){
+        model.addAttribute("curso", cursoService.findAllCursos());
+        return "meus-cursos";
+
     }
 
     @GetMapping("/{id}")
-    public Curso findByIdCurso(@PathVariable(value = "id") UUID id){
-        return cursoService.findByIdCurso(id);
+    public String findByIdCurso(@PathVariable(value = "id") UUID id, Model model){
+        model.addAttribute("curso", cursoService.findByIdCurso(id));
+        return "curso";
+
     }
 
     @PostMapping

@@ -7,6 +7,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +26,10 @@ public class Aula implements Serializable{
     private String completoPdf;
     private String imgVideo;
     private String video;
+
+    // @ManyToOne
+    // @JoinTable(name = "tb_curso_aula_id")
+    private Curso curso;
     
     public Aula() {
     }
@@ -34,6 +41,7 @@ public class Aula implements Serializable{
         this.completoPdf = completoPdf;
         this.imgVideo = imgVideo;
         this.video = video;
+        // this.curso = curso;
     }
 
     public UUID getId() {
@@ -84,6 +92,10 @@ public class Aula implements Serializable{
         this.video = video;
     }
 
+    public Curso getCurso() {
+        return curso;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -114,6 +126,4 @@ public class Aula implements Serializable{
             return false;
         return true;
     }
-
-    
 }
