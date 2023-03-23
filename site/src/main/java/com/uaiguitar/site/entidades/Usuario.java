@@ -50,11 +50,13 @@ public class Usuario implements Serializable{
         inverseJoinColumns = @JoinColumn(name = "id_role"))
     private Set<Role> roles;
 
+    private String historicoAula;
+
     public Usuario() {
     }
 
     public Usuario(UUID id, String username, String nomeCompleto, String email, String senha, Set<Curso> cursosComprados,
-            Set<Role> roles) {
+            Set<Role> roles, String historicoAula) {
         this.id = id;
         this.username = username;
         this.nomeCompleto = nomeCompleto;
@@ -62,6 +64,15 @@ public class Usuario implements Serializable{
         this.senha = senha;
         this.cursosComprados = cursosComprados;
         this.roles = roles;
+        this.historicoAula = historicoAula;
+    }
+
+    public String getHistoricoAula() {
+        return historicoAula;
+    }
+
+    public void setHistoricoAula(String historicoAula) {
+        this.historicoAula = historicoAula;
     }
 
     public UUID getId() {

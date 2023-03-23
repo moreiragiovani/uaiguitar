@@ -29,10 +29,15 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/login").permitAll()
+                                .requestMatchers("/usuario/conta").permitAll()
                                 .requestMatchers("/curso/meus-cursos").hasRole("GRATIS")
+                                .requestMatchers("/minha-conta").hasRole("GRATIS")
+                                .requestMatchers("/menu").hasRole("GRATIS")
                                 .requestMatchers("/aula/**").hasRole("GRATIS")
                                 .requestMatchers("/curso/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/formulario").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/usuario/historicoAula").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/usuario/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/usuario").hasAnyRole("GRATIS")
                                 .anyRequest().authenticated()
                 )
@@ -43,7 +48,7 @@ public class WebSecurityConfig {
                         formLogin
                                 .loginPage("/login")
                                 .loginProcessingUrl("/process-login")
-                                .defaultSuccessUrl("/curso/meus-cursos")
+                                .defaultSuccessUrl("/usuario/conta")
                                 .failureUrl("/login?error=true")
                                 .usernameParameter("username")
                                 .passwordParameter("senha")

@@ -81,6 +81,12 @@ public class UsuarioService{
         usuarioRepository.save(usuario);
     }
 
+    public void historicoAulaAtualizado(UUID id, Usuario user){
+        Usuario usuario = usuarioRepository.getReferenceById(id);
+        usuario.setHistoricoAula(user.getHistoricoAula());
+        usuarioRepository.save(usuario);
+    }
+
     public void deleteUsuario(UUID id){
         usuarioRepository.deleteById(id);
     }
@@ -90,6 +96,7 @@ public class UsuarioService{
         usuario.setNomeCompleto(user.getNomeCompleto());
         usuario.setEmail(user.getEmail());
         usuario.setSenha(user.getSenha());
+        usuario.setHistoricoAula(user.getHistoricoAula());
         
     }
 
@@ -102,6 +109,7 @@ public class UsuarioService{
         usuarioDto.setSenha(usuario.getSenha());
         usuarioDto.setRoles(usuario.getRoles());
         usuarioDto.setCursosComprados(usuario.getCursosComprados());
+        usuarioDto.setHistoricoAula(usuario.getHistoricoAula());
         
         return usuarioDto;
     }

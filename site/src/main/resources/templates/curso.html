@@ -12,7 +12,7 @@
    
     <h2 class="nome-aluno" th:text="${curso.nome}">Bem vindo <span></span></h2>
     <div class="conteiner">
-        <aside class="side-bar" th:fragment="sidebar">
+        <aside class="side-bar">
             <div class="curso" th:each="modulo : ${curso.modulo}">
                 <span th:text="${modulo.nome}">
                 </span>
@@ -25,10 +25,9 @@
                 </div>
             </div>
         </aside>
-        <main class="principal-aula">
-            <p th:text="${curso.nome}"></p>
-        </main>
+        
     </div>
+
     
 </body>
 </html>

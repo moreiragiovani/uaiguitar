@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Conta</title>
+</head>
+<body>
+    <main class="conteiner-main">
+        <ul>
+            <li>Nome comple: <span th:text="${usuario.nomeCompleto}"></span></li>
+            <li>Nome comple: <span th:text="${usuario.username}"></span></li>
+            <li>Nome comple: <span th:text="${usuario.email}"></span></li>
+            
+        </ul>
+    </main>
+    <div th:each="curso : ${usuario.cursosComprados}">
+        <a th:href="'/aula/' + ${usuario.historicoAula}"><span th:text="${curso.nome}"></span></a>
+        
+    </div>
+</html>

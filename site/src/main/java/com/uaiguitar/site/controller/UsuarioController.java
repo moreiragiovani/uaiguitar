@@ -5,7 +5,11 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,11 +24,30 @@ import com.uaiguitar.site.service.UsuarioService;
 
 
 @Controller
-@RequestMapping(value = "/usuario")
+@RequestMapping("/usuario")
 public class UsuarioController {
     
     @Autowired
     UsuarioService service;
+
+    public UUID logado (){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String nomeUsuario = auth.getName();
+        return service.findByUsername(nomeUsuario).getId();
+    }
+
+    @PostMapping("/historico-aula")
+    public String historicoAula(Usuario usuario){
+        System.out.println(usuario.getHistoricoAula());
+        service.historicoAulaAtualizado(logado(), usuario);
+        return "redirect:/aula/"+usuario.getHistoricoAula();
+    }
+
+    @GetMapping("/conta")
+    public String usuarioLogado(){
+        UUID id = logado();
+        return "redirect:"+ id;
+    }
 
     @GetMapping
     public ResponseEntity<List<UsuarioDto>> findAllUsuarios(){
@@ -32,8 +55,9 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioDto> findByUsuario(@PathVariable(value = "id") UUID id){
-        return ResponseEntity.ok().body(service.findByIdUsuario(id));
+    public String findByUsuario(@PathVariable(value = "id") UUID id, Model model){
+        model.addAttribute("usuario", service.findByIdUsuario(id));
+        return "minha-conta";
     }
 
     @PostMapping

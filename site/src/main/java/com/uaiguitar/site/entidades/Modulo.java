@@ -21,6 +21,7 @@ public class Modulo implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    private Integer indiceModulo;
     private String nome;
     private String descricao;
 
@@ -31,8 +32,9 @@ public class Modulo implements Serializable{
     public Modulo() {
     }
 
-    public Modulo(UUID id, String nome, String descricao, Set<Aula> aulas) {
+    public Modulo(UUID id,Integer indice, String nome, String descricao, Set<Aula> aulas) {
         this.id = id;
+        this.indiceModulo = indice;
         this.nome = nome;
         this.descricao = descricao;
         this.aulas = aulas;
@@ -70,6 +72,14 @@ public class Modulo implements Serializable{
         this.aulas = aulas;
     }
 
+    public Integer getIndiceModulo() {
+        return indiceModulo;
+    }
+
+    public void setIndiceModulo(Integer indiceModulo) {
+        this.indiceModulo = indiceModulo;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -100,8 +110,4 @@ public class Modulo implements Serializable{
             return false;
         return true;
     }
-
-    
-    
-
 }

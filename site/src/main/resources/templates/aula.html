@@ -1,13 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/curso.css}">
+    <link rel="stylesheet" href="/site/src/main/resources/static/css/curso.css">
     <title>Document</title>
 </head>
 <body>
+    <div class="curso" th:each="curso : ${aula.curso}">
+        
+        <h2 class="nome-aluno" th:text="${curso.nome}"></h2>
+    </div>
+
+    <div class="conteiner">
+        <aside class="side-bar">
+            <div class="curso" th:each="curso : ${aula.curso}">
+                <div class="aulas" th:each="modulos : ${curso.modulo}">
+
+                    <span th:text="${modulos.nome}">
+
+                </div>
+                </span>
+                <div class="aulas" th:each="modulo : ${curso.modulo}">
+                    <div th:each="aula : ${modulo.aulas}">
+                        <form th:action="@{/usuario/historico-aula}" th:object="${usuario}" method="post">
+                            <input type="hidden" name="historicoAula" th:value="${aula.id}">
+                            <!-- <input type="text" name="historicoAula" id=""> -->
+                            <input type="submit" th:value="${aula.nome}">
+
+                            <!-- <a th:href="@{'/aula/' + ${aula.id}}"><span th:text="${aula.nome}"></span></a> -->
+                        </form>
+                    </div>
+                    
+        
+                </div>
+            </div>
+        </aside>
+        
+    </div>
+    <div th:each="curso : ${aula.curso}">
+        <p th:text="${curso.nome}"></p>
+    </div>
+
     <h1 th:text="${aula.nome}"></h1>
-    <h2 th:text="${aula.curso.nome}"></h2>
+    <h2 th:text="${aula.id}"></h2>
 </body>
 </html>

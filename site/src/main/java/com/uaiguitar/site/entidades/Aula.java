@@ -3,13 +3,14 @@ package com.uaiguitar.site.entidades;
 import java.io.Serializable;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,27 +22,37 @@ public class Aula implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    private Integer indiceDaAula;
     private String nome;
     private String descricao;
     private String completoPdf;
     private String imgVideo;
     private String video;
 
-    // @ManyToOne
-    // @JoinTable(name = "tb_curso_aula_id")
+    @ManyToOne
+    @JoinTable(name = "tb_aula_curso")
     private Curso curso;
     
     public Aula() {
     }
 
-    public Aula(UUID id, String nome, String descricao, String completoPdf, String imgVideo, String video) {
+    public Aula(UUID id,Integer indice, String nome, String descricao, String completoPdf, String imgVideo, String video, Curso curso) {
         this.id = id;
+        this.indiceDaAula = indice;
         this.nome = nome;
         this.descricao = descricao;
         this.completoPdf = completoPdf;
         this.imgVideo = imgVideo;
         this.video = video;
-        // this.curso = curso;
+        this.curso = curso;
+    }
+    @JsonIgnore
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 
     public UUID getId() {
@@ -92,8 +103,12 @@ public class Aula implements Serializable{
         this.video = video;
     }
 
-    public Curso getCurso() {
-        return curso;
+    public Integer getIndiceDaAula() {
+        return indiceDaAula;
+    }
+
+    public void setIndiceDaAula(Integer indiceDaAula) {
+        this.indiceDaAula = indiceDaAula;
     }
 
     @Override
@@ -101,6 +116,7 @@ public class Aula implements Serializable{
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((indiceDaAula == null) ? 0 : indiceDaAula.hashCode());
         result = prime * result + ((nome == null) ? 0 : nome.hashCode());
         return result;
     }
@@ -119,6 +135,11 @@ public class Aula implements Serializable{
                 return false;
         } else if (!id.equals(other.id))
             return false;
+        if (indiceDaAula == null) {
+            if (other.indiceDaAula != null)
+                return false;
+        } else if (!indiceDaAula.equals(other.indiceDaAula))
+            return false;
         if (nome == null) {
             if (other.nome != null)
                 return false;
@@ -126,4 +147,6 @@ public class Aula implements Serializable{
             return false;
         return true;
     }
+
+     
 }

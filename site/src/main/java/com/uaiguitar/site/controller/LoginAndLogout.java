@@ -22,4 +22,9 @@ public class LoginAndLogout {
         return "formulario";
     }
 
+    @GetMapping("/minha-conta")
+    public String minhaConta(){
+        return "minha-conta";
+    }
+
 }
