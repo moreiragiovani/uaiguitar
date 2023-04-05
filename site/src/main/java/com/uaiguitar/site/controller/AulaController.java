@@ -25,8 +25,9 @@ public class AulaController {
     AulaService aulaService;
 
     @GetMapping
-    public ResponseEntity<List<Aula>> findAlAulas(){
-        return ResponseEntity.ok().body(aulaService.findAllAula());
+    public String findAlAulas(Model model){
+        model.addAttribute("aula", aulaService.findAllAula());
+        return "aula";
     }
 
     @GetMapping("/{id}")

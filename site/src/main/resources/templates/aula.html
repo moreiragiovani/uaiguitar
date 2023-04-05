@@ -9,42 +9,44 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="curso" th:each="curso : ${aula.curso}">
-        
-        <h2 class="nome-aluno" th:text="${curso.nome}"></h2>
-    </div>
 
-    <div class="conteiner">
-        <aside class="side-bar">
-            <div class="curso" th:each="curso : ${aula.curso}">
-                <div class="aulas" th:each="modulos : ${curso.modulo}">
+    <div th:each="aula : ${aula}">
 
-                    <span th:text="${modulos.nome}">
+        <div class="curso" th:each="curso : ${aula.curso}">
 
-                </div>
-                </span>
-                <div class="aulas" th:each="modulo : ${curso.modulo}">
-                    <div th:each="aula : ${modulo.aulas}">
-                        <form th:action="@{/usuario/historico-aula}" th:object="${usuario}" method="post">
-                            <input type="hidden" name="historicoAula" th:value="${aula.id}">
-                            <!-- <input type="text" name="historicoAula" id=""> -->
-                            <input type="submit" th:value="${aula.nome}">
+            <h2 class="nome-aluno" th:text="${curso.nome}"></h2>
+        </div>
 
-                            <!-- <a th:href="@{'/aula/' + ${aula.id}}"><span th:text="${aula.nome}"></span></a> -->
-                        </form>
+        <div class="conteiner">
+            <aside class="side-bar">
+                <div class="curso" th:each="curso : ${aula.curso}">
+                    <div class="aulas" th:each="modulos : ${curso.modulo}">
+
+                        <span th:text="${modulos.nome}">
+
                     </div>
-                    
-        
-                </div>
-            </div>
-        </aside>
-        
-    </div>
-    <div th:each="curso : ${aula.curso}">
-        <p th:text="${curso.nome}"></p>
-    </div>
+                    </span>
+                    <div class="aulas" th:each="modulo : ${curso.modulo}">
+                        <div th:each="aula : ${modulo.aulas}">
+                            <form th:action="@{/historico}" th:object="${historicoAula}" method="post">
+                                <input type="hidden" name="aulaHistorico" th:value="${aula.id}">
+                                <input type="hidden" name="cursoHistorico" th:value="${curso.id}">
+                                <input type="submit" th:value="${aula.nome}">
+                            </form>
+                        </div>
 
-    <h1 th:text="${aula.nome}"></h1>
-    <h2 th:text="${aula.id}"></h2>
+
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+        <div th:each="curso : ${aula.curso}">
+            <p th:text="${curso.nome}"></p>
+        </div>
+
+        <h1 th:text="${aula.nome}"></h1>
+        <h2 th:text="${aula.id}"></h2>
+    </div>
 </body>
 </html>

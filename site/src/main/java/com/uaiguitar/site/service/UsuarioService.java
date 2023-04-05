@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.uaiguitar.site.entidades.HistoricoAula;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,10 @@ public class UsuarioService{
         return usuarioDto;
     }
 
+    public Usuario findbyid(UUID id) {
+        return usuarioRepository.findById(id).get();
+    }
+
     public List<UsuarioDto> findAllUsuarios(){
 
         List<UsuarioDto> usuarioDtoList = new ArrayList<>();
@@ -58,7 +63,7 @@ public class UsuarioService{
         UsuarioDto usuarioDto = new UsuarioDto();
         Optional<Usuario> userOpt = usuarioRepository.findById(id);
 
-        usuarioDto = usuarioToUsuarioDtoConverter(userOpt.get(), usuarioDto);      
+        usuarioDto = usuarioToUsuarioDtoConverter(userOpt.get(), usuarioDto);
 
         return usuarioDto;
     }
@@ -81,9 +86,9 @@ public class UsuarioService{
         usuarioRepository.save(usuario);
     }
 
-    public void historicoAulaAtualizado(UUID id, Usuario user){
+    public void historicoAulaAtualizado(UUID id, HistoricoAula historicoAula){
         Usuario usuario = usuarioRepository.getReferenceById(id);
-        usuario.setHistoricoAula(user.getHistoricoAula());
+        usuario.setHistoricoAula(historicoAula);
         usuarioRepository.save(usuario);
     }
 
@@ -91,12 +96,15 @@ public class UsuarioService{
         usuarioRepository.deleteById(id);
     }
 
+
+//    Metodos para converter Usuarios.
+
     private void updateUser(Usuario usuario, Usuario user) {
         usuario.setUsername(user.getUsername());
         usuario.setNomeCompleto(user.getNomeCompleto());
         usuario.setEmail(user.getEmail());
         usuario.setSenha(user.getSenha());
-        usuario.setHistoricoAula(user.getHistoricoAula());
+//        usuario.setHistoricoAula(user.getHistoricoAula());
         
     }
 
@@ -110,8 +118,7 @@ public class UsuarioService{
         usuarioDto.setRoles(usuario.getRoles());
         usuarioDto.setCursosComprados(usuario.getCursosComprados());
         usuarioDto.setHistoricoAula(usuario.getHistoricoAula());
-        
+
         return usuarioDto;
     }
-
 }

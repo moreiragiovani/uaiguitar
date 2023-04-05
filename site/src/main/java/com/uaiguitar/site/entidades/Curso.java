@@ -4,13 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_curso")
@@ -39,16 +33,6 @@ public class Curso implements Serializable{
         this.imagem = imagem;
         this.videoApresentacao = videoApresentacao;
         this.modulo = modulo;
-    }
-
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-        return result;
     }
 
     public UUID getId() {
@@ -97,6 +81,15 @@ public class Curso implements Serializable{
 
     public void setModulo(List<Modulo> modulo) {
         this.modulo = modulo;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+        return result;
     }
 
     @Override

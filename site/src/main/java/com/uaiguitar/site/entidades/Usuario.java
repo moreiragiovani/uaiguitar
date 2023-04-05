@@ -4,16 +4,7 @@ import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -50,13 +41,16 @@ public class Usuario implements Serializable{
         inverseJoinColumns = @JoinColumn(name = "id_role"))
     private Set<Role> roles;
 
-    private String historicoAula;
+    @OneToOne
+    @JoinTable(name = "tb_usuario_historico_aula")
+    private HistoricoAula historicoAula;
 
     public Usuario() {
     }
 
-    public Usuario(UUID id, String username, String nomeCompleto, String email, String senha, Set<Curso> cursosComprados,
-            Set<Role> roles, String historicoAula) {
+    public Usuario(UUID id, String username, String nomeCompleto, String email, String senha,
+                   Set<Curso> cursosComprados,
+                   Set<Role> roles, HistoricoAula historicoAula) {
         this.id = id;
         this.username = username;
         this.nomeCompleto = nomeCompleto;
@@ -65,13 +59,13 @@ public class Usuario implements Serializable{
         this.cursosComprados = cursosComprados;
         this.roles = roles;
         this.historicoAula = historicoAula;
-    }
 
-    public String getHistoricoAula() {
+    }
+    public HistoricoAula getHistoricoAula() {
         return historicoAula;
     }
 
-    public void setHistoricoAula(String historicoAula) {
+    public void setHistoricoAula(HistoricoAula historicoAula) {
         this.historicoAula = historicoAula;
     }
 

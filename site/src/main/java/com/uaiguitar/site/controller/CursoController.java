@@ -31,8 +31,8 @@ public class CursoController {
 
     @GetMapping("/{id}")
     public String findByIdCurso(@PathVariable(value = "id") UUID id, Model model){
-        model.addAttribute("curso", cursoService.findByIdCurso(id));
-        return "curso";
+        model.addAttribute("aula", cursoService.findByIdCurso(id));
+        return "redirect:/aula";
 
     }
 

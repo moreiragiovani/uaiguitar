@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @EntityScan("com/uaiguitar/site/entidades")
-@EnableJpaRepositories("com/uaiguitar/site/repository")
+@EnableJpaRepositories(value = "com/uaiguitar/site/repository")
 @SpringBootApplication
 public class SiteApplication {
 

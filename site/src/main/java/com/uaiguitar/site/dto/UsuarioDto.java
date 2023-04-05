@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.uaiguitar.site.entidades.Curso;
+import com.uaiguitar.site.entidades.HistoricoAula;
 import com.uaiguitar.site.entidades.Role;
 
 public class UsuarioDto {
@@ -15,13 +16,13 @@ public class UsuarioDto {
     private String senha;
     private Set<Curso> cursosComprados;
     private Set<Role> roles;
-    private String historicoAula;
+    private HistoricoAula historicoAula;
 
     public UsuarioDto() {
     }
 
     public UsuarioDto(UUID id, String username, String nomeCompleto, String email, String senha,
-            Set<Curso> cursosComprados, Set<Role> roles, String historicoAula) {
+            Set<Curso> cursosComprados, Set<Role> roles, HistoricoAula historicoAula) {
         this.id = id;
         this.username = username;
         this.nomeCompleto = nomeCompleto;
@@ -32,11 +33,11 @@ public class UsuarioDto {
         this.historicoAula = historicoAula;
     }
 
-    public String getHistoricoAula() {
+    public HistoricoAula getHistoricoAula() {
         return historicoAula;
     }
 
-    public void setHistoricoAula(String historicoAula) {
+    public void setHistoricoAula(HistoricoAula historicoAula) {
         this.historicoAula = historicoAula;
     }
 

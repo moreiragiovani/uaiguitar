@@ -3,6 +3,7 @@ package com.uaiguitar.site.controller;
 import java.util.List;
 import java.util.UUID;
 
+import com.uaiguitar.site.entidades.HistoricoAula;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -36,17 +37,13 @@ public class UsuarioController {
         return service.findByUsername(nomeUsuario).getId();
     }
 
-    @PostMapping("/historico-aula")
-    public String historicoAula(Usuario usuario){
-        System.out.println(usuario.getHistoricoAula());
-        service.historicoAulaAtualizado(logado(), usuario);
-        return "redirect:/aula/"+usuario.getHistoricoAula();
+    public void historicoAula(HistoricoAula historicoAula){
+        service.historicoAulaAtualizado(logado(), historicoAula);
     }
 
     @GetMapping("/conta")
     public String usuarioLogado(){
-        UUID id = logado();
-        return "redirect:"+ id;
+        return "redirect:"+ logado();
     }
 
     @GetMapping
@@ -58,6 +55,10 @@ public class UsuarioController {
     public String findByUsuario(@PathVariable(value = "id") UUID id, Model model){
         model.addAttribute("usuario", service.findByIdUsuario(id));
         return "minha-conta";
+    }
+
+    public Usuario findByIdUsuario(UUID id){
+        return service.findbyid(id);
     }
 
     @PostMapping
