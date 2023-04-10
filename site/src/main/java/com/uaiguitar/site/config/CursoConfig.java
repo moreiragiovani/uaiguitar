@@ -55,9 +55,9 @@
 //         Set<Curso> cursos = new HashSet<>();
 //         Set<Role> roles = new HashSet<>();
 //
-//         Role role = new Role(null, RoleNome.ROLE_GRATIS);
-//         roleRepository.save(role);
-//         roles.add(role);
+////         Role role2 = new Role(null, RoleNome.ROLE_GRATIS);
+////         roleRepository.save(role2);
+////         roles.add(role2);
 //
 //
 //
@@ -77,7 +77,7 @@
 //
 //
 //
-//         Curso c1 = new Curso(null, "Aulas de violão", "Curso de violão para iniciantes", foto, video, modulos);
+//         Curso c1 = new Curso(null, "Aulas de guitarra", "Curso de banjo para iniciantes", foto, video, modulos);
 //         cursoRepository.save(c1);
 //
 //         a1.setCurso(c1);
@@ -93,9 +93,9 @@
 //         moduloRepository.save(m1);
 //         cursoRepository.save(c1);
 //
-//         Usuario usuario = new Usuario(null, "giovanigeo", "Giovani Moreira", "giovani_moreira@hotmail.com", senha, cursos, roles,null);
-//
-//         usuarioRepository.save(usuario);
+////         Usuario usuario = new Usuario(null, "geraldo", "Geraldo Moreira", "geraldo_moreira@hotmail.com", senha, cursos, roles,null);
+////
+////         usuarioRepository.save(usuario);
 //     }
 //
 // }

@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_aula")
-public class Aula implements Serializable{
+public class Aula implements Serializable, Comparable<Aula>{
 
     private static final long serialVersionUID = 1L;
 
@@ -148,5 +148,13 @@ public class Aula implements Serializable{
         return true;
     }
 
-     
+
+    @Override
+    public int compareTo(Aula aulas) {
+        if(this.indiceDaAula < aulas.getIndiceDaAula()){
+            return -1;
+        }else{
+            return 1;
+        }
+    }
 }

@@ -27,7 +27,7 @@
                     </div>
                     </span>
                     <div class="aulas" th:each="modulo : ${curso.modulo}">
-                        <div th:each="aula : ${modulo.aulas}">
+                        <div th:each="aula : ${#lists.sort(modulo.aulas)}">
                             <form th:action="@{/historico}" th:object="${historicoAula}" method="post">
                                 <input type="hidden" name="aulaHistorico" th:value="${aula.id}">
                                 <input type="hidden" name="cursoHistorico" th:value="${curso.id}">
