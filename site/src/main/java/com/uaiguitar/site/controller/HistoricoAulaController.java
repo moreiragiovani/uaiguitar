@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Controller
@@ -25,7 +26,12 @@ public class HistoricoAulaController {
 
     @PostMapping()
     public String criarHistorico(HistoricoAula historicoAula){
-        UUID id = idHistorico();
+        UUID id = null;
+        for(HistoricoAula h: idHistorico()){
+            if(h.getCursoHistorico() == historicoAula.getCursoHistorico()){
+                 id = UUID.fromString(h.getAulaHistorico());
+            }
+        }
         service.criarHistorico(historicoAula);
         usuarioController.historicoAula(historicoAula);
         if(id != null){
@@ -34,10 +40,10 @@ public class HistoricoAulaController {
         return "redirect:/aula/" + historicoAula.getAulaHistorico();
     }
 
-    public UUID idHistorico(){
+    public Set<HistoricoAula> idHistorico(){
         try {
             Usuario usuario = usuarioController.findByIdUsuario(usuarioController.logado());
-            return usuario.getHistoricoAula().getId();
+            return usuario.getHistoricoAula();
         }catch (Exception e){
             System.out.println("------------>>>>>>>>>>>>>> ouvi um erro para achar id" + e.getMessage());
             return null;

@@ -7,16 +7,12 @@
 // import java.util.List;
 // import java.util.Set;
 //
+// import com.uaiguitar.site.entidades.*;
 // import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.boot.CommandLineRunner;
 // import org.springframework.context.annotation.Configuration;
 // import org.springframework.context.annotation.Profile;
 //
-// import com.uaiguitar.site.entidades.Aula;
-// import com.uaiguitar.site.entidades.Curso;
-// import com.uaiguitar.site.entidades.Modulo;
-// import com.uaiguitar.site.entidades.Role;
-// import com.uaiguitar.site.entidades.Usuario;
 // import com.uaiguitar.site.enums.RoleNome;
 // import com.uaiguitar.site.repository.AulaRepository;
 // import com.uaiguitar.site.repository.CursoRepository;
@@ -54,6 +50,7 @@
 //         List<Modulo> modulos = new ArrayList<>();
 //         Set<Curso> cursos = new HashSet<>();
 //         Set<Role> roles = new HashSet<>();
+//
 //
 ////         Role role2 = new Role(null, RoleNome.ROLE_GRATIS);
 ////         roleRepository.save(role2);

@@ -22,10 +22,10 @@ public class CursoController {
     @Autowired
     CursoService cursoService;
 
-    @GetMapping("/meus-cursos")
+    @GetMapping("/todos")
     public String findAlCursos(Model model){
-        model.addAttribute("curso", cursoService.findAllCursos());
-        return "meus-cursos";
+        model.addAttribute("cursos", cursoService.findAllCursos());
+        return "todos-os-cursos";
 
     }
 
@@ -37,8 +37,9 @@ public class CursoController {
     }
 
     @PostMapping
-    public void createCurso(Curso curso){
+    public String createCurso(Curso curso){
         cursoService.createCurso(curso);
+        return "todos";
     }
 
     @PutMapping("/{id}")

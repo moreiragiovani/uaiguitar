@@ -29,8 +29,13 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/login").permitAll()
-                                .requestMatchers("/usuario/conta").permitAll()
                                 .requestMatchers("/curso/meus-cursos").hasRole("GRATIS")
+                                .requestMatchers("/usuario/conta").permitAll()
+                                .requestMatchers("/usuario/comprar").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/usuario/criar").permitAll()
+                                .requestMatchers("/criar-curso").permitAll()
+
+                                .requestMatchers("/curso/todos").permitAll()
                                 .requestMatchers("/minha-conta").hasRole("GRATIS")
                                 .requestMatchers("/menu").hasRole("GRATIS")
                                 .requestMatchers("/aula/**").hasRole("GRATIS")

@@ -1,10 +1,8 @@
 package com.uaiguitar.site.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
+import com.uaiguitar.site.entidades.Curso;
 import com.uaiguitar.site.entidades.HistoricoAula;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -87,13 +85,28 @@ public class UsuarioService{
     }
 
     public void historicoAulaAtualizado(UUID id, HistoricoAula historicoAula){
+        Set<HistoricoAula> historicoList = new HashSet<>();
+        historicoList.add(historicoAula);
         Usuario usuario = usuarioRepository.getReferenceById(id);
-        usuario.setHistoricoAula(historicoAula);
+        usuario.setHistoricoAula(historicoList);
         usuarioRepository.save(usuario);
     }
 
     public void deleteUsuario(UUID id){
         usuarioRepository.deleteById(id);
+    }
+
+//    CURSOS COMPRADAS ADD.
+    public void cursoComprado(UUID id, Curso curso){
+        Set<Curso> listC = new HashSet<>();
+        Usuario usuario = usuarioRepository.getReferenceById(id);
+        for(Curso c: usuario.getCursosComprados()){
+            listC.add(c);
+        }
+        listC.add(curso);
+        usuario.setCursosComprados(listC);
+
+        usuarioRepository.save(usuario);
     }
 
 

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/curso.css}">
+    <link rel="stylesheet" href="/site/src/main/resources/static/css/curso.css">
+    <title>Curso</title>
+</head>
+<body>
+   
+   <h1>Criar curso</h1>
+    <form th:action="@{/curso}" th:object="${curso}" method="post">
+       Nome do curso:  <input type="text" name="nome"> <br>
+       Descrição curta: <input type="text" name="descricao"><br>
+       Url Imagem: <input type="text" name="imagem"><br>
+       Url Video <input type="text" name="videoApresentacao"><br>
+        <input type="submit" value="Criar curso">
+    </form>
+
+    
+</body>
+</html>

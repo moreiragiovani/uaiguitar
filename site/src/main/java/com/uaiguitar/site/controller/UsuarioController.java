@@ -3,7 +3,9 @@ package com.uaiguitar.site.controller;
 import java.util.List;
 import java.util.UUID;
 
+import com.uaiguitar.site.entidades.Curso;
 import com.uaiguitar.site.entidades.HistoricoAula;
+import com.uaiguitar.site.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -61,10 +63,11 @@ public class UsuarioController {
         return service.findbyid(id);
     }
 
-    @PostMapping
+    @PostMapping("/criar")
     public String createUsuario(Usuario usuario, RedirectAttributes attributes){
+        System.out.println(usuario.getUsername() + "!!!!!!!!!!!!!!");
         service.createUsuario(usuario, attributes);
-        return "redirect:formulario"; 
+        return "redirect:login";
     }
 
     @PutMapping("/{id}")
@@ -75,5 +78,18 @@ public class UsuarioController {
     @DeleteMapping("/{id}")
     public void deleteUsuario(@PathVariable(value = "id") UUID id){
         service.deleteUsuario(id);
-    }    
+    }
+
+//    ADICIONANCO CURSO COMPRADO.
+    @Autowired
+    CursoService cursoService;
+    @PostMapping("/comprar")
+    public String comprandoCurso(Curso curso, Model model) {
+        if (usuarioLogado() == null) {
+            return "redirect:formulario";
+        }
+        service.cursoComprado(logado(), cursoService.findByIdCurso(curso.getId()));
+        model.addAttribute("usuario", service.findByIdUsuario(logado()));
+        return "minha-conta";
+    }
 }
