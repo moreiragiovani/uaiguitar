@@ -34,11 +34,14 @@ public class WebSecurityConfig {
                                 .requestMatchers("/usuario/comprar").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/usuario/criar").permitAll()
                                 .requestMatchers("/criar-curso").permitAll()
+                                .requestMatchers("/criar-aula").permitAll()
 
                                 .requestMatchers("/curso/todos").permitAll()
                                 .requestMatchers("/minha-conta").hasRole("GRATIS")
                                 .requestMatchers("/menu").hasRole("GRATIS")
-                                .requestMatchers("/aula/**").hasRole("GRATIS")
+                                .requestMatchers("/aula/**").permitAll()
+                                .requestMatchers("/aula/adicionar").permitAll()
+
                                 .requestMatchers("/curso/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/formulario").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/usuario/historicoAula").permitAll()

@@ -25,8 +25,8 @@ public class AulaService {
         return aulaOpt.get();
     }
 
-    public void createAula(Aula user){
-        aulaRepository.save(user);
+    public void createAula(Aula aula){
+        aulaRepository.save(aula);
     }
 
     public void updateAula(UUID id, Aula a){

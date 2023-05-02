@@ -33,4 +33,9 @@ public class LoginAndLogout {
         return "criar-curso";
     }
 
+    @GetMapping("/criar-aula")
+    public String criarAula(){
+        return "criar-aula";
+    }
+
 }

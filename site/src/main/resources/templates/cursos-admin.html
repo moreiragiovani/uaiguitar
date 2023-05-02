@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todos os Cursos</title>
+</head>
+<body>
+  <div>
+    <div class="cursos">
+      <div th:each="curso : ${cursos}">
+        <h2 th:text="${curso.nome}"></h2>
+        <form th:action="@{/curso-editar-admin}" th:object="${curso}" method="post">
+          <input type="hidden" name="id" th:value="${curso.id}">
+          <input type="submit" value="Editar">
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

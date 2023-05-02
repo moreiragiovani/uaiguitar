@@ -3,6 +3,8 @@ package com.uaiguitar.site.controller;
 import java.util.List;
 import java.util.UUID;
 
+import com.uaiguitar.site.entidades.Curso;
+import com.uaiguitar.site.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,7 +22,9 @@ import com.uaiguitar.site.service.AulaService;
 @Controller
 @RequestMapping("/aula")
 public class AulaController {
-    
+
+    @Autowired
+    CursoService cursoService;
     @Autowired
     AulaService aulaService;
 
@@ -37,9 +41,12 @@ public class AulaController {
 
     }
 
-    @PostMapping
-    public void createAula(Aula aula){
+    @PostMapping("/adicionar")
+    public String createAula(Aula aula){
+        System.out.println(aula.getNome() + "!!!!!!!!!!!!!");
+//        aula.setCurso(cursoService.findBynome(aula.getCurso().getNome()));
         aulaService.createAula(aula);
+        return "redirect:/criar-aula";
     }
 
     @PutMapping("/{id}")

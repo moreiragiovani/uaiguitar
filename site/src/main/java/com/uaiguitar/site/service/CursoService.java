@@ -20,6 +20,10 @@ public class CursoService {
         return cursoRepository.findAll();
     }
 
+    public Curso findBynome(String nome){
+        return cursoRepository.findBynome(nome).get();
+    }
+
     public Curso findByIdCurso(UUID id){
         Optional<Curso> userOpt = cursoRepository.findById(id);
         return userOpt.get();
