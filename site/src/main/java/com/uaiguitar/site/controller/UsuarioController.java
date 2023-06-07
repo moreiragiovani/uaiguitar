@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import com.uaiguitar.site.entidades.Curso;
 import com.uaiguitar.site.entidades.HistoricoAula;
+import com.uaiguitar.site.entidades.UsuarioDetails;
 import com.uaiguitar.site.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,19 +34,19 @@ public class UsuarioController {
     @Autowired
     UsuarioService service;
 
-    public UUID logado (){
+    public UsuarioDetails logado (){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String nomeUsuario = auth.getName();
-        return service.findByUsername(nomeUsuario).getId();
+        return service.findByUsername(nomeUsuario);
     }
 
     public void historicoAula(HistoricoAula historicoAula){
-        service.historicoAulaAtualizado(logado(), historicoAula);
+        service.historicoAulaAtualizado(logado().getId(), historicoAula);
     }
 
     @GetMapping("/conta")
     public String usuarioLogado(){
-        return "redirect:"+ logado();
+        return "redirect:"+ logado().getId();
     }
 
     @GetMapping
@@ -88,8 +89,8 @@ public class UsuarioController {
         if (usuarioLogado() == null) {
             return "redirect:formulario";
         }
-        service.cursoComprado(logado(), cursoService.findByIdCurso(curso.getId()));
-        model.addAttribute("usuario", service.findByIdUsuario(logado()));
+        service.cursoComprado(logado().getId(), cursoService.findByIdCurso(curso.getId()));
+        model.addAttribute("usuario", service.findByIdUsuario(logado().getId()));
         return "minha-conta";
     }
 }

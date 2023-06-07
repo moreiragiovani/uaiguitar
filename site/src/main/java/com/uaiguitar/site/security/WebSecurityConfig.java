@@ -34,6 +34,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/usuario/comprar").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/usuario/criar").permitAll()
                                 .requestMatchers("/criar-curso").permitAll()
+                                .requestMatchers("/criar-modulo").permitAll()
                                 .requestMatchers("/criar-aula").permitAll()
 
                                 .requestMatchers("/curso/todos").permitAll()

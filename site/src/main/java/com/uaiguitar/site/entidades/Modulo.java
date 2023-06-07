@@ -24,7 +24,7 @@ public class Modulo implements Serializable{
     private Integer indiceModulo;
     private String nome;
     private String descricao;
-
+    private UUID cursoId;
     @OneToMany
     @JoinTable(name = "tb_modulo_aula")
     private Set<Aula> aulas;
@@ -32,11 +32,12 @@ public class Modulo implements Serializable{
     public Modulo() {
     }
 
-    public Modulo(UUID id,Integer indice, String nome, String descricao, Set<Aula> aulas) {
+    public Modulo(UUID id,Integer indice, String nome, String descricao, UUID cursoId, Set<Aula> aulas) {
         this.id = id;
         this.indiceModulo = indice;
         this.nome = nome;
         this.descricao = descricao;
+        this.cursoId = cursoId;
         this.aulas = aulas;
     }
 
@@ -62,6 +63,14 @@ public class Modulo implements Serializable{
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public UUID getCursoId() {
+        return cursoId;
+    }
+
+    public void setCursoId(UUID cursoId) {
+        this.cursoId = cursoId;
     }
 
     public Set<Aula> getAulas() {

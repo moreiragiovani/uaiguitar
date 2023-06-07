@@ -38,4 +38,9 @@ public class LoginAndLogout {
         return "criar-aula";
     }
 
+    @GetMapping("/curso/criar-modulo")
+    public String criarModulo(){
+        return "criar-modulo";
+    }
+
 }

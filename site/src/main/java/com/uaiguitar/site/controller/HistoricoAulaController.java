@@ -42,7 +42,7 @@ public class HistoricoAulaController {
 
     public Set<HistoricoAula> idHistorico(){
         try {
-            Usuario usuario = usuarioController.findByIdUsuario(usuarioController.logado());
+            Usuario usuario = usuarioController.findByIdUsuario(usuarioController.logado().getId());
             return usuario.getHistoricoAula();
         }catch (Exception e){
             System.out.println("------------>>>>>>>>>>>>>> ouvi um erro para achar id" + e.getMessage());

@@ -1,8 +1,11 @@
 package com.uaiguitar.site.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.uaiguitar.site.entidades.Curso;
+import com.uaiguitar.site.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +25,9 @@ public class ModuloController {
     @Autowired
     ModuloService moduloService;
 
+    @Autowired
+    CursoService cursoService;
+
     @GetMapping
     public List<Modulo> findAlModulos(){
         return moduloService.findAllModulos();
@@ -33,8 +39,15 @@ public class ModuloController {
     }
 
     @PostMapping
-    public void createModulo(Modulo modulo){
+    public String createModulo(Modulo modulo){
         moduloService.createModulo(modulo);
+        List<Modulo> moduloList = new ArrayList<>();
+        Curso curso = new Curso();
+        moduloList.add(modulo);
+        curso.setModulo(moduloList);
+        cursoService.updateCurso(modulo.getCursoId(), curso);
+//        TEM QUE REDIRECIONAR PARA A CRIAÇÃO DE MODULOS E AULAS *** AINDA NÃO FOI CRIADO ****
+        return "redirect:/criar-curso";
     }
 
     @PutMapping("/{id}")

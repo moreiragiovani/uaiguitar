@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/assets/css/curso.css}">
+    <link rel="stylesheet" href="/site/src/main/resources/static/assets/css/curso.css">
+    <title>Modulo</title>
+</head>
+<body>
+
+    <h2>Hola mundo</h2>
+    <div class="container" th:each="c : ${curso}">
+        <form class="cursoForm" id="cursoForm" th:action="@{/modulo}" method="post" th:object="${modulo}">
+
+            <label>Nome do modulo</label>
+            <input type="text" name="nome">
+
+            <label>Indice do modulo</label>
+            <input type="number" name="indiceModulo">
+
+            <input type="hidden" name="cursoId" th:value="${c.id}">
+
+            <label>Descrição do modulo</label>
+            <input class="descricaoIn" type="text" placeholder="Descrição.." name="descricao">
+
+            <input class="btnCriar" type="submit" value="Criar modulo">
+        </form>
+    </div>
+</body>
+</html>

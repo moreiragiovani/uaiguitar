@@ -1,5 +1,6 @@
 package com.uaiguitar.site.entidades;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -54,5 +55,18 @@ public class Role implements GrantedAuthority{
     @Override
     public String getAuthority() {
         return this.roleNome.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return roleNome == role.roleNome;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(roleNome);
     }
 }

@@ -43,7 +43,7 @@ public class Pedido {
                                     throws IOException, 
                                     InterruptedException{
        System.out.println(c.getNome());
-       Usuario usuario = service.findbyid(controller.logado());
+       Usuario usuario = service.findbyid(controller.logado().getId());
         Curso curso = cursoService.findByIdCurso(c.getId());
 
         HttpRequest request = HttpRequest.newBuilder()

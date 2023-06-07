@@ -1,6 +1,7 @@
 package com.uaiguitar.site.entidades;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -92,28 +93,14 @@ public class UsuarioDetails implements UserDetails {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        UsuarioDetails other = (UsuarioDetails) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (username == null) {
-            if (other.username != null)
-                return false;
-        } else if (!username.equals(other.username))
-            return false;
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UsuarioDetails that = (UsuarioDetails) o;
+        return Objects.equals(id, that.id) && Objects.equals(username, that.username) && Objects.equals(nomeCompleto, that.nomeCompleto) && Objects.equals(email, that.email) && Objects.equals(senha, that.senha) && Objects.equals(cursosComprados, that.cursosComprados) && Objects.equals(roles, that.roles);
     }
 
-// METODOS DO USER DETAILS 
+    // METODOS DO USER DETAILS
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
