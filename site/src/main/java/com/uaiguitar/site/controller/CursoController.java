@@ -26,10 +26,10 @@ public class CursoController {
     @GetMapping("/todos")
     public String findAlCursos(Model model) {
         model.addAttribute("cursos", cursoService.findAllCursos());
-        if(!usuarioController.logado().isAccountNonExpired()){
-            return "todos-os-cursos";
-        }
-        return "redirect:/usuario/conta";
+//        if(usuarioController.logado().isAccountNonLocked()){
+//            return "redirect:/usuario/conta";
+//        }
+        return "todos-os-cursos";
     }
 
     @GetMapping("/{id}")
@@ -37,12 +37,6 @@ public class CursoController {
         model.addAttribute("aula", cursoService.findByIdCurso(id));
         return "redirect:/aula";
     }
-
-//    public String findBynomeCurso(String nome, Model model){
-//        Curso curso = cursoService.findBynome(nome);
-//        model.addAttribute("curso", curso);
-//        return "redirect:criar-modulo";
-//    }
 
     @PostMapping
     public String createCurso(Curso curso, Model model){
@@ -60,5 +54,17 @@ public class CursoController {
     @DeleteMapping("/{id}")
     public void deleteCurso(@PathVariable(value = "id") UUID id){
         cursoService.deleteCurso(id);
+    }
+
+    @GetMapping("/editar")
+    public String editarCurso(Model model){
+        model.addAttribute("cursos", cursoService.findAllCursos());
+        return "editar-curso";
+    }
+
+    @PostMapping("/criar/conteudo")
+    public String criarConteudo(Curso curso, Model model){
+        model.addAttribute("curso", cursoService.findByIdCurso(curso.getId()));
+        return "editar-conteudo";
     }
 }

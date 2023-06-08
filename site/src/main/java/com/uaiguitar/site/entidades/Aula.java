@@ -29,6 +29,8 @@ public class Aula implements Serializable, Comparable<Aula>{
     private String imgVideo;
     private String video;
 
+    private UUID moduloId;
+
     @ManyToOne
     @JoinTable(name = "tb_aula_curso")
     private Curso curso;
@@ -36,7 +38,7 @@ public class Aula implements Serializable, Comparable<Aula>{
     public Aula() {
     }
 
-    public Aula(UUID id,Integer indice, String nome, String descricao, String completoPdf, String imgVideo, String video, Curso curso) {
+    public Aula(UUID id,Integer indice, String nome, String descricao, String completoPdf, String imgVideo, String video, UUID moduloId, Curso curso) {
         this.id = id;
         this.indiceDaAula = indice;
         this.nome = nome;
@@ -44,6 +46,7 @@ public class Aula implements Serializable, Comparable<Aula>{
         this.completoPdf = completoPdf;
         this.imgVideo = imgVideo;
         this.video = video;
+        this.moduloId = moduloId;
         this.curso = curso;
     }
     @JsonIgnore
@@ -101,6 +104,14 @@ public class Aula implements Serializable, Comparable<Aula>{
 
     public void setVideo(String video) {
         this.video = video;
+    }
+
+    public UUID getModuloId() {
+        return moduloId;
+    }
+
+    public void setModuloId(UUID moduloId) {
+        this.moduloId = moduloId;
     }
 
     public Integer getIndiceDaAula() {

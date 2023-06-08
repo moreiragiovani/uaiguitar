@@ -1,10 +1,11 @@
 package com.uaiguitar.site.controller;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import com.uaiguitar.site.entidades.Curso;
+import com.uaiguitar.site.entidades.Modulo;
 import com.uaiguitar.site.service.CursoService;
+import com.uaiguitar.site.service.ModuloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,10 @@ public class AulaController {
     CursoService cursoService;
     @Autowired
     AulaService aulaService;
+    @Autowired
+    ModuloService moduloService;
+    @Autowired
+    CursoController cursoController;
 
     @GetMapping
     public String findAlAulas(Model model){
@@ -41,12 +46,29 @@ public class AulaController {
 
     }
 
+//    @PostMapping("/adicionar")
+//    public String createAula(Aula aula){
+//        System.out.println(aula.getNome() + "!!!!!!!!!!!!!");
+////        aula.setCurso(cursoService.findBynome(aula.getCurso().getNome()));
+//        aulaService.createAula(aula);
+//        return "redirect:/criar-aula";
+//    }
+
     @PostMapping("/adicionar")
-    public String createAula(Aula aula){
-        System.out.println(aula.getNome() + "!!!!!!!!!!!!!");
-//        aula.setCurso(cursoService.findBynome(aula.getCurso().getNome()));
-        aulaService.createAula(aula);
-        return "redirect:/criar-aula";
+    public String createAula(Aula aula, Model model){
+        Aula aula1 = aula;
+        aulaService.createAula(aula1);
+        Set<Aula> aulasList = new HashSet<>();
+
+        Modulo modulo = moduloService.findByIdModulo(aula1.getModuloId());
+        for(Aula a: modulo.getAulas()){
+            aulasList.add(a);
+        }
+        aulasList.add(aula1);
+        modulo.setAulas(aulasList);
+        moduloService.updateModulo(aula1.getModuloId(), modulo);
+        UUID id = modulo.getCursoId();
+        return cursoController.criarConteudo(cursoService.findByIdCurso(id), model);
     }
 
     @PutMapping("/{id}")

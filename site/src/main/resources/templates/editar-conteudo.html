@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todos os Cursos</title>
+</head>
+<body>
+<div>
+    <div class="cursos">
+        <div th:each="curso : ${curso}">
+            <h2 th:text="${curso.nome}"></h2>
+            <div th:each="modulo : ${curso.modulo}">
+                <h2 th:text="${modulo.nome}"></h2>
+                <form th:action="@{/aula/adicionar}" th:object="${aula}" method="post">
+                    Indice da Aula:  <input  type="number" name="indiceDaAula"> <br>
+                    Nome: <input  type="text" name="nome"><br>
+                    Descrição:  <input  type="text" name="descricao"><br>
+                    Pdf:  <input type="text" name="completoPdf" ><br>
+                    Url Imagem:  <input  type="text" name="imgVideo"><br>
+                    Url Video:  <input  type="text" name="video"><br>
+                    <input type="hidden" name="moduloId" th:value="${modulo.id}">
+                    <input type="submit" value="Criar Aula">
+                </form>
+                <div th:each="aula : ${modulo.aulas}">
+                    <span th:text="${aula.nome}"></span>
+
+
+                </div>
+            </div>
+
+            <h2>Criar Modulo</h2>
+            <form class="cursoForm" id="cursoForm" th:action="@{/modulo}" method="post" th:object="${modulo}">
+
+                <label>Nome do modulo</label>
+                <input type="text" name="nome">
+
+                <label>Indice do modulo</label>
+                <input type="number" name="indiceModulo">
+
+                <input type="hidden" name="cursoId" th:value="${curso.id}">
+
+                <label>Descrição do modulo</label>
+                <input class="descricaoIn" type="text" placeholder="Descrição.." name="descricao">
+
+                <input class="btnCriar" type="submit" value="Criar modulo">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

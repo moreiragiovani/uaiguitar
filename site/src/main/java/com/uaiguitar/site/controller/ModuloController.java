@@ -8,6 +8,7 @@ import com.uaiguitar.site.entidades.Curso;
 import com.uaiguitar.site.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,11 +23,19 @@ import com.uaiguitar.site.service.ModuloService;
 @RequestMapping("/modulo")
 public class ModuloController {
     
-    @Autowired
+    final
     ModuloService moduloService;
 
-    @Autowired
+    final
     CursoService cursoService;
+
+    @Autowired
+    CursoController cursoController;
+
+    public ModuloController(ModuloService moduloService, CursoService cursoService) {
+        this.moduloService = moduloService;
+        this.cursoService = cursoService;
+    }
 
     @GetMapping
     public List<Modulo> findAlModulos(){
@@ -39,15 +48,18 @@ public class ModuloController {
     }
 
     @PostMapping
-    public String createModulo(Modulo modulo){
-        moduloService.createModulo(modulo);
+    public String createModulo(Modulo modulo, Model model){
+        Modulo modulo1 = modulo;
+        moduloService.createModulo(modulo1);
         List<Modulo> moduloList = new ArrayList<>();
-        Curso curso = new Curso();
-        moduloList.add(modulo);
+        Curso curso = cursoService.findByIdCurso(modulo1.getCursoId());
+        for(Modulo m: curso.getModulo()){
+            moduloList.add(m);
+        }
+        moduloList.add(modulo1);
         curso.setModulo(moduloList);
-        cursoService.updateCurso(modulo.getCursoId(), curso);
-//        TEM QUE REDIRECIONAR PARA A CRIAÇÃO DE MODULOS E AULAS *** AINDA NÃO FOI CRIADO ****
-        return "redirect:/criar-curso";
+        cursoService.updateCurso(modulo1.getCursoId(), curso);
+        return cursoController.criarConteudo(curso, model);
     }
 
     @PutMapping("/{id}")
