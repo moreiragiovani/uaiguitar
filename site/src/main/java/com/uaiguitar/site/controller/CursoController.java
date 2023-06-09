@@ -42,8 +42,7 @@ public class CursoController {
     public String createCurso(Curso curso, Model model){
         String nomeCurso = curso.getNome();
         cursoService.createCurso(curso);
-        model.addAttribute("curso", cursoService.findBynome(nomeCurso));
-        return "criar-modulo";
+        return criarConteudo(cursoService.findBynome(nomeCurso), model);
     }
 
     @PutMapping("/{id}")

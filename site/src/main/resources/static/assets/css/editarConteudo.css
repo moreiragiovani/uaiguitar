@@ -1,0 +1,9 @@
+
+.containerAulaForm{
+    display: none;
+    background-color: aquamarine;
+}
+
+.active{
+    display: block;
+}
