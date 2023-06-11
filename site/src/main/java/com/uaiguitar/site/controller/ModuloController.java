@@ -62,6 +62,12 @@ public class ModuloController {
         return cursoController.criarConteudo(curso, model);
     }
 
+    @PostMapping("/cria/aula")
+    public String criarAula(Modulo modulo, Model model){
+        model.addAttribute("modulo", moduloService.findByIdModulo(modulo.getId()));
+        return "criar-aula";
+    }
+
     @PutMapping("/{id}")
     public void updateModulo(@PathVariable(value = "id") UUID id, Modulo modulo){
         moduloService.updateModulo(id, modulo);

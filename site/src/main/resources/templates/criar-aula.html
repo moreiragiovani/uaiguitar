@@ -6,16 +6,25 @@
 </head>
 <body>
     <h1>Criar Aula</h1>
-    <form th:action="@{/aula/adicionar}" th:object="${aula}" method="post">
-        Indice da Aula:  <input  type="number" name="indiceDaAula"> <br>
-        Nome: <input  type="text" name="nome"><br>
-        Descrição:  <input  type="text" name="descricao"><br>
-        Pdf:  <input type="text" name="completoPdf" ><br>
-        Url Imagem:  <input  type="text" name="imgVideo"><br>
-        Url Video:  <input  type="text" name="video"><br>
-<!--        Curso Nome: <input name="curso" type="text"><br>-->
-        <input type="submit" value="Criar Aula">
-    </form>
+    <div th:each="modulo : ${modulo}">
+        <form  th:action="@{/aula/adicionar}" th:object="${aula}" method="post">
+            <label>Indice da Aula:</label>
+            <input  type="number" name="indiceDaAula"> <br>
+            <label>Nome:</label>
+            <input  type="text" name="nome"><br>
+            <label>Descrição:</label>
+            <input  type="text" name="descricao"><br>
+            <label>Pdf:</label>
+            <input type="text" name="completoPdf" ><br>
+            <label>Url Imagem:</label>
+            <input  type="text" name="imgVideo"><br>
+            <label>Url Video:</label>
+            <input  type="text" name="video"><br>
+            <input type="hidden" name="moduloId" th:value="${modulo.id}">
+            <input class="btnCriarAula" type="submit" value="Criar Aula">
+        </form>
+    </div>
+
 
 </body>
 </html>

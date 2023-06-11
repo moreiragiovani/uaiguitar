@@ -1,10 +1,6 @@
+const containerModulo = document.getElementById("containerForm");
+const btnModulo = document.getElementById("criarModulo");
 
-const btnCriarAua = document.getElementById("criarAula");
-const formContainerAula = document.getElementById("containerAulaForm");
-btnCriarAua.addEventListener("click", function criarAula(){
-    console.log("clicou");
-    formContainerAula.classList.toggle("active");
-});
-
-
-
+btnModulo.addEventListener("click", function (){
+    containerModulo.classList.toggle("active");
+})

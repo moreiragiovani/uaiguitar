@@ -21,6 +21,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
+                                .requestMatchers("/assets/**").permitAll()
                                 .requestMatchers("/css/**").permitAll()
                                 .requestMatchers("/img/**").permitAll()
                                 .requestMatchers("/js/**").permitAll()
