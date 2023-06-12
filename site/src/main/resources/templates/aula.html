@@ -4,26 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/curso.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/curso.css}">
     <link rel="stylesheet" href="/site/src/main/resources/static/css/curso.css">
     <title>Document</title>
 </head>
 <body>
-
     <div th:each="aula : ${aula}">
-
         <div class="curso" th:each="curso : ${aula.curso}">
-
             <h2 class="nome-aluno" th:text="${curso.nome}"></h2>
         </div>
-
         <div class="conteiner">
             <aside class="side-bar">
                 <div class="curso" th:each="curso : ${aula.curso}">
                     <div class="aulas" th:each="modulos : ${curso.modulo}">
-
                         <span th:text="${modulos.nome}">
-
                     </div>
                     </span>
                     <div class="aulas" th:each="modulo : ${curso.modulo}">
@@ -34,8 +28,6 @@
                                 <input type="submit" th:value="${aula.nome}">
                             </form>
                         </div>
-
-
                     </div>
                 </div>
             </aside>

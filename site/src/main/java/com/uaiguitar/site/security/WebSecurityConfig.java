@@ -30,7 +30,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/login").permitAll()
-                                .requestMatchers("/curso/meus-cursos").hasRole("GRATIS")
+                                .requestMatchers("/curso/meus-cursos").hasRole("ADMIN")
                                 .requestMatchers("/usuario/conta").permitAll()
                                 .requestMatchers("/usuario/comprar").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/usuario/criar").permitAll()

@@ -1,6 +1,7 @@
 package com.uaiguitar.site.entidades;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_modulo")
-public class Modulo implements Serializable{
+public class Modulo implements Serializable, Comparable<Modulo>{
 
     private static final long serialVersionUID = 1L;
 
@@ -90,33 +91,23 @@ public class Modulo implements Serializable{
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Modulo modulo)) return false;
+        return Objects.equals(getId(), modulo.getId()) && Objects.equals(getIndiceModulo(), modulo.getIndiceModulo()) && Objects.equals(getNome(), modulo.getNome());
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Modulo other = (Modulo) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (nome == null) {
-            if (other.nome != null)
-                return false;
-        } else if (!nome.equals(other.nome))
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(getId(), getIndiceModulo(), getNome());
+    }
+
+    @Override
+    public int compareTo(Modulo modulo) {
+        if(this.indiceModulo < modulo.getIndiceModulo()){
+            return -1;
+        }else{
+            return 1;
+        }
     }
 }
