@@ -57,14 +57,14 @@ public class AulaController {
     @PostMapping("/adicionar")
     public String createAula(Aula aula, Model model){
         Aula aula1 = aula;
-        aulaService.createAula(aula1);
         Set<Aula> aulasList = new HashSet<>();
-
         Modulo modulo = moduloService.findByIdModulo(aula1.getModuloId());
         for(Aula a: modulo.getAulas()){
             aulasList.add(a);
         }
+        aula1.setCurso(cursoService.findByIdCurso(modulo.getCursoId()));
         aulasList.add(aula1);
+        aulaService.createAula(aula1);
         modulo.setAulas(aulasList);
         moduloService.updateModulo(aula1.getModuloId(), modulo);
         UUID id = modulo.getCursoId();

@@ -1,8 +1,6 @@
 package com.uaiguitar.site.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import com.uaiguitar.site.entidades.Curso;
 import com.uaiguitar.site.service.CursoService;
@@ -23,10 +21,10 @@ import com.uaiguitar.site.service.ModuloService;
 @RequestMapping("/modulo")
 public class ModuloController {
     
-    final
+    @Autowired
     ModuloService moduloService;
 
-    final
+    @Autowired
     CursoService cursoService;
 
     @Autowired
@@ -51,7 +49,7 @@ public class ModuloController {
     public String createModulo(Modulo modulo, Model model){
         Modulo modulo1 = modulo;
         moduloService.createModulo(modulo1);
-        List<Modulo> moduloList = new ArrayList<>();
+        Set<Modulo> moduloList = new HashSet<>();
         Curso curso = cursoService.findByIdCurso(modulo1.getCursoId());
         for(Modulo m: curso.getModulo()){
             moduloList.add(m);

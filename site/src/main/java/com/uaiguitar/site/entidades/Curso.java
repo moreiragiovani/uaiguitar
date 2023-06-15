@@ -2,6 +2,7 @@ package com.uaiguitar.site.entidades;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import jakarta.persistence.*;
@@ -22,17 +23,22 @@ public class Curso implements Serializable{
 
     @OneToMany
     @JoinTable(name = "tb_curso_modulos")
-    private List<Modulo> modulo;
+    private Set<Modulo> modulo;
+
+    @OneToOne
+    @JoinTable(name = "tb_usuario_historico_aula")
+    private HistoricoAula historicoAula;
 
     public Curso(){}
 
-    public Curso(UUID id, String nome, String descricao, String imagem, String videoApresentacao, List<Modulo> modulo) {
+    public Curso(UUID id, String nome, String descricao, String imagem, String videoApresentacao, Set<Modulo> modulo, HistoricoAula historicoAula) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.imagem = imagem;
         this.videoApresentacao = videoApresentacao;
         this.modulo = modulo;
+        this.historicoAula = historicoAula;
     }
 
     public UUID getId() {
@@ -75,12 +81,20 @@ public class Curso implements Serializable{
         this.videoApresentacao = videoApresentacao;
     }
 
-    public List<Modulo> getModulo() {
+    public Set<Modulo> getModulo() {
         return modulo;
     }
 
-    public void setModulo(List<Modulo> modulo) {
+    public void setModulo(Set<Modulo> modulo) {
         this.modulo = modulo;
+    }
+
+    public HistoricoAula getHistoricoAula() {
+        return historicoAula;
+    }
+
+    public void setHistoricoAula(HistoricoAula historicoAula) {
+        this.historicoAula = historicoAula;
     }
 
     @Override

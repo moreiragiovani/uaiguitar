@@ -35,7 +35,7 @@ public class CursoController {
     @GetMapping("/{id}")
     public String findByIdCurso(@PathVariable(value = "id") UUID id, Model model){
         model.addAttribute("aula", cursoService.findByIdCurso(id));
-        return "redirect:/aula";
+        return "aula";
     }
 
     @PostMapping
@@ -65,5 +65,9 @@ public class CursoController {
     public String criarConteudo(Curso curso, Model model){
         model.addAttribute("curso", cursoService.findByIdCurso(curso.getId()));
         return "editar-conteudo";
+    }
+
+    public void historicoAula(HistoricoAula historicoAula){
+        cursoService.historicoAulaAtualizado(historicoAula);
     }
 }

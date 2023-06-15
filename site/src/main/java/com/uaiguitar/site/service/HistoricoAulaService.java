@@ -13,7 +13,7 @@ public class HistoricoAulaService {
     @Autowired
     HistoricoAulaRepository repository;
 
-    public void criarHistorico(HistoricoAula historicoAula){repository.save(historicoAula);}
+    public HistoricoAula criarHistorico(HistoricoAula historicoAula){return repository.save(historicoAula);}
 
     public void deleteById(UUID id){repository.deleteById(id);}
 }

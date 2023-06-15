@@ -102,6 +102,7 @@ public class Modulo implements Serializable, Comparable<Modulo>{
         return Objects.hash(getId(), getIndiceModulo(), getNome());
     }
 
+
     @Override
     public int compareTo(Modulo modulo) {
         if(this.indiceModulo < modulo.getIndiceModulo()){

@@ -1,9 +1,9 @@
 package com.uaiguitar.site.service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
+import com.uaiguitar.site.entidades.HistoricoAula;
+import com.uaiguitar.site.entidades.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +49,17 @@ public class CursoService {
         curso.setImagem(c.getImagem());
         curso.setModulo(c.getModulo());
         curso.setVideoApresentacao(c.getVideoApresentacao());
+    }
+
+    public void historicoAulaAtualizado(HistoricoAula historicoAula){
+        Curso curso = cursoRepository.findById(UUID.fromString(
+                historicoAula.getCursoHistorico())).get();
+//        if(!curso.getHistoricoAula().getCursoHistorico().equals(null)) {
+//            if(curso.getHistoricoAula().getCursoHistorico().equals(historicoAula.getCursoHistorico())){
+//            }
+//        }
+        curso.setHistoricoAula(historicoAula);
+        cursoRepository.save(curso);
     }
 
 }

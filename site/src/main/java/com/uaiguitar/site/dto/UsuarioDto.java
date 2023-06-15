@@ -16,13 +16,12 @@ public class UsuarioDto {
     private String senha;
     private Set<Curso> cursosComprados;
     private Set<Role> roles;
-    private Set<HistoricoAula> historicoAula;
 
     public UsuarioDto() {
     }
 
     public UsuarioDto(UUID id, String username, String nomeCompleto, String email, String senha,
-            Set<Curso> cursosComprados, Set<Role> roles, Set<HistoricoAula> historicoAula) {
+            Set<Curso> cursosComprados, Set<Role> roles) {
         this.id = id;
         this.username = username;
         this.nomeCompleto = nomeCompleto;
@@ -30,16 +29,8 @@ public class UsuarioDto {
         this.senha = senha;
         this.cursosComprados = cursosComprados;
         this.roles = roles;
-        this.historicoAula = historicoAula;
     }
 
-    public Set<HistoricoAula> getHistoricoAula() {
-        return historicoAula;
-    }
-
-    public void setHistoricoAula(Set<HistoricoAula> historicoAula) {
-        this.historicoAula = historicoAula;
-    }
 
     public UUID getId() {
         return id;

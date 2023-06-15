@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/assets/css/curso.css}">
-    <link rel="stylesheet" href="/site/src/main/resources/static/css/curso.css">
+<!--    <link rel="stylesheet" th:href="@{/assets/css/curso.css}">-->
+<!--    <link rel="stylesheet" href="/site/src/main/resources/static/css/curso.css">-->
     <title>Document</title>
 </head>
 <body>
@@ -16,11 +16,8 @@
         <div class="conteiner">
             <aside class="side-bar">
                 <div class="curso" th:each="curso : ${aula.curso}">
-                    <div class="aulas" th:each="modulos : ${curso.modulo}">
-                        <span th:text="${modulos.nome}">
-                    </div>
-                    </span>
-                    <div class="aulas" th:each="modulo : ${curso.modulo}">
+                    <div class="aulas" th:each="modulo : ${#lists.sort(curso.modulo)}">
+                        <span th:text="${modulo.nome}"></span>
                         <div th:each="aula : ${#lists.sort(modulo.aulas)}">
                             <form th:action="@{/historico}" th:object="${historicoAula}" method="post">
                                 <input type="hidden" name="aulaHistorico" th:value="${aula.id}">

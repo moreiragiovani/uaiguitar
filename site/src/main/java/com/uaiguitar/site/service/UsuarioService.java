@@ -84,13 +84,7 @@ public class UsuarioService{
         usuarioRepository.save(usuario);
     }
 
-    public void historicoAulaAtualizado(UUID id, HistoricoAula historicoAula){
-        Set<HistoricoAula> historicoList = new HashSet<>();
-        historicoList.add(historicoAula);
-        Usuario usuario = usuarioRepository.getReferenceById(id);
-        usuario.setHistoricoAula(historicoList);
-        usuarioRepository.save(usuario);
-    }
+
 
     public void deleteUsuario(UUID id){
         usuarioRepository.deleteById(id);
@@ -99,8 +93,11 @@ public class UsuarioService{
 //    CURSOS COMPRADAS ADD.
     public void cursoComprado(UUID id, Curso curso){
         Set<Curso> listC = new HashSet<>();
-        Usuario usuario = usuarioRepository.getReferenceById(id);
+        Usuario usuario = usuarioRepository.findById(id).get();
         for(Curso c: usuario.getCursosComprados()){
+            if(c.getNome().equals(curso.getNome())){
+                c = curso;
+            }
             listC.add(c);
         }
         listC.add(curso);
@@ -117,7 +114,7 @@ public class UsuarioService{
         usuario.setNomeCompleto(user.getNomeCompleto());
         usuario.setEmail(user.getEmail());
         usuario.setSenha(user.getSenha());
-//        usuario.setHistoricoAula(user.getHistoricoAula());
+
         
     }
 
@@ -130,7 +127,6 @@ public class UsuarioService{
         usuarioDto.setSenha(usuario.getSenha());
         usuarioDto.setRoles(usuario.getRoles());
         usuarioDto.setCursosComprados(usuario.getCursosComprados());
-        usuarioDto.setHistoricoAula(usuario.getHistoricoAula());
 
         return usuarioDto;
     }

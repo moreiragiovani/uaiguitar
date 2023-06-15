@@ -30,7 +30,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/login").permitAll()
-                                .requestMatchers("/curso/meus-cursos").hasRole("ADMIN")
+                                .requestMatchers("/curso/meus-cursos").hasRole("GRATIS")
                                 .requestMatchers("/usuario/conta").permitAll()
                                 .requestMatchers("/usuario/comprar").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/usuario/criar").permitAll()
@@ -43,6 +43,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/menu").hasRole("GRATIS")
                                 .requestMatchers("/aula/**").permitAll()
                                 .requestMatchers("/aula/adicionar").permitAll()
+                                .requestMatchers("/curso/aula").permitAll()
 
                                 .requestMatchers("/curso/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/formulario").permitAll()

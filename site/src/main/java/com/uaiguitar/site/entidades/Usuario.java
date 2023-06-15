@@ -42,16 +42,14 @@ public class Usuario implements Serializable{
         inverseJoinColumns = @JoinColumn(name = "id_role"))
     private Set<Role> roles;
 
-    @OneToMany
-    @JoinTable(name = "tb_usuario_historico_aula")
-    private Set<HistoricoAula> historicoAula;
+
 
     public Usuario() {
     }
 
     public Usuario(UUID id, String username, String nomeCompleto, String email, String senha,
                    Set<Curso> cursosComprados,
-                   Set<Role> roles, Set<HistoricoAula> historicoAula) {
+                   Set<Role> roles) {
         this.id = id;
         this.username = username;
         this.nomeCompleto = nomeCompleto;
@@ -59,16 +57,7 @@ public class Usuario implements Serializable{
         this.senha = senha;
         this.cursosComprados = cursosComprados;
         this.roles = roles;
-        this.historicoAula = historicoAula;
 
-    }
-
-    public Set<HistoricoAula> getHistoricoAula() {
-        return historicoAula;
-    }
-
-    public void setHistoricoAula(Set<HistoricoAula> historicoAula) {
-        this.historicoAula = historicoAula;
     }
 
     public UUID getId() {
@@ -132,11 +121,11 @@ public class Usuario implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return Objects.equals(id, usuario.id) && Objects.equals(username, usuario.username) && Objects.equals(nomeCompleto, usuario.nomeCompleto) && Objects.equals(email, usuario.email) && Objects.equals(senha, usuario.senha) && Objects.equals(cursosComprados, usuario.cursosComprados) && Objects.equals(roles, usuario.roles) && Objects.equals(historicoAula, usuario.historicoAula);
+        return Objects.equals(id, usuario.id) && Objects.equals(username, usuario.username) && Objects.equals(nomeCompleto, usuario.nomeCompleto) && Objects.equals(email, usuario.email) && Objects.equals(senha, usuario.senha) && Objects.equals(cursosComprados, usuario.cursosComprados) && Objects.equals(roles, usuario.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, nomeCompleto, email, senha, cursosComprados, roles, historicoAula);
+        return Objects.hash(id, username, nomeCompleto, email, senha, cursosComprados, roles);
     }
 }

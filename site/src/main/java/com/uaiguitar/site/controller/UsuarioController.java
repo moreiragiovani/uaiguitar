@@ -3,10 +3,10 @@ package com.uaiguitar.site.controller;
 import java.util.List;
 import java.util.UUID;
 
-import com.uaiguitar.site.entidades.Curso;
-import com.uaiguitar.site.entidades.HistoricoAula;
-import com.uaiguitar.site.entidades.UsuarioDetails;
+import com.uaiguitar.site.entidades.*;
+import com.uaiguitar.site.repository.HistoricoAulaRepository;
 import com.uaiguitar.site.service.CursoService;
+import com.uaiguitar.site.service.HistoricoAulaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -23,16 +23,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uaiguitar.site.dto.UsuarioDto;
-import com.uaiguitar.site.entidades.Usuario;
 import com.uaiguitar.site.service.UsuarioService;
 
 
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
-    
+
     @Autowired
     UsuarioService service;
+
 
     public UsuarioDetails logado (){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -40,9 +40,6 @@ public class UsuarioController {
         return service.findByUsername(nomeUsuario);
     }
 
-    public void historicoAula(HistoricoAula historicoAula){
-        service.historicoAulaAtualizado(logado().getId(), historicoAula);
-    }
 
     @GetMapping("/conta")
     public String usuarioLogado(){
@@ -86,11 +83,22 @@ public class UsuarioController {
     CursoService cursoService;
     @PostMapping("/comprar")
     public String comprandoCurso(Curso curso, Model model) {
+        HistoricoAula hist = new HistoricoAula();
         if (usuarioLogado() == null) {
             return "redirect:formulario";
         }
+        Curso c1 = cursoService.findByIdCurso(curso.getId());
+        for(Modulo m : c1.getModulo()){
+            if(m.getIndiceModulo().equals(1)){
+                for(Aula a : m.getAulas()){
+                    if(a.getIndiceDaAula().equals(1)){
+                        hist.setAulaHistorico(a.getId().toString());
+                        hist.setCursoHistorico(curso.getId().toString());
+                    }
+                }
+            }
+        }
         service.cursoComprado(logado().getId(), cursoService.findByIdCurso(curso.getId()));
-        model.addAttribute("usuario", service.findByIdUsuario(logado().getId()));
-        return "minha-conta";
+        return "redirect:/aula/"+hist.getAulaHistorico();
     }
 }
