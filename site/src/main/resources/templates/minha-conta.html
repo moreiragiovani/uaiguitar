@@ -15,9 +15,7 @@
             
         </ul>
     </main>
-    <div th:each="curso : ${usuario.cursosComprados}">
-        <div th:each="historico : ${curso.historicoAula}">
-            <a th:href="'/aula/' + ${historico.aulaHistorico}"><span th:text="${curso.nome}"></span></a>
-        </div>
+    <div th:each="historico : ${usuario.historicoAula}">
+        <a th:href="'/aula/' + ${historico.aulaHistorico}"><span th:text="${historico.nomeCurso}"></span></a>
     </div>
 </html>

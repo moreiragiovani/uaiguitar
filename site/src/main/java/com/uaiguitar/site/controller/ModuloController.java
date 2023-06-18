@@ -45,19 +45,21 @@ public class ModuloController {
         return moduloService.findByIdModulo(id);
     }
 
-    @PostMapping
+    @PostMapping("/adicionar")
     public String createModulo(Modulo modulo, Model model){
-        Modulo modulo1 = modulo;
-        moduloService.createModulo(modulo1);
         Set<Modulo> moduloList = new HashSet<>();
-        Curso curso = cursoService.findByIdCurso(modulo1.getCursoId());
+        Modulo modulo1 = modulo;
+        UUID id = modulo1.getCursoId();
+        Curso curso = cursoService.findByIdCurso(id);
         for(Modulo m: curso.getModulo()){
             moduloList.add(m);
         }
+        Modulo m1 = moduloService.createModulo(modulo1);
         moduloList.add(modulo1);
         curso.setModulo(moduloList);
-        cursoService.updateCurso(modulo1.getCursoId(), curso);
-        return cursoController.criarConteudo(curso, model);
+        cursoService.updateCurso(id, curso);
+        model.addAttribute("modulo", m1);
+        return "criar-aula";
     }
 
     @PostMapping("/cria/aula")

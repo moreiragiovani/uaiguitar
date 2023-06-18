@@ -25,8 +25,8 @@ public class ModuloService {
         return moduloOpt.get();
     }
 
-    public void createModulo(Modulo modulo){
-        moduloRepository.save(modulo);
+    public Modulo createModulo(Modulo modulo){
+        return moduloRepository.save(modulo);
     }
 
     public void updateModulo(UUID id, Modulo m){

@@ -42,7 +42,7 @@ public class CursoController {
     public String createCurso(Curso curso, Model model){
         String nomeCurso = curso.getNome();
         cursoService.createCurso(curso);
-        return criarConteudo(cursoService.findBynome(nomeCurso), model);
+        return editarCurso(model);
     }
 
     @PutMapping("/{id}")
@@ -67,7 +67,10 @@ public class CursoController {
         return "editar-conteudo";
     }
 
-    public void historicoAula(HistoricoAula historicoAula){
-        cursoService.historicoAulaAtualizado(historicoAula);
+    @PostMapping("/cria/modulo")
+    public String criaModulo(Curso curso, Model model){
+        model.addAttribute("curso", cursoService.findByIdCurso(curso.getId()));
+        return "criar-modulo";
     }
+
 }

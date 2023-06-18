@@ -34,7 +34,7 @@ public class Usuario implements Serializable{
 
     @OneToMany
     @JoinTable(name = "tb_cursos_comprados")
-    private Set<Curso> cursosComprados;
+    private Set<CursoComprado> cursosComprados;
 
     @ManyToMany
     @JoinTable(name = "tb_usuario_role",
@@ -42,14 +42,16 @@ public class Usuario implements Serializable{
         inverseJoinColumns = @JoinColumn(name = "id_role"))
     private Set<Role> roles;
 
-
+    @OneToMany
+    @JoinTable(name = "tb_usuario_historico_aula_a")
+    private Set<HistoricoAula> historicoAula;
 
     public Usuario() {
     }
 
     public Usuario(UUID id, String username, String nomeCompleto, String email, String senha,
-                   Set<Curso> cursosComprados,
-                   Set<Role> roles) {
+                   Set<CursoComprado> cursosComprados,
+                   Set<Role> roles, Set<HistoricoAula> historicoAula) {
         this.id = id;
         this.username = username;
         this.nomeCompleto = nomeCompleto;
@@ -57,6 +59,7 @@ public class Usuario implements Serializable{
         this.senha = senha;
         this.cursosComprados = cursosComprados;
         this.roles = roles;
+        this.historicoAula = historicoAula;
 
     }
 
@@ -100,11 +103,11 @@ public class Usuario implements Serializable{
         this.senha = senha;
     }
 
-    public Set<Curso> getCursosComprados() {
+    public Set<CursoComprado> getCursosComprados() {
         return cursosComprados;
     }
 
-    public void setCursosComprados(Set<Curso> cursosComprados) {
+    public void setCursosComprados(Set<CursoComprado> cursosComprados) {
         this.cursosComprados = cursosComprados;
     }
 
@@ -114,6 +117,14 @@ public class Usuario implements Serializable{
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<HistoricoAula> getHistoricoAula() {
+        return historicoAula;
+    }
+
+    public void setHistoricoAula(Set<HistoricoAula> historicoAula) {
+        this.historicoAula = historicoAula;
     }
 
     @Override

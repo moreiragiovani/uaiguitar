@@ -1,9 +1,6 @@
 package com.uaiguitar.site.controller;
 
-import com.uaiguitar.site.entidades.Aula;
-import com.uaiguitar.site.entidades.Curso;
-import com.uaiguitar.site.entidades.HistoricoAula;
-import com.uaiguitar.site.entidades.Usuario;
+import com.uaiguitar.site.entidades.*;
 import com.uaiguitar.site.service.HistoricoAulaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -28,36 +26,22 @@ public class HistoricoAulaController {
     UsuarioController usuarioController;
 
     @PostMapping()
-    public String criarHistorico(HistoricoAula historicoAula){
-        UUID id = null;
-        for(Curso c: idHistorico()){
-            if(c.getHistoricoAula() == null){
-                service.criarHistorico(historicoAula);
-                cursoController.historicoAula(historicoAula);
-                return "redirect:/aula/" + historicoAula.getAulaHistorico();
-            }
-            else {
-                if(c.getHistoricoAula().getCursoHistorico().equals(historicoAula.getCursoHistorico())){
-                    id = c.getHistoricoAula().getId();
+    public String criarHistorico(HistoricoAula historicoAula) {
+        Usuario usuario = usuarioController.findByIdUsuario(usuarioController.logado().getId());
+
+        if(!usuario.getHistoricoAula().isEmpty()){
+            for(HistoricoAula h : usuario.getHistoricoAula()){
+                if(h.getCursoHistorico().equals(historicoAula.getCursoHistorico())){
+                    h.setCursoHistorico(historicoAula.getCursoHistorico());
+                    h.setAulaHistorico(historicoAula.getAulaHistorico());
+                    h.setNomeAula(historicoAula.getNomeAula());
+                    h.setNomeCurso(historicoAula.getNomeCurso());
+                    service.criarHistorico(h);
                 }
             }
-        }
-        service.criarHistorico(historicoAula);
-        cursoController.historicoAula(historicoAula);
-
-        if(id != null){
-            service.deleteById(id);
+        }else{
+            usuarioController.historicoAula(usuarioController.logado().getId(), service.criarHistorico(historicoAula));
         }
         return "redirect:/aula/" + historicoAula.getAulaHistorico();
-    }
-
-    public Set<Curso> idHistorico(){
-        try {
-            Usuario usuario = usuarioController.findByIdUsuario(usuarioController.logado().getId());
-            return usuario.getCursosComprados();
-        }catch (Exception e){
-            System.out.println("------------>>>>>>>>>>>>>> ouvi um erro para achar id" + e.getMessage());
-            return null;
-        }
     }
 }

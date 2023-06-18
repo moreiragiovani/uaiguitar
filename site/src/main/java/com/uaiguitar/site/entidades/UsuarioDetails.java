@@ -5,6 +5,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.OneToOne;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,8 +17,10 @@ public class UsuarioDetails implements UserDetails {
     private String nomeCompleto;
     private String email;
     private String senha;
-    private Set<Curso> cursosComprados;
+    private Set<CursoComprado> cursosComprados;
     private Set<Role> roles;
+
+    private Set<HistoricoAula> historicoAula;
   
     public UsuarioDetails() {
     }
@@ -29,6 +33,7 @@ public class UsuarioDetails implements UserDetails {
         this.senha = usuario.getSenha();
         this.cursosComprados = usuario.getCursosComprados();
         this.roles = usuario.getRoles();
+        this.historicoAula = usuario.getHistoricoAula();
     }
   
     public UUID getId() {
@@ -75,14 +80,22 @@ public class UsuarioDetails implements UserDetails {
         this.roles = roles;
     }
     
-    public Set<Curso> getCursosComprados() {
+    public Set<CursoComprado> getCursosComprados() {
         return cursosComprados;
     }
 
-    public void setCursosComprados(Set<Curso> cursosComprados) {
+    public void setCursosComprados(Set<CursoComprado> cursosComprados) {
         this.cursosComprados = cursosComprados;
     }
-    
+
+    public Set<HistoricoAula> getHistoricoAula() {
+        return historicoAula;
+    }
+
+    public void setHistoricoAula(Set<HistoricoAula> historicoAula) {
+        this.historicoAula = historicoAula;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

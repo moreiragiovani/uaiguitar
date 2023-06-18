@@ -68,7 +68,8 @@ public class AulaController {
         modulo.setAulas(aulasList);
         moduloService.updateModulo(aula1.getModuloId(), modulo);
         UUID id = modulo.getCursoId();
-        return cursoController.criarConteudo(cursoService.findByIdCurso(id), model);
+        model.addAttribute("curso", cursoService.findByIdCurso(id));
+        return "editar-conteudo";
     }
 
     @PutMapping("/{id}")

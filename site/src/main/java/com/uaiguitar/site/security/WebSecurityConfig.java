@@ -37,6 +37,8 @@ public class WebSecurityConfig {
                                 .requestMatchers("/criar-curso").permitAll()
                                 .requestMatchers("/criar-modulo").permitAll()
                                 .requestMatchers("/criar-aula").permitAll()
+                                .requestMatchers("/editar-conteudo").permitAll()
+
 
                                 .requestMatchers("/curso/todos").permitAll()
                                 .requestMatchers("/minha-conta").hasRole("GRATIS")
@@ -44,6 +46,9 @@ public class WebSecurityConfig {
                                 .requestMatchers("/aula/**").permitAll()
                                 .requestMatchers("/aula/adicionar").permitAll()
                                 .requestMatchers("/curso/aula").permitAll()
+                                .requestMatchers("/modulo/**").permitAll()
+
+
 
                                 .requestMatchers("/curso/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/formulario").permitAll()
@@ -59,7 +64,7 @@ public class WebSecurityConfig {
                         formLogin
                                 .loginPage("/login")
                                 .loginProcessingUrl("/process-login")
-                                .defaultSuccessUrl("/usuario/conta")
+                                .defaultSuccessUrl("/usuario/conta", true)
                                 .failureUrl("/login?error=true")
                                 .usernameParameter("username")
                                 .passwordParameter("senha")

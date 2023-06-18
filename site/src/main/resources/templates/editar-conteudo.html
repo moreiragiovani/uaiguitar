@@ -11,23 +11,23 @@
         <div class="containerConteudo">
             <h2 th:text="${curso.nome}"></h2>
             <button class="criarModulo" id="criarModulo">Criar Modulo</button>
-            <form class="containerForm" id="containerForm" th:action="@{/modulo}" method="post" th:object="${modulo}">
+            <form class="containerForm" id="containerForm" th:action="@{/curso/cria/modulo}" method="post" th:object="${curso}">
 
-                <label>Nome do modulo</label>
-                <input type="text" name="nome">
+<!--                <label>Nome do modulo</label>-->
+<!--                <input type="text" name="nome">-->
 
-                <label>Indice do modulo</label>
-                <input type="number" name="indiceModulo">
+<!--                <label>Indice do modulo</label>-->
+<!--                <input type="number" name="indiceModulo">-->
 
-                <input type="hidden" name="cursoId" th:value="${curso.id}">
 
-                <label>Descrição do modulo</label>
-                <input class="descricaoIn" type="text" placeholder="Descrição.." name="descricao">
+<!--                <label>Descrição do modulo</label>-->
+<!--                <input class="descricaoIn" type="text" placeholder="Descrição.." name="descricao">-->
 
+                <input type="hidden" name="id" th:value="${curso.id}">
                 <input class="btnCriar" type="submit" value="Criar modulo">
 
             </form>
-            <div class="containerCriaAula" th:each="modulo : ${curso.modulo}">
+            <div class="containerCriaAula" th:each="modulo : ${#lists.sort(curso.modulo)}">
 
                 <h2 th:text="${modulo.nome}"></h2>
 

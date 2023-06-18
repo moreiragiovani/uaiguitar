@@ -51,15 +51,6 @@ public class CursoService {
         curso.setVideoApresentacao(c.getVideoApresentacao());
     }
 
-    public void historicoAulaAtualizado(HistoricoAula historicoAula){
-        Curso curso = cursoRepository.findById(UUID.fromString(
-                historicoAula.getCursoHistorico())).get();
-//        if(!curso.getHistoricoAula().getCursoHistorico().equals(null)) {
-//            if(curso.getHistoricoAula().getCursoHistorico().equals(historicoAula.getCursoHistorico())){
-//            }
-//        }
-        curso.setHistoricoAula(historicoAula);
-        cursoRepository.save(curso);
-    }
+
 
 }

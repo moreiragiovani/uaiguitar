@@ -12,7 +12,7 @@
 
     <h2>Hola mundo</h2>
     <div class="container" th:each="c : ${curso}">
-        <form class="cursoForm" id="cursoForm" th:action="@{/modulo}" method="post" th:object="${modulo}">
+        <form class="containerForm" id="containerForm" th:action="@{/modulo/adicionar}" method="post" th:object="${modulo}">
 
             <label>Nome do modulo</label>
             <input type="text" name="nome">
@@ -20,12 +20,13 @@
             <label>Indice do modulo</label>
             <input type="number" name="indiceModulo">
 
-            <input type="hidden" name="cursoId" th:value="${c.id}">
+            <input type="hidden" name="cursoId" th:value="${curso.id}">
 
             <label>Descrição do modulo</label>
             <input class="descricaoIn" type="text" placeholder="Descrição.." name="descricao">
 
             <input class="btnCriar" type="submit" value="Criar modulo">
+
         </form>
     </div>
 </body>

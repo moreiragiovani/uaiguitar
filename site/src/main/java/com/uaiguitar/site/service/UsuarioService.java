@@ -2,16 +2,15 @@ package com.uaiguitar.site.service;
 
 import java.util.*;
 
-import com.uaiguitar.site.entidades.Curso;
-import com.uaiguitar.site.entidades.HistoricoAula;
+import com.uaiguitar.site.controller.CursoCompradoController;
+import com.uaiguitar.site.entidades.*;
+import com.uaiguitar.site.repository.CursoCompradoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uaiguitar.site.dto.UsuarioDto;
-import com.uaiguitar.site.entidades.Usuario;
-import com.uaiguitar.site.entidades.UsuarioDetails;
 import com.uaiguitar.site.repository.UsuarioRepository;
 
 @Service
@@ -19,6 +18,12 @@ public class UsuarioService{
  
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    @Autowired
+    CursoCompradoController cursoCompradoController;
+
+    @Autowired
+    CursoService cursoService;
 
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
@@ -91,21 +96,44 @@ public class UsuarioService{
     }
 
 //    CURSOS COMPRADAS ADD.
-    public void cursoComprado(UUID id, Curso curso){
-        Set<Curso> listC = new HashSet<>();
+    public void cursoComprado(UUID id, Curso curso1){
+        Curso curso = cursoService.findByIdCurso(curso1.getId());
         Usuario usuario = usuarioRepository.findById(id).get();
-        for(Curso c: usuario.getCursosComprados()){
-            if(c.getNome().equals(curso.getNome())){
-                c = curso;
-            }
-            listC.add(c);
-        }
-        listC.add(curso);
-        usuario.setCursosComprados(listC);
 
-        usuarioRepository.save(usuario);
+        if(!usuario.getCursosComprados().isEmpty()){
+            for(CursoComprado c : usuario.getCursosComprados()){
+                if(c.getCursoComprado().getId().equals(curso.getId())){
+                    c.setCursoComprado(curso);
+                    cursoCompradoController.createCursoComprado(c);
+                }
+            }
+        }else {
+            System.out.printf("--------------------------------------estou no else");
+            CursoComprado cursoComprado = new CursoComprado();
+            cursoComprado.setCursoComprado(curso);
+            Set<CursoComprado> listC = new HashSet<>();
+            CursoComprado cP = cursoCompradoController.createCursoComprado(cursoComprado);
+            listC.add(cP);
+            usuario.setCursosComprados(listC);
+            usuarioRepository.save(usuario);
+        }
     }
 
+    public void historicoAulaAtualizado(UUID id, HistoricoAula historicoAula){
+        Set<HistoricoAula> hList = new HashSet<>();
+        Usuario usuario = usuarioRepository.findById(id).get();
+        hList.add(historicoAula);
+        if(!usuario.getHistoricoAula().equals(null)){
+            for(HistoricoAula h : usuario.getHistoricoAula()){
+                if(!h.getCursoHistorico().equals(historicoAula.getCursoHistorico())){
+                    hList.add(h);
+                }
+            }
+        }
+
+        usuario.setHistoricoAula(hList);
+        usuarioRepository.save(usuario);
+    }
 
 //    Metodos para converter Usuarios.
 
@@ -114,6 +142,7 @@ public class UsuarioService{
         usuario.setNomeCompleto(user.getNomeCompleto());
         usuario.setEmail(user.getEmail());
         usuario.setSenha(user.getSenha());
+        usuario.setHistoricoAula(user.getHistoricoAula());
 
         
     }
@@ -126,6 +155,7 @@ public class UsuarioService{
         usuarioDto.setEmail(usuario.getEmail());
         usuarioDto.setSenha(usuario.getSenha());
         usuarioDto.setRoles(usuario.getRoles());
+        usuarioDto.setHistoricoAula(usuario.getHistoricoAula());
         usuarioDto.setCursosComprados(usuario.getCursosComprados());
 
         return usuarioDto;

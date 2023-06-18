@@ -1,6 +1,7 @@
 package com.uaiguitar.site.controller;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import com.uaiguitar.site.entidades.*;
@@ -79,6 +80,7 @@ public class UsuarioController {
     }
 
 //    ADICIONANCO CURSO COMPRADO.
+
     @Autowired
     CursoService cursoService;
     @PostMapping("/comprar")
@@ -98,7 +100,11 @@ public class UsuarioController {
                 }
             }
         }
-        service.cursoComprado(logado().getId(), cursoService.findByIdCurso(curso.getId()));
+        service.cursoComprado(logado().getId(), c1);
         return "redirect:/aula/"+hist.getAulaHistorico();
+    }
+
+    public void historicoAula(UUID id, HistoricoAula historicoAula){
+        service.historicoAulaAtualizado(id, historicoAula);
     }
 }

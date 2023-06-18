@@ -38,7 +38,7 @@ public class LoginAndLogout {
         return "criar-aula";
     }
 
-    @GetMapping("/curso/criar-modulo")
+    @GetMapping("/criar-modulo")
     public String criarModulo(){
         return "criar-modulo";
     }
@@ -47,5 +47,10 @@ public class LoginAndLogout {
     public String cursoCompleto(){
         return "aula";
     }
+
+//    @GetMapping("/editar-conteudo")
+//    public String editarCoteudo(){
+//        return "editar-conteudo";
+//    }
 
 }

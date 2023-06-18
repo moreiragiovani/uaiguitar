@@ -25,20 +25,16 @@ public class Curso implements Serializable{
     @JoinTable(name = "tb_curso_modulos")
     private Set<Modulo> modulo;
 
-    @OneToOne
-    @JoinTable(name = "tb_usuario_historico_aula")
-    private HistoricoAula historicoAula;
 
     public Curso(){}
 
-    public Curso(UUID id, String nome, String descricao, String imagem, String videoApresentacao, Set<Modulo> modulo, HistoricoAula historicoAula) {
+    public Curso(UUID id, String nome, String descricao, String imagem, String videoApresentacao, Set<Modulo> modulo) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.imagem = imagem;
         this.videoApresentacao = videoApresentacao;
         this.modulo = modulo;
-        this.historicoAula = historicoAula;
     }
 
     public UUID getId() {
@@ -87,14 +83,6 @@ public class Curso implements Serializable{
 
     public void setModulo(Set<Modulo> modulo) {
         this.modulo = modulo;
-    }
-
-    public HistoricoAula getHistoricoAula() {
-        return historicoAula;
-    }
-
-    public void setHistoricoAula(HistoricoAula historicoAula) {
-        this.historicoAula = historicoAula;
     }
 
     @Override
