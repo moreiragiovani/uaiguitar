@@ -99,19 +99,31 @@ public class UsuarioService{
     public void cursoComprado(UUID id, Curso curso1){
         Curso curso = cursoService.findByIdCurso(curso1.getId());
         Usuario usuario = usuarioRepository.findById(id).get();
+        CursoComprado cursoComprado = new CursoComprado();
+        cursoComprado.setCursoComprado(curso);
+        Set<CursoComprado> listC = new HashSet<>();
+        int temp = 0;
 
         if(!usuario.getCursosComprados().isEmpty()){
             for(CursoComprado c : usuario.getCursosComprados()){
                 if(c.getCursoComprado().getId().equals(curso.getId())){
                     c.setCursoComprado(curso);
                     cursoCompradoController.createCursoComprado(c);
+                    temp = 1;
                 }
+                listC.add(c);
             }
+            if(temp == 1){
+                usuario.setCursosComprados(listC);
+                usuarioRepository.save(usuario);
+            }else {
+                CursoComprado cP = cursoCompradoController.createCursoComprado(cursoComprado);
+                listC.add(cP);
+                usuario.setCursosComprados(listC);
+                usuarioRepository.save(usuario);
+            }
+
         }else {
-            System.out.printf("--------------------------------------estou no else");
-            CursoComprado cursoComprado = new CursoComprado();
-            cursoComprado.setCursoComprado(curso);
-            Set<CursoComprado> listC = new HashSet<>();
             CursoComprado cP = cursoCompradoController.createCursoComprado(cursoComprado);
             listC.add(cP);
             usuario.setCursosComprados(listC);
@@ -123,7 +135,7 @@ public class UsuarioService{
         Set<HistoricoAula> hList = new HashSet<>();
         Usuario usuario = usuarioRepository.findById(id).get();
         hList.add(historicoAula);
-        if(!usuario.getHistoricoAula().equals(null)){
+        if(!usuario.getHistoricoAula().isEmpty()){
             for(HistoricoAula h : usuario.getHistoricoAula()){
                 if(!h.getCursoHistorico().equals(historicoAula.getCursoHistorico())){
                     hList.add(h);
