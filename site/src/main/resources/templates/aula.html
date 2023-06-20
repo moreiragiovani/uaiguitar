@@ -4,40 +4,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--    <link rel="stylesheet" th:href="@{/assets/css/curso.css}">-->
-<!--    <link rel="stylesheet" href="/site/src/main/resources/static/css/curso.css">-->
+    <link rel="stylesheet" th:href="@{/assets/css/aula.css}">
+    <link rel="stylesheet" href="/site/src/main/resources/static/css/aula.css">
     <title>Document</title>
 </head>
 <body>
-    <div th:each="aula : ${aula}">
-        <div class="curso" th:each="curso : ${aula.curso}">
-            <h2 class="nome-aluno" th:text="${curso.nome}"></h2>
-        </div>
-        <div class="conteiner">
-            <aside class="side-bar">
-                <div class="curso" th:each="curso : ${aula.curso}">
-                    <div class="aulas" th:each="modulo : ${#lists.sort(curso.modulo)}">
-                        <span th:text="${modulo.nome}"></span>
-                        <div th:each="aula : ${#lists.sort(modulo.aulas)}">
-                            <form th:action="@{/historico}" th:object="${historicoAula}" method="post">
-                                <input type="hidden" name="nomeAula" th:value="${aula.nome}">
-                                <input type="hidden" name="nomeCurso" th:value="${curso.nome}">
-                                <input type="hidden" name="aulaHistorico" th:value="${aula.id}">
-                                <input type="hidden" name="cursoHistorico" th:value="${curso.id}">
-                                <input type="submit" th:value="${aula.nome}">
-                            </form>
-                        </div>
+    <div class="container" th:each="aula : ${aula}">
+
+        <aside class="sideBar">
+            <div class="ContainerCurso" th:each="curso : ${aula.curso}">
+                <div class="containerCurso1" th:each="modulo : ${#lists.sort(curso.modulo)}">
+                    <h3 class="nomeModulo" th:text="${modulo.nome}"></h3>
+                    <div class="aula" th:each="aula : ${#lists.sort(modulo.aulas)}">
+                        <form th:action="@{/historico}" th:object="${historicoAula}" method="post">
+                            <input type="hidden" name="nomeAula" th:value="${aula.nome}">
+                            <input type="hidden" name="nomeCurso" th:value="${curso.nome}">
+                            <input type="hidden" name="aulaHistorico" th:value="${aula.id}">
+                            <input type="hidden" name="cursoHistorico" th:value="${curso.id}">
+                            <input class="btnNomeAula" type="submit" th:value="${aula.nome}">
+                        </form>
                     </div>
                 </div>
-            </aside>
+            </div>
+        </aside>
+
+        <div class="containerConteudo">
+            <h4 th:text="${aula.nome}"></h4>
+            <div class="containerVideo">
+                <div class="video">
+                    <iframe src="https://www.youtube.com/embed/7ch_LpkNqQE"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
 
         </div>
-        <div th:each="curso : ${aula.curso}">
-            <p th:text="${curso.nome}"></p>
-        </div>
 
-        <h1 th:text="${aula.nome}"></h1>
-        <h2 th:text="${aula.id}"></h2>
     </div>
+    <script th:src="@{/assets/js/aula.js}" type="text/javascript"></script>
 </body>
 </html>

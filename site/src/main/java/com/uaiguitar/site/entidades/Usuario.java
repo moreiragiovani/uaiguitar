@@ -43,7 +43,7 @@ public class Usuario implements Serializable{
     private Set<Role> roles;
 
     @OneToMany
-    @JoinTable(name = "tb_usuario_historico_aula_a")
+    @JoinTable(name = "tb_usuario_historico_aula")
     private Set<HistoricoAula> historicoAula;
 
     public Usuario() {
