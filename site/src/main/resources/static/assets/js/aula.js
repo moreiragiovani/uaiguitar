@@ -1,28 +1,22 @@
-class modulo{
-    constructor(nomeModulo, aula) {
-        this.nomeModulo = document.querySelectorAll(nomeModulo);
-        this.aula = document.querySelectorAll(aula);
-        this.activeItem = "active";
-    }
 
-    toggleAccordion(item){
-        item.classList.toggle(this.actibeItem);
-        item.nextElementSibling.classList.toggle(this.actibeItem);
-    }
+const svgAbrir = document.getElementById("svgAbrir");
+const svgFechar = document.getElementById("svgFechar");
+const sideBar = document.getElementById("sideBar");
+const active = "active";
 
-    addAccordionEvent(){
-        this.nomeModulo.forEach((question) => {
-            question.addEventListener("click", () => this.toggleAccordion(question))
-        });
-    }
+const abrirModulo = document.querySelectorAll(".nomeModulo");
 
-    init(){
-        if(this.nomeModulo.length){
-            this.addAccordionEvent();
-        }
-        return modulo;
-    }
+
+function clicar(){
+    sideBar.classList.toggle(active);
+    svgFechar.style.display = "block";
+    svgAbrir.style.display = "none";
 }
 
-const  accordion = new modulo(".nomeModulo", ".aula");
-accordion.init();
+function clicarFechar(){
+    sideBar.classList.toggle(active);
+    svgFechar.style.display = "none";
+    svgAbrir.style.display = "block";
+}
+svgAbrir.addEventListener("click", clicar);
+svgFechar.addEventListener("click", clicarFechar);
