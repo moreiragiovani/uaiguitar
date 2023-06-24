@@ -9,8 +9,8 @@
     <title>Document</title>
 </head>
 <body>
+    <a class="linkHome" th:href="@{/usuario/conta}">Home</a>
     <div class="container" th:each="aula : ${aula}">
-        <a class="linkHome" href="/usuario/conta">Home</a>
 
         <aside id="sideBar" class="sideBar">
             <div class="ContainerCurso" th:each="curso : ${aula.curso}">

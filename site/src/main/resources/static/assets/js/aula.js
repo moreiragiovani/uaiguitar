@@ -2,9 +2,11 @@
 const svgAbrir = document.getElementById("svgAbrir");
 const svgFechar = document.getElementById("svgFechar");
 const sideBar = document.getElementById("sideBar");
+const modulo = document.querySelectorAll(".nomeModulo");
+const aulaUl =  document.querySelectorAll(".aula");
 const active = "active";
 
-const abrirModulo = document.querySelectorAll(".nomeModulo");
+const container = document.querySelectorAll(".containerCurso1");
 
 
 function clicar(){
@@ -13,6 +15,7 @@ function clicar(){
     svgAbrir.style.display = "none";
 }
 
+
 function clicarFechar(){
     sideBar.classList.toggle(active);
     svgFechar.style.display = "none";
@@ -20,3 +23,15 @@ function clicarFechar(){
 }
 svgAbrir.addEventListener("click", clicar);
 svgFechar.addEventListener("click", clicarFechar);
+
+
+
+function abrirM(){
+    modulo.forEach((m, n) => { m.addEventListener("click",
+        function (){
+            const lista = container[n].querySelectorAll(".aula");
+            lista.forEach((a) => {a.classList.toggle(active)});
+        })});
+}
+
+abrirM();
