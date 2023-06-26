@@ -5,13 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/assets/css/aula.css}">
-    <link rel="stylesheet" href="/site/src/main/resources/static/assets/css/aula.css">
+    <link rel="stylesheet" href="/static/assets/css/aula.css">
     <title>Document</title>
 </head>
 <body>
-    <a class="linkHome" th:href="@{/usuario/conta}">Home</a>
-    <div class="container" th:each="aula : ${aula}">
 
+    <div class="containerMenu">
+        <h2 class="logo">uai<span>guitar</span></h2>
+        <nav id="naveBar" class="naveBar">
+            <a class="linkMenu" th:href="@{/usuario/conta}">Meus Cursos</a>
+            <a class="linkMenu" th:href="@{/#}">Todos os Cursos</a>
+            <a class="linkMenu" th:href="@{/#}">Minha Conta</a>
+        </nav>
+
+
+
+        <div class="containerBtnSvg">
+            <svg id="svgAbrirMenu" class="svgAbrirMenu" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z"/></svg>
+            <svg id="svgFecharMenu" class="svgFecharMenu" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"/></svg>
+            <a class="btnLogout" th:href="@{/logout}">Sair</a>
+        </div>
+    </div>
+
+    <div class="container" th:each="aula : ${aula}">
         <aside id="sideBar" class="sideBar">
             <div class="ContainerCurso" th:each="curso : ${aula.curso}">
                 <div class="containerCurso1" th:each="modulo : ${#lists.sort(curso.modulo)}">
@@ -47,6 +63,10 @@
         </div>
 
     </div>
+    <footer class="rodape">
+        <span class="direitos">Todos os direitos reservados - <a th:href="@{/home}">UAI<span class="logoRed">GUITAR</span></a></span>
+    </footer>
     <script th:src="@{/assets/js/aula.js}" type="text/javascript"></script>
+    <script src="/static/assets/js/aula.js" type="text/javascript"></script>
 </body>
 </html>

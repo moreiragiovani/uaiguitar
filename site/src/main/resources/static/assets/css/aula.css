@@ -2,44 +2,74 @@
     margin: 0;
     padding: 0;
     font-size: 100%;
-    font-family: Arial sans-serif;
+    font-family: Arial;
 }
 body{
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    /*width: 100vw;*/
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.linkHome{
-    font-size: 30px;
-    /*position: absolute;*/
-    right: 25px;
-    top: 10px;
-    cursor: pointer;
-}
-/*.linkHome:hover{*/
-/*    width: 40px;*/
-/*    height: 40px;*/
-/*}*/
-.container{
-    position: relative;
-    width: 100vw;
+.containerMenu{
+    width: 90vw;
+    height: 15vh;
     display: flex;
     align-items: center;
-    height: 100%;
+    justify-content: space-between;
+
+}
+.logo{
+    font-size: 30px;
+    text-transform: uppercase;
+}
+.logo span{
+    color: red;
+}
+
+.linkMenu{
+    font-size: 20px;
+    margin-left: 20px;
+    text-align: center;
+    text-decoration: none;
+}
+.linkMenu:hover{
+    font-size: 22px;
+    color: #4b4b4b;
+    border-top: 1px solid #4b4b4b;
+    padding-top: 10px;
+}
+.btnLogout{
+    font-size: 20px;
+    padding: 6px 15px;
+    border-radius: 20px;
+    background-color: transparent;
+    border: 1px solid #4b4b4b;
+    text-decoration: none;
+}
+.btnLogout:hover{
+    font-size: 23px;
+    background-color: #4b4b4b;
+    color: white;
+}
+.container{
+    position: relative;
+    width: 100%;
+    display: flex;
+    max-height: 100vh;
+    overflow: auto;
 
 }
 .sideBar{
     display: none;
+    align-items: center;
+    flex-direction: column;
     width: 250px;
-    height: 90%;
+    height: 75vh;
     overflow: auto;
     border-right: 1px solid black;
     /*transition: left 300ms ease-in-out;*/
 }
-/*.sideActive{*/
-/*    left: 0px;*/
-/*    !*z-index: 99;*!*/
-/*}*/
 .svgAbrir{
     width: 30px;
     height: 30px;
@@ -53,25 +83,42 @@ body{
     width: 30px;
     height: 30px;
     position: absolute;
-    left: 10px;
+    left: 25px;
     top: 10px;
     cursor: pointer;
 }
-
+.containerBtnSvg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.svgAbrirMenu{
+    display: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+.svgFecharMenu{
+    display: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
 .containerConteudo{
     position: relative;
-    width: 100vw;
-    height: 100%;
+    width: 100%;
+    height: 85vh;
     display: flex;
     flex-direction: column;
-    justify-items: center;
     align-items: center;
+    /*overflow: auto;*/
 }
 .containerCurso1{
-    padding-left: 20px;
+    padding: 5px 20px;
 }
 .nomeModulo{
-    width: 80%;
+    /*width: 80%;*/
     border-bottom: 1px solid #4b4b4b;
     margin-bottom: 10px;
     padding-bottom: 5px;
@@ -86,9 +133,6 @@ body{
 }
 .aula{
     display: none;
-}
-.nomeModulo{
-
 }
 .btnNomeAula{
     text-transform: capitalize;
@@ -110,7 +154,7 @@ body{
     padding: 30px;
 }
 .containerVideo{
-    width: 70%;
+    width: 60vw;
 
 }
 .containerVideo div{
@@ -127,19 +171,75 @@ body{
     left: 0;
     border-radius: 20px;
 }
+.rodape{
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rodape a{
+    text-decoration: none;
+}
+.logoRed{
+    color: red;
+}
 .active{
     display: block;
 }
 
 @media (max-width: 850px) {
-
-
+    .containerMenu{
+        width: 100vw;
+        /*align-items: center;*/
+    }
+    .logo{
+        font-size: 25px;
+        margin-left: 20px;
+    }
+    .containerBtnSvg{
+        margin-right: 20px;
+    }
+    .naveBar{
+        display: none;
+        flex-direction: column;
+        padding-top: 20px;
+        /*align-items: center;*/
+        gap: 30px;
+        position: absolute;
+        top: 15vh;
+        width: 100%;
+        height: calc(100vh - 15vh);
+        background-color: #4b4b4b;
+        z-index: 99;
+    }
+    .naveBar a{
+        text-align: left;
+        width: 80%;
+    }
+    .naveBar a:hover{
+        padding-left: 10px;
+        background-color: #2c2c2c;
+        border-left: 1px solid black;
+    }
     .containerConteudo h4{
         font-size: 30px;
     }
+    .svgAbrirMenu{
+        display: block;
+    }
+
+
 }
 @media (max-width: 350px) {
-
+    .logo{
+        font-size: 20px;
+    }
+    .containerBtnSvg{
+        gap: 10px;
+    }
+    .btnLogout{
+        font-size: 10px;
+    }
     .containerConteudo h4{
         font-size: 25px;
     }
