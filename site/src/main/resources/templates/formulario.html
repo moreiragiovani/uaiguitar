@@ -4,17 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/assets/css/form.css}">
+    <link rel="stylesheet" href="/static/assets/css/form.css">
     <title>Formulario</title>
 </head>
 <body>
-    <form th:action="@{/usuario/criar}" th:object="${Usuario}" method="post">
-        Nome usuario: <input type="text" placeholder="Nome de Usuario" name="username">
-        Nome: <input type="text" placeholder="Nome" name="nomeCompleto">
-        Email: <input type="text" placeholder="Email" name="email">
-        Senha: <input type="password" placeholder="Senha" name="senha">
-        <input type="submit" value="Inscrever">
-    </form>
-    <span th:text="${mensagem}"></span>
+    <h2 class="titulo">Criar Conta</h2>
+    <div class="container">
+        <form class="formulario" th:action="@{/usuario/criar}" th:object="${Usuario}" method="post">
+            <label>Nome usuario</label>
+            <input type="text" placeholder="Nome de Usuario" name="username">
+            <label>Nome Completo</label>
+            <input type="text" placeholder="Nome" name="nomeCompleto">
+            <label>Email</label>
+            <input type="text" placeholder="Email" name="email">
+            <label>Senha</label>
+            <input type="password" placeholder="Senha" name="senha">
+            <input class="btnEntrar" type="submit" value="Inscrever">
+        </form>
+        <span th:text="${mensagem}"></span>
+    </div>
     
 </body>
 </html>
