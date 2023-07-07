@@ -10,16 +10,16 @@
 </head>
 <body>
 
-    <main class="conteiner-main">
-        <h1>Meus Cursos</h1>
-        <h2>Seja bem vindo(a): <span th:text="${usuario.username}">usuario</span></h2>
-    </main>
+    <div class="container">
+        <main class="containerMain">
+            <h1>Meus Cursos</h1>
+            <h2>Seja bem vindo(a): <span th:text="${usuario.username}">usuario</span></h2>
+        </main>
 
-    <div class="container-conteudo">
-        <h3>Cursos Comprados</h3>
-        <div th:each="historico : ${usuario.historicoAula}">
-            <a th:href="'/aula/' + ${historico.aulaHistorico}"><span th:text="${historico.nomeCurso}">curso aqui</span></a>
+        <div class="ContainerConteudo" th:each="historico : ${usuario.historicoAula}">
+            <h3>Cursos Comprados</h3>
+            <a class="nomeCurso" th:href="'/aula/' + ${historico.aulaHistorico}"><span th:text="${historico.nomeCurso}">curso aqui</span></a>
         </div>
     </div>
-
+</body>
 </html>
