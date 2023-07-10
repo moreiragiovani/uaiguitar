@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Todos os Cursos</title>
+    <link rel="stylesheet" th:href="@{/assets/css/editarCurso.css}">
+    <link rel="stylesheet" href="/static/assets/css/editarCurso.css">
 </head>
 <body>
 <div>
-    <div class="cursos">
-        <div th:each="curso : ${cursos}">
-            <h2 th:text="${curso.nome}"></h2>
-            <form th:action="@{/curso/criar/conteudo}" th:object="${curso}" method="post">
+    <div class="container">
+        <div class="containerCurso" th:each="curso : ${cursos}">
+            <h2 class="nomeCurso" th:text="${curso.nome}">curso</h2>
+            <form class="containerForm" th:action="@{/curso/criar/conteudo}" th:object="${curso}" method="post">
                 <input type="hidden" name="id" th:value="${curso.id}">
-                <input type="submit" value="Editar curso">
+                <input class="btn" type="submit" value="Editar curso">
             </form>
         </div>
     </div>

@@ -2,16 +2,18 @@
 <html lang="pt-br" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Todos os Cursos</title>
+    <title>Editar Cursos</title>
+    <link rel="stylesheet" th:href="@{/assets/css/todosOsCursos.css}">
+    <link rel="stylesheet" href="/static/assets/css/todosOsCursos.css">
 </head>
 <body>
   <div>
-    <div class="cursos">
-      <div th:each="curso : ${cursos}">
-        <h2 th:text="${curso.nome}"></h2>
-        <form th:action="@{/usuario/comprar}" th:object="${curso}" method="post">
+    <div class="container">
+      <div class="containerCurso" th:each="curso : ${cursos}">
+        <h2 class="nomeCurso" th:text="${curso.nome}">curso</h2>
+        <form class="containerForm" th:action="@{/usuario/comprar}" th:object="${curso}" method="post">
           <input type="hidden" name="id" th:value="${curso.id}">
-          <input type="submit" value="Comprar">
+          <input class="btn" type="submit" value="Inscrever-se">
         </form>
       </div>
     </div>

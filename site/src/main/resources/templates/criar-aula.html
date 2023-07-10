@@ -3,24 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Criar Aula</title>
+    <link rel="stylesheet" th:href="@{/assets/css/criarAula.css}">
+    <link rel="stylesheet" href="/static/assets/css/criarAula.css">
 </head>
 <body>
-    <h1>Criar Aula</h1>
-    <div th:each="modulo : ${modulo}">
-        <form  th:action="@{/aula/adicionar}" th:object="${aula}" method="post">
-            <label>Indice da Aula:</label>
-            <input  type="number" name="indiceDaAula"> <br>
+    <div class="container" th:each="modulo : ${modulo}">
+        <form class="containerForm" th:action="@{/aula/adicionar}" th:object="${aula}" method="post">
             <label>Nome:</label>
             <input  type="text" name="nome"><br>
+
             <label>Descrição:</label>
-            <input  type="text" name="descricao"><br>
+            <textarea  type="text" name="descricao"></textarea>
+
             <label>Pdf:</label>
-            <input type="text" name="completoPdf" ><br>
+            <input type="text" name="completoPdf" >
+
             <label>Url Imagem:</label>
-            <input  type="text" name="imgVideo"><br>
+            <input  type="text" name="imgVideo">
+
             <label>Url Video:</label>
             <input  type="text" name="video"><br>
+
             <input type="hidden" name="moduloId" th:value="${modulo.id}">
+
             <input class="btnCriarAula" type="submit" value="Criar Aula">
         </form>
     </div>

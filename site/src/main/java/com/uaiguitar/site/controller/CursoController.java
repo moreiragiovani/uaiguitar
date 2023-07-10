@@ -26,9 +26,6 @@ public class CursoController {
     @GetMapping("/todos")
     public String findAlCursos(Model model) {
         model.addAttribute("cursos", cursoService.findAllCursos());
-//        if(usuarioController.logado().isAccountNonLocked()){
-//            return "redirect:/usuario/conta";
-//        }
         return "todos-os-cursos";
     }
 

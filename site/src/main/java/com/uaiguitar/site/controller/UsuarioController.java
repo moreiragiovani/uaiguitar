@@ -32,15 +32,16 @@ import com.uaiguitar.site.service.UsuarioService;
 public class UsuarioController {
 
     @Autowired
-    UsuarioService service;
+    CursoService cursoService;
 
+    @Autowired
+    UsuarioService service;
 
     public UsuarioDetails logado (){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String nomeUsuario = auth.getName();
         return service.findByUsername(nomeUsuario);
     }
-
 
     @GetMapping("/conta")
     public String usuarioLogado(){
@@ -79,10 +80,6 @@ public class UsuarioController {
         service.deleteUsuario(id);
     }
 
-//    ADICIONANCO CURSO COMPRADO.
-
-    @Autowired
-    CursoService cursoService;
     @PostMapping("/comprar")
     public String comprandoCurso(Curso curso, Model model) {
         HistoricoAula hist = new HistoricoAula();

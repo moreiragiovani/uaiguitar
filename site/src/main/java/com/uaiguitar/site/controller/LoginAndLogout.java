@@ -47,10 +47,4 @@ public class LoginAndLogout {
     public String cursoCompleto(){
         return "aula";
     }
-
-//    @GetMapping("/editar-conteudo")
-//    public String editarCoteudo(){
-//        return "editar-conteudo";
-//    }
-
 }

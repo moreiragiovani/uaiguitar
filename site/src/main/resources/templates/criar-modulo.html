@@ -4,26 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/assets/css/curso.css}">
-    <link rel="stylesheet" href="/site/src/main/resources/static/assets/css/curso.css">
+    <link rel="stylesheet" th:href="@{/assets/css/modulo.css}">
+    <link rel="stylesheet" href="/static/assets/css/modulo.css">
     <title>Modulo</title>
 </head>
 <body>
 
-    <h2>Hola mundo</h2>
     <div class="container" th:each="c : ${curso}">
         <form class="containerForm" id="containerForm" th:action="@{/modulo/adicionar}" method="post" th:object="${modulo}">
 
             <label>Nome do modulo</label>
             <input type="text" name="nome">
 
-            <label>Indice do modulo</label>
-            <input type="number" name="indiceModulo">
-
             <input type="hidden" name="cursoId" th:value="${curso.id}">
 
             <label>Descrição do modulo</label>
-            <input class="descricaoIn" type="text" placeholder="Descrição.." name="descricao">
+            <textarea class="descricaoIn" placeholder="Descrição..." name="descricao"></textarea>
 
             <input class="btnCriar" type="submit" value="Criar modulo">
 

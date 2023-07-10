@@ -54,6 +54,7 @@ public class ModuloController {
         for(Modulo m: curso.getModulo()){
             moduloList.add(m);
         }
+        modulo1.setIndiceModulo(curso.getModulo().size() + 1);
         Modulo m1 = moduloService.createModulo(modulo1);
         moduloList.add(modulo1);
         curso.setModulo(moduloList);

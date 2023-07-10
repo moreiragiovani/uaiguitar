@@ -43,16 +43,7 @@ public class AulaController {
     public String findByIdAula(@PathVariable(value = "id") UUID id, Model model){
         model.addAttribute("aula", aulaService.findByIdAula(id));
         return "aula";
-
     }
-
-//    @PostMapping("/adicionar")
-//    public String createAula(Aula aula){
-//        System.out.println(aula.getNome() + "!!!!!!!!!!!!!");
-////        aula.setCurso(cursoService.findBynome(aula.getCurso().getNome()));
-//        aulaService.createAula(aula);
-//        return "redirect:/criar-aula";
-//    }
 
     @PostMapping("/adicionar")
     public String createAula(Aula aula, Model model){
@@ -62,6 +53,7 @@ public class AulaController {
         for(Aula a: modulo.getAulas()){
             aulasList.add(a);
         }
+        aula1.setIndiceDaAula(modulo.getAulas().size() + 1);
         aula1.setCurso(cursoService.findByIdCurso(modulo.getCursoId()));
         aulasList.add(aula1);
         aulaService.createAula(aula1);
