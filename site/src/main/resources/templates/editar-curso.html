@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="/static/assets/css/editarCurso.css">
 </head>
 <body>
+<div class="containerLink">
+    <a class="linkMenu" th:href="@{/usuario/conta}">Minha Conta</a>
+    <a class="linkMenu" th:href="@{/logout}">Sair</a>
+</div>
 <div>
     <div class="container">
         <div class="containerCurso" th:each="curso : ${cursos}">

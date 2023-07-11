@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="/static/assets/css/todosOsCursos.css">
 </head>
 <body>
-  <div>
+    <div class="containerLink">
+        <a class="linkMenu" th:href="@{/usuario/conta}">Minha Conta</a>
+        <a class="linkMenu" th:href="@{/logout}">Sair</a>
+    </div>
+    <div>
     <div class="container">
       <div class="containerCurso" th:each="curso : ${cursos}">
         <h2 class="nomeCurso" th:text="${curso.nome}">curso</h2>
@@ -17,6 +21,6 @@
         </form>
       </div>
     </div>
-  </div>
+    </div>
 </body>
 </html>
