@@ -9,6 +9,9 @@
     <title>Modulo</title>
 </head>
 <body>
+    <div class="containerLink">
+        <a class="linkMenu" th:href="@{/curso/editar}">Cancelar</a>
+    </div>
 
     <div class="container" th:each="c : ${curso}">
         <form class="containerForm" id="containerForm" th:action="@{/modulo/adicionar}" method="post" th:object="${modulo}">

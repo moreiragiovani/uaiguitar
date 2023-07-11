@@ -64,13 +64,32 @@ public class AulaController {
         return "editar-conteudo";
     }
 
-    @PutMapping("/{id}")
-    public void updateAula(@PathVariable(value = "id") UUID id, Aula aula){
-        aulaService.updateAula(id, aula);
+    @PostMapping("/editar")
+    public String editarAula(Aula aula, Model model){
+        model.addAttribute("aula", aulaService.findByIdAula(aula.getId()));
+        return "editar-aula";
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteAula(@PathVariable(value = "id") UUID id){
-        aulaService.deleteAula(id);
+    @PostMapping("/update")
+    public String updateAula(Aula aula, Model model){
+        aulaService.updateAula(aula.getId(), aula);
+        model.addAttribute("curso", cursoService.findByIdCurso(aulaService.findByIdAula(aula.getId()).getCurso().getId()));
+        return "editar-conteudo";
+    }
+
+    @PostMapping("/apagar")
+    public String deleteAula(Aula aula, Model model){
+        Set<Aula> aulaSet = new HashSet<>();
+        model.addAttribute("curso", cursoService.findByIdCurso(aulaService.findByIdAula(aula.getId()).getCurso().getId()));
+        Modulo modulo = moduloService.findByIdModulo(aula.getModuloId());
+        for(Aula a: modulo.getAulas()){
+            if(!a.getId().equals(aula.getId())){
+                aulaSet.add(a);
+            }
+        }
+        modulo.setAulas(aulaSet);
+        moduloService.updateModulo(modulo.getId(), modulo);
+        aulaService.deleteAula(aula.getId());
+        return "editar-conteudo";
     }
 }

@@ -9,13 +9,27 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+.containerLink{
+    margin-top: 30px;
+    width: 80%;
+    display: flex;
+    justify-content: right;
+}
+.linkMenu{
+    padding: 10px 30px;
+    text-align: right;
+    margin-right: 20px;
+    background-color: #919191;
+    border-radius: 20px;
 }
 .container{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 900px;
-    width: 900px;
+    /*height: 900px;*/
+    width: 80%;
     margin: 0 20px;
 }
 .containerForm{
@@ -25,6 +39,7 @@ body{
     width: 100%;
 }
 input{
+    padding: 2px 10px;
     height: 35px;
     margin-bottom: 10px;
     border-radius: 10px;
@@ -34,6 +49,7 @@ label{
     margin-bottom: 10px;
 }
 textarea{
+    padding: 10px;
     height: 80px;
     margin-bottom: 10px;
     border-radius: 10px;

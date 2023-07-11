@@ -30,6 +30,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/login").permitAll()
+                                .requestMatchers("/editar-aula").permitAll()
                                 .requestMatchers("/curso/meus-cursos").hasRole("GRATIS")
                                 .requestMatchers("/usuario/conta").permitAll()
                                 .requestMatchers("/usuario/comprar").permitAll()

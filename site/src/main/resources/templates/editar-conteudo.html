@@ -7,42 +7,46 @@
     <title>Editar Curso</title>
 </head>
 <body>
+
+    <div class="containerLink">
+        <a class="linkMenu" th:href="@{/usuario/conta}">Minha Conta</a>
+    </div>
     <div class="container" th:each="curso : ${curso}">
         <div class="containerConteudo">
-            <h2 th:text="${curso.nome}"></h2>
-            <button class="criarModulo" id="criarModulo">Criar Modulo</button>
-            <form class="containerForm" id="containerForm" th:action="@{/curso/cria/modulo}" method="post" th:object="${curso}">
+            <h2 class="nomeCurso" th:text="${curso.nome}">Nome do Curso</h2>
 
-<!--                <label>Nome do modulo</label>-->
-<!--                <input type="text" name="nome">-->
-
-<!--                <label>Indice do modulo</label>-->
-<!--                <input type="number" name="indiceModulo">-->
-
-
-<!--                <label>Descrição do modulo</label>-->
-<!--                <input class="descricaoIn" type="text" placeholder="Descrição.." name="descricao">-->
-
+            <form class="containerFormModulo" th:action="@{/curso/cria/modulo}" method="post" th:object="${curso}">
                 <input type="hidden" name="id" th:value="${curso.id}">
-                <input class="btnCriar" type="submit" value="Criar modulo">
-
+                <input class="btnCriarModulo" type="submit" value="Novo Módulo">
             </form>
+
             <div class="containerCriaAula" th:each="modulo : ${#lists.sort(curso.modulo)}">
 
-                <h2 th:text="${modulo.nome}"></h2>
+                <h2 class="nomeModulo" th:text="${modulo.nome}">Modulo 1</h2>
 
                 <div class="containerAulas" th:each="aula : ${#lists.sort(modulo.aulas)}">
-                    <span th:text="${aula.nome}"></span>
+                    <span th:text="${aula.nome}">Aula 1</span>
+                    <div class="containerEditarCancelar">
+                        <form th:action="@{/aula/apagar}" th:object="${aula}" method="post">
+                            <input type="hidden" name="id" th:value="${aula.id}">
+                            <input type="hidden" name="moduloId" th:value="${aula.moduloId}">
+                            <input class="btnEd" type="submit" value="Apagar">
+                        </form>
 
+                        <form th:action="@{/aula/editar}" th:object="${aula}" method="post">
+                            <input type="hidden" name="id" th:value="${aula.id}">
+                            <input type="hidden" name="moduloId" th:value="${aula.moduloId}">
+                            <input class="btnEd" type="submit" value="Editar">
+                        </form>
+                    </div>
                 </div>
-                    <form th:action="@{/modulo/cria/aula}" th:object="${modulo}" method="post">
-                        <input type="hidden" name="id" th:value="${modulo.id}">
-                        <input type="submit" value="Criar Aula">
-                    </form>
+
+                <form class="novaAula" th:action="@{/modulo/cria/aula}" th:object="${modulo}" method="post">
+                    <input type="hidden" name="id" th:value="${modulo.id}">
+                    <input class="btnCriarAula" type="submit" value="Nova Aula">
+                </form>
             </div>
         </div>
     </div>
-    <script type="text/javascript"  th:src="@{/assets/js/editarConteudo.js}"></script>
-    <script src="/static/assets/js/editarConteudo.js" type="text/javascript" ></script>
 </body>
 </html>

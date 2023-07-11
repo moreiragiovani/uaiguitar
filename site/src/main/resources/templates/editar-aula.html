@@ -12,14 +12,15 @@
         <a class="linkMenu" th:href="@{/curso/editar}">Cancelar</a>
     </div>
 
-    <div class="container" th:each="modulo : ${modulo}">
+    <div class="container" th:each="aula : ${aula}">
+        <form class="containerForm" th:action="@{/aula/update}" th:object="${aula}" method="post">
+            <input  type="hidden" name="id" th:value="${aula.id}">
 
-        <form class="containerForm" th:action="@{/aula/adicionar}" th:object="${aula}" method="post">
             <label>Nome:</label>
-            <input  type="text" name="nome"><br>
+            <input  type="text" name="nome" th:placeholder="${aula.nome}">
 
             <label>Descrição:</label>
-            <textarea  type="text" name="descricao"></textarea>
+            <textarea  type="text" name="descricao" th:text="${aula.descricao}"></textarea>
 
             <label>Pdf:</label>
             <input type="text" name="completoPdf" >
@@ -28,11 +29,11 @@
             <input  type="text" name="imgVideo">
 
             <label>Url Video:</label>
-            <input  type="text" name="video"><br>
+            <input  type="text" name="video">
 
-            <input type="hidden" name="moduloId" th:value="${modulo.id}">
+            <input type="hidden" name="moduloId" th:value="${aula.moduloId}">
 
-            <input class="btnCriarAula" type="submit" value="Criar Aula">
+            <input class="btnCriarAula" type="submit" value="Editar Aula">
         </form>
     </div>
 
