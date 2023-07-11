@@ -37,6 +37,9 @@ public class UsuarioController {
     @Autowired
     UsuarioService service;
 
+    @Autowired
+    HistoricoAulaService historicoAulaService;
+
     public UsuarioDetails logado (){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String nomeUsuario = auth.getName();
@@ -87,17 +90,40 @@ public class UsuarioController {
             return "redirect:formulario";
         }
         Curso c1 = cursoService.findByIdCurso(curso.getId());
+        int n = 1000;
+        for(Modulo m: c1.getModulo()){
+            if(m.getIndiceModulo() < n){
+                n = m.getIndiceModulo();
+            }
+        }
+
+        int p = 1000;
         for(Modulo m : c1.getModulo()){
-            if(m.getIndiceModulo().equals(1)){
+            if(m.getIndiceModulo().equals(n)){
                 for(Aula a : m.getAulas()){
-                    if(a.getIndiceDaAula().equals(1)){
+                    if(a.getIndiceDaAula() < p){
+                        p = a.getIndiceDaAula();
+                    }
+                }
+            }
+        }
+        System.out.printf("--------------------------- "+n + " " + p);
+        for(Modulo m : c1.getModulo()){
+            if(m.getIndiceModulo() == n){
+                System.out.printf("----------------------------------------------- "+n);
+                for(Aula a : m.getAulas()){
+                    if(a.getIndiceDaAula() == p){
+                        System.out.printf("------------------------->>>>>>>>>>>>>>>>. " + p);
                         hist.setAulaHistorico(a.getId().toString());
-                        hist.setCursoHistorico(curso.getId().toString());
+                        hist.setCursoHistorico(c1.getId().toString());
+                        hist.setNomeCurso(c1.getNome());
+                        hist.setNomeAula(a.getNome());
                     }
                 }
             }
         }
         service.cursoComprado(logado().getId(), c1);
+        service.historicoAulaAtualizado(logado().getId(), historicoAulaService.criarHistorico(hist));
         return "redirect:/aula/"+hist.getAulaHistorico();
     }
 

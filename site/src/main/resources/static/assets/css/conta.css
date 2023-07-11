@@ -43,10 +43,11 @@ body{
     margin-top: 10px;
 }
 .ContainerConteudo{
-    height: 70.5vh;
+    /*height: 70.5vh;*/
+    margin-bottom: 20px;
 
 }
-.ContainerConteudo h3{
+.tituloCurso{
     text-align: center;
     font-size: 28px;
     margin-bottom: 20px;

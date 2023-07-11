@@ -132,6 +132,7 @@ public class UsuarioService{
     }
 
     public void historicoAulaAtualizado(UUID id, HistoricoAula historicoAula){
+        System.out.printf("----------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>.historccco "+ historicoAula.getId());
         Set<HistoricoAula> hList = new HashSet<>();
         Usuario usuario = usuarioRepository.findById(id).get();
         hList.add(historicoAula);
