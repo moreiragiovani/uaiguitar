@@ -12,11 +12,19 @@
     <div class="container">
         <form class="formulario" th:action="@{/process-login}" method="post">
             <label for="username">Nome de Usuario</label>
-            <input type="text" id="username" name="username" autofocus="autofocus"/>
+            <input type="text" id="username" name="username" autocomplete="none"/>
             <label for="password">Senha</label>
             <input type="password" id="password" name="senha" />
             <input class="btnEntrar" type="submit" value="Log in" />
         </form>
+        <span>ou</span>
+        <form class="formulario" th:action="@{/process-login}" method="post">
+            <input type="hidden" id="username" name="username" th:value="${recrutador}"/>
+            <input type="hidden" id="password" name="senha" th:value="${recrutador123}"/>
+            <input class="btnEntrar2" type="submit" value="Recrutador" />
+        </form>
+
+        <a th:href="@{/formulario}" class="linkCriaConta">Criar Uma Conta</a>
     </div>
 </body>
 </html>

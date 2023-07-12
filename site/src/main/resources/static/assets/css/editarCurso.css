@@ -9,18 +9,17 @@ body{
     height: 100vh;
     display: flex;
     flex-direction: column;
-    /*justify-content: center;*/
     width: 100vw;
 }
 .containerLink{
     margin-top: 30px;
-    width: 80%;
+    width: 90%;
     display: flex;
     justify-content: right;
 }
 .linkMenu{
     padding: 10px 30px;
-    text-align: right;
+    text-align: center;
     margin-right: 20px;
     background-color: #919191;
     border-radius: 20px;
@@ -64,4 +63,47 @@ body{
     border-radius: 10px;
     background-color: #2c2c2c;
     color: #ababab;
+}
+@media(max-width: 600px){
+    .linkMenu{
+        padding: 7px 23px;
+    }
+    .containerCurso{
+        height: 150px;
+        width: 50%;
+    }
+    .nomeCurso{
+        font-size: 17px;
+    }
+    .containerForm{
+        font-size: 14px;
+    }
+    .btn{
+        height: 30px;
+        width: 100px;
+
+    }
+}@media(max-width: 400px){
+    .containerLink{
+        align-items: center;
+        justify-content: center;
+    }
+    .linkMenu{
+        padding: 5px 18px;
+    }
+    .containerCurso{
+        height: 120px;
+        width: 50%;
+    }
+    .nomeCurso{
+        font-size: 15px;
+    }
+    .containerForm{
+        font-size: 12px;
+    }
+    .btn{
+        height: 25px;
+        width: 90px;
+
+    }
 }

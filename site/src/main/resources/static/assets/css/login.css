@@ -10,20 +10,27 @@
 }
 
 body{
+    background-color: #919191;
     height: 100vh;
     display: flex;
     justify-content: center;
+    margin: auto 0;
     align-items: center;
 }
 .container{
     margin: 20px;
-    height: 400px;
+    height: 430px;
     width: 400px;
     background-color: #4b4b4b;
     border-radius: 20px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+.linkCriaConta:hover{
+    color: gray;
+    cursor: pointer;
 }
 .formulario{
     margin: 20px;
@@ -34,12 +41,14 @@ label{
     margin: 10px 0px;
 }
 input{
+    padding: 0 10px;
     background-color: #7c7c7c;
     border: none;
     border-radius: 8px;
     height: 30px;
     width: 280px;
-
+    cursor: pointer;
+    color: #cbcbcb;
 }
 
 .btnEntrar{
@@ -53,7 +62,22 @@ input{
     text-align: center;
 
 }
+.btnEntrar2{
+    margin: auto;
+    /*margin-top: 20px;*/
+    height: 40px;
+    width: 150px;
+    border-radius: 15px;
+    border: none;
+    background-color: #252525;
+    text-align: center;
+
+}
 .btnEntrar:hover{
+    background-color: #919191;
+    color: #252525;
+
+}.btnEntrar2:hover{
     background-color: #919191;
     color: #252525;
 
@@ -62,7 +86,7 @@ input{
 @media (max-width: 358px) {
     .container{
         margin: 20px;
-        height: 300px;
+        height: 370px;
         width: 300px;
 
     }
@@ -74,9 +98,8 @@ input{
 @media (max-width: 258px) {
     .container{
         margin: 15px;
-        height: 250px;
+        height: 350px;
         width: 220px;
-
     }
     input{
 

@@ -12,7 +12,7 @@
         <div class="containerLink">
             <a class="linkMenu" th:href="@{/usuario/conta}">Cancelar</a>
         </div>
-        <main class="container">
+        <div class="container">
            <form class="cursoForm" id="cursoForm" th:action="@{/curso}" method="post" th:object="${curso}">
 
                <label>Nome do curso</label>
@@ -29,6 +29,6 @@
 
                <input class="btnCriar" type="submit" value="Criar curso">
            </form>
-        </main>
-        </body>
+        </div>
+</body>
 </html>

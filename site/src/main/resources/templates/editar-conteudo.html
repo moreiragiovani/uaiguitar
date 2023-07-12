@@ -2,6 +2,8 @@
 <html lang="pt-br" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/assets/css/editarConteudo.css}">
     <link rel="stylesheet" href="/site/src/main/resources/static/assets/css/editarConteudo.css">
     <title>Editar Curso</title>
@@ -25,7 +27,7 @@
                 <h2 class="nomeModulo" th:text="${modulo.nome}">Modulo 1</h2>
 
                 <div class="containerAulas" th:each="aula : ${#lists.sort(modulo.aulas)}">
-                    <span th:text="${aula.nome}">Aula 1</span>
+                    <span class="aulaNome" th:text="${aula.nome}">Aula 1</span>
                     <div class="containerEditarCancelar">
                         <form th:action="@{/aula/apagar}" th:object="${aula}" method="post">
                             <input type="hidden" name="id" th:value="${aula.id}">

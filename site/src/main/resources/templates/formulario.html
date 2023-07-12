@@ -13,15 +13,16 @@
     <div class="container">
         <form class="formulario" th:action="@{/usuario/criar}" th:object="${Usuario}" method="post">
             <label>Nome usuario</label>
-            <input type="text" placeholder="Nome de Usuario" name="username">
+            <input type="text" placeholder="Nome de Usuario" name="username" autocomplete="none">
             <label>Nome Completo</label>
-            <input type="text" placeholder="Nome" name="nomeCompleto">
+            <input type="text" placeholder="Nome" name="nomeCompleto" autocomplete="none">
             <label>Email</label>
-            <input type="text" placeholder="Email" name="email">
+            <input type="text" placeholder="Email" name="email" autocomplete="none">
             <label>Senha</label>
             <input type="password" placeholder="Senha" name="senha">
-            <input class="btnEntrar" type="submit" value="Inscrever">
+            <input class="btnEntrar" type="submit" value="Criar Conta">
         </form>
+        <a th:href="@{/login}" class="linkCriaConta">Já tenho uma Conta!</a>
         <span th:text="${mensagem}"></span>
     </div>
     
