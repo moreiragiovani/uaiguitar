@@ -16,9 +16,9 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
-	<session-config>
+<!-- 	<session-config>
      <tracking-mode>COOKIE</tracking-mode>
-	</session-config>
+	</session-config> -->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
