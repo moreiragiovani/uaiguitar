@@ -39,6 +39,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/criar-modulo").permitAll()
                                 .requestMatchers("/criar-aula").permitAll()
                                 .requestMatchers("/editar-conteudo").permitAll()
+                                .requestMatchers("/editar-modulo").permitAll()
 
 
                                 .requestMatchers("/curso/todos").permitAll()
@@ -48,6 +49,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/aula/adicionar").permitAll()
                                 .requestMatchers("/curso/aula").permitAll()
                                 .requestMatchers("/modulo/**").permitAll()
+                                .requestMatchers("/modulo/update").permitAll()
 
 
 

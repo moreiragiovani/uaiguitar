@@ -23,6 +23,7 @@ body{
     text-align: center;
     background-color: #919191;
     border-radius: 20px;
+    color: #efefef;
 }
 .container{
     position: relative;
@@ -56,6 +57,7 @@ body{
     font-size: 20px;
     text-transform: uppercase;
     padding: 22px 0;
+    color: #800000;
 }
 @media (max-width: 620px){
     .containerMain h1{

@@ -10,6 +10,7 @@ body{
     /*width: 100vw;*/
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 .containerMenu{
@@ -33,6 +34,7 @@ body{
     margin-left: 20px;
     text-align: center;
     text-decoration: none;
+    color: #252525;
 }
 .linkMenu:hover{
     font-size: 22px;
@@ -65,29 +67,13 @@ body{
     display: none;
     align-items: center;
     flex-direction: column;
-    width: 250px;
+    width: 200px;
     height: 75vh;
     overflow: auto;
     border-right: 1px solid black;
     /*transition: left 300ms ease-in-out;*/
 }
-.svgAbrir{
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    left: 25px;
-    top: 10px;
-    cursor: pointer;
-}
-.svgFechar{
-    display: none;
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    left: 25px;
-    top: 10px;
-    cursor: pointer;
-}
+
 .containerBtnSvg{
     display: flex;
     align-items: center;
@@ -107,31 +93,47 @@ body{
     cursor: pointer;
 }
 .containerConteudo{
-    /*position: relative;*/
+    position: relative;
     width: 100%;
-    height: 85vh;
+    /*height: 60vh;*/
     display: flex;
     flex-direction: column;
     align-items: center;
     /*overflow: auto;*/
 }
+.svgAbrir{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 25px;
+    top: 10px;
+    cursor: pointer;
+}
+.svgFechar{
+    display: none;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 25px;
+    top: 10px;
+    cursor: pointer;
+}
 .containerCurso1{
     padding: 5px 20px;
 }
 .nomeModulo{
-    /*width: 80%;*/
     border-bottom: 1px solid #4b4b4b;
     margin-bottom: 10px;
     padding-bottom: 5px;
     cursor: pointer;
     text-transform: capitalize;
-    font-size: 20px;
+    font-size: 18px;
 }
-.nomeModulo:hover{
-    color: #00147c;
-    font-size: 22px;
-    margin-bottom: 15px;
-}
+/*.nomeModulo:hover{*/
+/*    color: #00147c;*/
+/*    font-size: 22px;*/
+/*    margin-bottom: 15px;*/
+/*}*/
 .aula{
     display: none;
 }
@@ -145,8 +147,8 @@ body{
     text-align: left;
 }
 .btnNomeAula:hover{
-    color: #00147c;
-    font-size: 18px;
+    color: #252525;
+    font-size: 17px;
 }
 
 .containerConteudo h4{
@@ -156,7 +158,7 @@ body{
     padding: 30px;
 }
 .containerVideo{
-    width: 60vw;
+    width: 60%;
 
 }
 .containerVideo div{
@@ -191,13 +193,28 @@ body{
 }
 
 @media (max-width: 850px) {
+    .linkMenu{
+        color: #cbcbcb;
+    }
     .containerMenu{
         width: 100vw;
-        /*align-items: center;*/
     }
     .logo{
         font-size: 25px;
         margin-left: 20px;
+    }
+    .btnLogout{
+        font-size: 18px;
+        padding: 6px 12px;
+        border-radius: 18px;
+    }
+    .svgAbrirMenu{
+        width: 27px;
+        height: 27px;
+    }
+    .svgFecharMenu{
+        width: 27px;
+        height: 27px;
     }
     .containerBtnSvg{
         margin-right: 20px;
@@ -224,16 +241,27 @@ body{
         background-color: #2c2c2c;
         border-left: 1px solid black;
     }
+    .containerConteudo{
+        align-items: center;
+        /*justify-content: center;*/
+        height: 75vh;
+    }
     .containerConteudo h4{
-        font-size: 30px;
+        font-size: 20px;
     }
     .svgAbrirMenu{
         display: block;
     }
-
+    .nomeModulo{
+        font-size: 16px;
+    }
+    .btnNomeAula{
+        font-size: 16px;
+    }
 
 }
-@media (max-width: 350px) {
+@media (max-width: 400px) {
+
     .logo{
         font-size: 20px;
     }
@@ -241,15 +269,54 @@ body{
         gap: 10px;
     }
     .btnLogout{
+        font-size: 15px;
+        padding: 4px 10px;
+        border-radius: 15px;
+    }
+    .svgAbrirMenu{
+        width: 24px;
+        height: 24px;
+    }
+    .svgFecharMenu{
+        width: 24px;
+        height: 24px;
+    }
+    .btnLogout{
         font-size: 10px;
     }
-    .containerConteudo h4{
-        font-size: 25px;
-    }
-}
-@media (max-width: 350px) {
+    .svgAbrir{
+        width: 25px;
+        height: 25px;
 
+    }
+    .svgFechar{
+        display: none;
+        width: 25px;
+        height: 25px;
+        position: relative;
+        left: -40px;
+        /*top: 10px;*/
+    }
+    .containerConteudo{
+        align-items: center;
+        /*justify-content: center;*/
+        height: 75vh;
+    }
+    .containerVideo{
+        width: 70%;
+
+    }
     .containerConteudo h4{
         font-size: 20px;
+    }
+
+    .direitos{
+        font-size: 13px;
+    }
+    .nomeModulo{
+        font-size: 14px;
+    }
+    .btnNomeAula{
+        font-size: 14px;
     }
 }

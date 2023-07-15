@@ -24,7 +24,15 @@
 
             <div class="containerCriaAula" th:each="modulo : ${#lists.sort(curso.modulo)}">
 
-                <h2 class="nomeModulo" th:text="${modulo.nome}">Modulo 1</h2>
+                <div>
+                    <h2 class="nomeModulo" th:text="${modulo.nome}">Modulo 1</h2>
+                    <div class="containerEditarCancelar">
+                        <form th:action="@{/modulo/editar}" th:object="${modulo}" method="post">
+                            <input type="hidden" name="id" th:value="${modulo.id}">
+                            <input class="btnEd" type="submit" value="Editar">
+                        </form>
+                    </div>
+                </div>
 
                 <div class="containerAulas" th:each="aula : ${#lists.sort(modulo.aulas)}">
                     <span class="aulaNome" th:text="${aula.nome}">Aula 1</span>

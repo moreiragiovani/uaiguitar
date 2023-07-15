@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/assets/css/modulo.css}">
+    <link rel="stylesheet" href="/static/assets/css/modulo.css">
+    <title>Modulo</title>
+</head>
+<body>
+    <div class="containerLink">
+        <a class="linkMenu" th:href="@{/curso/editar}">Cancelar</a>
+    </div>
+
+    <div class="container" th:each="modulo : ${modulo}">
+        <form class="containerForm" id="containerForm" th:action="@{/modulo/update}" method="post" th:object="${modulo}">
+
+            <input type="hidden" name="id" th:value="${modulo.id}">
+            <label>Nome do modulo</label>
+            <input type="text" name="nome" th:placeholder="${modulo.nome}">
+
+            <input type="hidden" name="cursoId" th:value="${modulo.cursoId}">
+
+            <label>Descrição do modulo</label>
+            <textarea class="descricaoIn" th:placeholder="${modulo.descricao}" name="descricao"></textarea>
+
+            <input class="btnCriar" type="submit" value="Editar Modulo">
+
+        </form>
+    </div>
+</body>
+</html>

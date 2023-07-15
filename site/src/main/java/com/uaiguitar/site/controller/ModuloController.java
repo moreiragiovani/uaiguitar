@@ -2,6 +2,7 @@ package com.uaiguitar.site.controller;
 
 import java.util.*;
 
+import com.uaiguitar.site.entidades.Aula;
 import com.uaiguitar.site.entidades.Curso;
 import com.uaiguitar.site.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,13 +70,22 @@ public class ModuloController {
         return "criar-aula";
     }
 
-    @PutMapping("/{id}")
-    public void updateModulo(@PathVariable(value = "id") UUID id, Modulo modulo){
-        moduloService.updateModulo(id, modulo);
-    }
+    @PostMapping("/update")
+    public String updateModulo(Modulo modulo, Model model){
+        Modulo m = moduloService.findByIdModulo(modulo.getId());
+        m.setNome(modulo.getNome());
+        m.setDescricao(modulo.getDescricao());
+        moduloService.updateModulo(m.getId(), m);
+        model.addAttribute("cursos", cursoService.findAllCursos());
+        return "editar-curso";    }
 
-    @DeleteMapping("/{id}")
-    public void deleteModulo(@PathVariable(value = "id") UUID id){
-        moduloService.deleteModulo(id);
+    @PostMapping("/editar")
+    public String editarAula(Modulo modulo, Model model){
+        model.addAttribute("modulo", moduloService.findByIdModulo(modulo.getId()));
+        return "editar-modulo";
+    }
+    @DeleteMapping("/apagar")
+    public void deleteModulo(Modulo m){
+        moduloService.deleteModulo(m.getId());
     }
 }

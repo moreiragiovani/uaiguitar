@@ -29,7 +29,7 @@
         <aside id="sideBar" class="sideBar">
             <div class="ContainerCurso" th:each="curso : ${aula.curso}">
                 <div class="containerCurso1" th:each="modulo : ${#lists.sort(curso.modulo)}">
-                    <h3 class="nomeModulo" th:text="${modulo.nome}"></h3>
+                    <h3 class="nomeModulo" th:text="${modulo.nome}">modulo</h3>
                     <div class="aula" th:each="aula : ${#lists.sort(modulo.aulas)}">
                         <form th:action="@{/historico}" th:object="${historicoAula}" method="post">
                             <input type="hidden" name="nomeAula" th:value="${aula.nome}">

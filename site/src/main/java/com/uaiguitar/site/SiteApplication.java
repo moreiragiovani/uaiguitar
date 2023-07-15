@@ -14,7 +14,6 @@ public class SiteApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SiteApplication.class, args);
-		System.out.println(" --->>> Senha: " + new BCryptPasswordEncoder().encode("123"));
 	}
 
 }
