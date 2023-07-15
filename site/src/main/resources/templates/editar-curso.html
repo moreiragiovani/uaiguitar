@@ -4,25 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todos os Cursos</title>
-    <link rel="stylesheet" th:href="@{/assets/css/editarCurso.css}">
-    <link rel="stylesheet" href="/static/assets/css/editarCurso.css">
+    <link rel="stylesheet" th:href="@{/assets/css/curso.css}">
+    <link rel="stylesheet" href="/site/src/main/resources/static/assets/css/curso.css">
+    <title>Editar Curso</title>
 </head>
 <body>
-<div class="containerLink">
-    <a class="linkMenu" th:href="@{/usuario/conta}">Minha Conta</a>
-    <a class="linkMenu" th:href="@{/logout}">Sair</a>
-</div>
-<div>
-    <div class="container">
-        <div class="containerCurso" th:each="curso : ${cursos}">
-            <h2 class="nomeCurso" th:text="${curso.nome}">curso</h2>
-            <form class="containerForm" th:action="@{/curso/criar/conteudo}" th:object="${curso}" method="post">
-                <input type="hidden" name="id" th:value="${curso.id}">
-                <input class="btn" type="submit" value="Editar curso">
-            </form>
+        <div class="containerLink" th:each="curso : ${curso}">
+<!--            <form class="excluirCurso" th:action="@{/curso/deletar}" method="post" th:object="${curso}">-->
+<!--                <input type="hidden" name="id" th:value="${curso.id}">-->
+<!--                <input type="submit" value="Excluir Curso">-->
+<!--            </form>-->
+            <a class="linkMenu" th:href="@{/usuario/conta}">Cancelar</a>
         </div>
-    </div>
-</div>
+        <div class="container" th:each="curso : ${curso}">
+           <form class="cursoForm" id="cursoForm" th:action="@{/curso/update}" method="post" th:object="${curso}">
+
+               <input type="hidden" name="id" th:value="${curso.id}">
+               <label>Nome do curso</label>
+               <input type="text" name="nome" th:placeholder="${curso.nome}">
+
+               <label>Descrição do curso</label>
+               <textarea class="descricaoIn"  cols="30" rows="10" th:placeholder="${curso.descricao}" name="descricao"></textarea>
+
+               <label>Capa</label>
+               <input class="file" type="file" name="imagem">
+
+               <label>URL do video de apresentação</label>
+               <input type="url" name="videoApresentacao" th:placeholder="${curso.videoApresentacao}">
+
+               <input class="btnCriar" type="submit" value="Editar Curso">
+           </form>
+        </div>
 </body>
 </html>

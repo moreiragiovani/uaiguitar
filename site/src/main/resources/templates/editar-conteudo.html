@@ -15,7 +15,13 @@
     </div>
     <div class="container" th:each="curso : ${curso}">
         <div class="containerConteudo">
-            <h2 class="nomeCurso" th:text="${curso.nome}">Nome do Curso</h2>
+            <div class="containerEditarCurso">
+                <h2 class="nomeCurso" th:text="${curso.nome}">Nome do Curso</h2>
+                <form th:action="@{/curso/editar}" th:object="${curso}" method="post">
+                    <input type="hidden" name="id" th:value="${curso.id}">
+                    <input class="btnEd" type="submit" value="Editar">
+                </form>
+            </div>
 
             <form class="containerFormModulo" th:action="@{/curso/cria/modulo}" method="post" th:object="${curso}">
                 <input type="hidden" name="id" th:value="${curso.id}">
@@ -24,19 +30,17 @@
 
             <div class="containerCriaAula" th:each="modulo : ${#lists.sort(curso.modulo)}">
 
-                <div>
+                <div class="containerEditarCancelar">
                     <h2 class="nomeModulo" th:text="${modulo.nome}">Modulo 1</h2>
-                    <div class="containerEditarCancelar">
-                        <form th:action="@{/modulo/editar}" th:object="${modulo}" method="post">
-                            <input type="hidden" name="id" th:value="${modulo.id}">
-                            <input class="btnEd" type="submit" value="Editar">
-                        </form>
-                    </div>
+                    <form th:action="@{/modulo/editar}" th:object="${modulo}" method="post">
+                        <input type="hidden" name="id" th:value="${modulo.id}">
+                        <input class="btnEd" type="submit" value="Editar">
+                    </form>
                 </div>
 
                 <div class="containerAulas" th:each="aula : ${#lists.sort(modulo.aulas)}">
                     <span class="aulaNome" th:text="${aula.nome}">Aula 1</span>
-                    <div class="containerEditarCancelar">
+                    <div class="containerEditarCancelarAula">
                         <form th:action="@{/aula/apagar}" th:object="${aula}" method="post">
                             <input type="hidden" name="id" th:value="${aula.id}">
                             <input type="hidden" name="moduloId" th:value="${aula.moduloId}">

@@ -76,8 +76,8 @@ public class ModuloController {
         m.setNome(modulo.getNome());
         m.setDescricao(modulo.getDescricao());
         moduloService.updateModulo(m.getId(), m);
-        model.addAttribute("cursos", cursoService.findAllCursos());
-        return "editar-curso";    }
+        model.addAttribute("curso", cursoService.findByIdCurso(m.getCursoId()));
+        return "editar-conteudo";    }
 
     @PostMapping("/editar")
     public String editarAula(Modulo modulo, Model model){

@@ -17,6 +17,23 @@ body{
     width: 80%;
     display: flex;
     justify-content: right;
+    gap: 30px;
+    align-items: center;
+}
+.excluirCurso{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.excluirCurso input{
+    height: 40px;
+    width: 150px;
+    border: none;
+    background: none;
+    text-align: center;
+    margin: auto;
+    color: red;
+    font-size: 18px;
 }
 .linkMenu{
     padding: 10px 30px;

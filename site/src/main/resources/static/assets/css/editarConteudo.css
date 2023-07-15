@@ -29,12 +29,13 @@ body{
 .container{
     width: 90%;
     display: flex;
-    /*justify-content: center;*/
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     margin-bottom: 30px;
 }
 .containerConteudo{
+    align-items: center;
     width: 100%;
 }
 .nomeCurso{
@@ -73,9 +74,24 @@ body{
     display: flex;
     justify-content: space-between;
 }
+.containerEditarCurso{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
 .containerEditarCancelar{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.containerEditarCancelarAula{
     width: 40%;
     display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 .btnEd{
