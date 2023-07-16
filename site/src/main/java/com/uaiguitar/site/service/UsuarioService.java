@@ -25,6 +25,9 @@ public class UsuarioService{
     @Autowired
     CursoService cursoService;
 
+    @Autowired
+    HistoricoAulaService historicoAulaService;
+
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
@@ -96,18 +99,20 @@ public class UsuarioService{
     }
 
 //    CURSOS COMPRADAS ADD.
-    public void cursoComprado(UUID id, Curso curso1){
+    public void cursoComprado(UUID id, Curso curso1, HistoricoAula historico){
         Curso curso = cursoService.findByIdCurso(curso1.getId());
         Usuario usuario = usuarioRepository.findById(id).get();
         CursoComprado cursoComprado = new CursoComprado();
-        cursoComprado.setCursoComprado(curso);
+        cursoComprado.setCursoCompradoId(curso.getId().toString());
         Set<CursoComprado> listC = new HashSet<>();
+        Set<HistoricoAula> listHistorico = new HashSet<>();
+
         int temp = 0;
 
         if(!usuario.getCursosComprados().isEmpty()){
             for(CursoComprado c : usuario.getCursosComprados()){
-                if(c.getCursoComprado().getId().equals(curso.getId())){
-                    c.setCursoComprado(curso);
+                if(c.getCursoCompradoId().equals(curso.getId().toString())){
+                    c.setCursoCompradoId(curso.getId().toString());
                     cursoCompradoController.createCursoComprado(c);
                     temp = 1;
                 }
@@ -122,17 +127,32 @@ public class UsuarioService{
                 usuario.setCursosComprados(listC);
                 usuarioRepository.save(usuario);
             }
+            for (HistoricoAula h: usuario.getHistoricoAula()){
+                if(h.getCursoHistorico().equals(historico.getCursoHistorico())){
+                    h.setAulaHistorico(historico.getAulaHistorico());
+                    h.setNomeAula(historico.getNomeAula());
+                    historicoAulaService.criarHistorico(h);
+                }
+                else {
+                    historicoAulaService.criarHistorico(historico);
+                }
+            }
 
         }else {
             CursoComprado cP = cursoCompradoController.createCursoComprado(cursoComprado);
             listC.add(cP);
+
+            for (HistoricoAula a: usuarioRepository.findById(usuario.getId()).get().getHistoricoAula()){
+                listHistorico.add(a);
+            }
+            listHistorico.add(historicoAulaService.criarHistorico(historico));
+            usuario.setHistoricoAula(listHistorico);
             usuario.setCursosComprados(listC);
             usuarioRepository.save(usuario);
         }
     }
 
     public void historicoAulaAtualizado(UUID id, HistoricoAula historicoAula){
-        System.out.printf("----------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>.historccco "+ historicoAula.getId());
         Set<HistoricoAula> hList = new HashSet<>();
         Usuario usuario = usuarioRepository.findById(id).get();
         hList.add(historicoAula);

@@ -10,10 +10,10 @@
 </head>
 <body>
         <div class="containerLink" th:each="curso : ${curso}">
-<!--            <form class="excluirCurso" th:action="@{/curso/deletar}" method="post" th:object="${curso}">-->
-<!--                <input type="hidden" name="id" th:value="${curso.id}">-->
-<!--                <input type="submit" value="Excluir Curso">-->
-<!--            </form>-->
+            <form class="excluirCurso" th:action="@{/curso/deletar}" method="post" th:object="${curso}">
+                <input type="hidden" name="id" th:value="${curso.id}">
+                <input type="submit" value="Excluir Curso">
+            </form>
             <a class="linkMenu" th:href="@{/usuario/conta}">Cancelar</a>
         </div>
         <div class="container" th:each="curso : ${curso}">

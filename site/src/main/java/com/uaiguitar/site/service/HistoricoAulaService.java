@@ -15,10 +15,16 @@ public class HistoricoAulaService {
     @Autowired
     HistoricoAulaRepository repository;
 
-    public HistoricoAula criarHistorico(HistoricoAula historicoAula){return repository.save(historicoAula);}
+    public HistoricoAula criarHistorico(HistoricoAula historicoAula){
+        return repository.save(historicoAula);
+    }
 
     public List<HistoricoAula> findAllHistorico (){
         return repository.findAll();
+    }
+
+    public  HistoricoAula findByIdHistorico(UUID id){
+        return repository.findById(id).get();
     }
     public void deleteById(UUID id){repository.deleteById(id);}
 }

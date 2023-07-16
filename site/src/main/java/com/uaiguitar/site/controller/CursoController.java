@@ -66,8 +66,10 @@ public class CursoController {
         return "editar-curso";
     }
     @PostMapping("/deletar")
-    public String deleteCurso(Curso curso){
-
+    public String deleteCurso(Curso curso, Model model){
+        Usuario usuario = usuarioController.findByIdUsuario(usuarioController.logado().getId());
+        cursoService.deleteCurso(curso.getId(), usuario.getId());
+        model.addAttribute("usuario", usuario);
         return "minha-conta";
     }
 

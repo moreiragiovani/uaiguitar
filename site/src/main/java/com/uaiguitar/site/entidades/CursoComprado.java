@@ -16,15 +16,13 @@ public class CursoComprado implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @OneToOne
-    @JoinTable(name = "tb_comprados_id_curso")
-    private Curso cursoComprado;
+    private String cursoCompradoId;
 
     public CursoComprado(){}
 
-    public CursoComprado(UUID id, Curso cursoComprado) {
+    public CursoComprado(UUID id, String cursoCompradoId) {
         this.id = id;
-        this.cursoComprado = cursoComprado;
+        this.cursoCompradoId = cursoCompradoId;
     }
 
     public UUID getId() {
@@ -35,12 +33,12 @@ public class CursoComprado implements Serializable {
         this.id = id;
     }
 
-    public Curso getCursoComprado() {
-        return cursoComprado;
+    public String getCursoCompradoId() {
+        return cursoCompradoId;
     }
 
-    public void setCursoComprado(Curso cursoComprado) {
-        this.cursoComprado = cursoComprado;
+    public void setCursoCompradoId(String cursoCompradoId) {
+        this.cursoCompradoId = cursoCompradoId;
     }
 
     @Override
@@ -48,11 +46,11 @@ public class CursoComprado implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CursoComprado that = (CursoComprado) o;
-        return Objects.equals(id, that.id) && Objects.equals(cursoComprado, that.cursoComprado);
+        return Objects.equals(id, that.id) && Objects.equals(cursoCompradoId, that.cursoCompradoId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, cursoComprado);
+        return Objects.hash(id, cursoCompradoId);
     }
 }

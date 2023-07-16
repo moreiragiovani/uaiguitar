@@ -70,7 +70,7 @@ public class UsuarioController {
     public String createUsuario(Usuario usuario, RedirectAttributes attributes){
         System.out.println(usuario.getUsername() + "!!!!!!!!!!!!!!");
         service.createUsuario(usuario, attributes);
-        return "redirect:login";
+        return "redirect:/login";
     }
 
     @PutMapping("/{id}")
@@ -87,7 +87,7 @@ public class UsuarioController {
     public String comprandoCurso(Curso curso, Model model) {
         HistoricoAula hist = new HistoricoAula();
         if (usuarioLogado() == null) {
-            return "redirect:formulario";
+            return "redirect:/formulario";
         }
         Curso c1 = cursoService.findByIdCurso(curso.getId());
         int n = 1000;
@@ -107,13 +107,10 @@ public class UsuarioController {
                 }
             }
         }
-        System.out.printf("--------------------------- "+n + " " + p);
         for(Modulo m : c1.getModulo()){
             if(m.getIndiceModulo() == n){
-                System.out.printf("----------------------------------------------- "+n);
                 for(Aula a : m.getAulas()){
                     if(a.getIndiceDaAula() == p){
-                        System.out.printf("------------------------->>>>>>>>>>>>>>>>. " + p);
                         hist.setAulaHistorico(a.getId().toString());
                         hist.setCursoHistorico(c1.getId().toString());
                         hist.setNomeCurso(c1.getNome());
@@ -122,8 +119,8 @@ public class UsuarioController {
                 }
             }
         }
-        service.cursoComprado(logado().getId(), c1);
-        service.historicoAulaAtualizado(logado().getId(), historicoAulaService.criarHistorico(hist));
+        service.cursoComprado(logado().getId(), c1, hist);
+//        service.historicoAulaAtualizado(logado().getId(), historicoAulaService.criarHistorico(hist));
         return "redirect:/aula/"+hist.getAulaHistorico();
     }
 
