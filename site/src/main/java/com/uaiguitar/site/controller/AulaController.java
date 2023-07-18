@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.uaiguitar.site.entidades.Aula;
 import com.uaiguitar.site.service.AulaService;
+import util.LinkVideoConverter;
 
 @Controller
 @RequestMapping("/aula")
@@ -32,6 +33,8 @@ public class AulaController {
     ModuloService moduloService;
     @Autowired
     CursoController cursoController;
+
+    LinkVideoConverter lv = new LinkVideoConverter();
 
     @GetMapping
     public String findAlAulas(Model model){
@@ -47,7 +50,10 @@ public class AulaController {
 
     @PostMapping("/adicionar")
     public String createAula(Aula aula, Model model){
+        String  url = lv.converterLinkVideoToIframe(aula.getVideo());
         Aula aula1 = aula;
+        aula1.setVideo(url);
+
         Set<Aula> aulasList = new HashSet<>();
         Modulo modulo = moduloService.findByIdModulo(aula1.getModuloId());
         for(Aula a: modulo.getAulas()){

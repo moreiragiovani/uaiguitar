@@ -120,7 +120,6 @@ public class UsuarioController {
             }
         }
         service.cursoComprado(logado().getId(), c1, hist);
-//        service.historicoAulaAtualizado(logado().getId(), historicoAulaService.criarHistorico(hist));
         return "redirect:/aula/"+hist.getAulaHistorico();
     }
 

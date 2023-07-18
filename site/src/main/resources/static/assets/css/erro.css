@@ -1,0 +1,97 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-size: 100%;
+    font-family: Arial;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    /*justify-content: center;*/
+    flex-direction: column;
+    height: 100vh;
+}
+.containerNav{
+    display: flex;
+    width: 90vw;
+    height: 20vh;
+    margin: 30px;
+    justify-content: right;
+    align-items: center;
+}
+.linkMenu{
+    font-size: 20px;
+    margin-left: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #252525;
+    background-color: #7c7c7c;
+    padding: 12px;
+    border-radius: 10px;
+}
+.linkMenu:hover{
+    font-size: 22px;
+    cursor: pointer;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 90vw;
+    position: relative;
+}
+h2{
+    font-size: 40px;
+    text-transform: capitalize;
+}
+span{
+    font-size: 200px;
+}
+
+@media (max-width: 950px) {
+    h2{
+        font-size: 40px;
+        text-transform: capitalize;
+    }
+    span{
+        font-size: 150px;
+    }
+}
+@media (max-width: 700px) {
+    h2{
+        font-size: 35px;
+        text-transform: capitalize;
+    }
+    span{
+        font-size: 120px;
+    }
+}
+@media (max-width: 560px) {
+    h2{
+        font-size: 25px;
+        text-transform: capitalize;
+    }
+    span{
+        font-size: 90px;
+    }
+}
+@media (max-width: 430px) {
+    h2{
+        font-size: 20px;
+        text-transform: capitalize;
+    }
+    span{
+        font-size: 70px;
+    }
+}@media (max-width: 330px) {
+    h2{
+        font-size: 12px;
+        text-transform: capitalize;
+    }
+    span{
+        font-size: 50px;
+    }
+}

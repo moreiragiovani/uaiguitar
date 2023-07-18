@@ -9,7 +9,11 @@
     <title>Modulo</title>
 </head>
 <body>
-    <div class="containerLink">
+    <div class="containerLink" th:each="modulo : ${modulo}">
+        <form class="excluirCurso" th:action="@{/modulo/apagar}" method="post" th:object="${modulo}">
+            <input type="hidden" name="id" th:value="${modulo.id}">
+            <input type="submit" value="Excluir Modulo">
+        </form>
         <a class="linkMenu" th:href="@{/curso/editar}">Cancelar</a>
     </div>
 

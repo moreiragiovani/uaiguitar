@@ -84,8 +84,11 @@ public class ModuloController {
         model.addAttribute("modulo", moduloService.findByIdModulo(modulo.getId()));
         return "editar-modulo";
     }
-    @DeleteMapping("/apagar")
-    public void deleteModulo(Modulo m){
-        moduloService.deleteModulo(m.getId());
+    @PostMapping("/apagar")
+    public String deleteModulo(Modulo m, Model model){
+        Modulo modulo = moduloService.findByIdModulo(m.getId());
+        model.addAttribute("curso", cursoService.findByIdCurso(modulo.getCursoId()));
+        moduloService.deleteModulo(m.getId(), modulo.getCursoId());
+        return "editar-conteudo";
     }
 }

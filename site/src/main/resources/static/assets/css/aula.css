@@ -28,7 +28,13 @@ body{
 .logo span{
     color: red;
 }
-
+.naveBar{
+    display: flex;
+}
+.naveBar form input{
+    background: none;
+    border: none;
+}
 .linkMenu{
     font-size: 20px;
     margin-left: 20px;

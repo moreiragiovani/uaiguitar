@@ -1,9 +1,12 @@
 package com.uaiguitar.site.service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
+import com.uaiguitar.site.entidades.Aula;
+import com.uaiguitar.site.entidades.Curso;
+import com.uaiguitar.site.entidades.HistoricoAula;
+import com.uaiguitar.site.repository.AulaRepository;
+import com.uaiguitar.site.repository.HistoricoAulaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +15,18 @@ import com.uaiguitar.site.repository.ModuloRepository;
 
 @Service
 public class ModuloService {
-    
+
+    @Autowired
+    HistoricoAulaRepository historicoAulaRepository;
+
     @Autowired
     ModuloRepository moduloRepository;
+
+    @Autowired
+    CursoService cursoService;
+
+    @Autowired
+    AulaRepository aulaRepository;
 
     public List<Modulo> findAllModulos(){
         return moduloRepository.findAll();
@@ -35,8 +47,59 @@ public class ModuloService {
         moduloRepository.save(modulo);
     }
 
-    public void deleteModulo(UUID id){
+    public void deleteModulo(UUID id, UUID cursoId){
+        Set<Modulo> modulos = new HashSet<>();
+        Set<Aula> aulas =  new HashSet<>();
+
+        Curso curso = cursoService.findByIdCurso(cursoId);
+        for(Modulo m : curso.getModulo()){
+            if(!m.getId().equals(id)){
+                modulos.add(m);
+            }
+            else {
+                for(Aula a : m.getAulas()){
+                    aulas.add(a);
+                }
+            }
+        }
+        curso.setModulo(modulos);
+        cursoService.createCurso(curso);
         moduloRepository.deleteById(id);
+
+        aulaRepository.deleteAll(aulas);
+
+        int n = 1000;
+
+        for(Modulo m: curso.getModulo()){
+            if(m.getIndiceModulo() < n){
+                n = m.getIndiceModulo();
+            }
+        }
+
+        int p = 1000;
+        for(Modulo m : curso.getModulo()){
+            if(m.getIndiceModulo().equals(n)){
+                for(Aula a : m.getAulas()){
+                    if(a.getIndiceDaAula() < p){
+                        p = a.getIndiceDaAula();
+                    }
+                }
+            }
+        }
+        for(Modulo m : curso.getModulo()){
+            if(m.getIndiceModulo() == n){
+                for(Aula a : m.getAulas()){
+                    if(a.getIndiceDaAula() == p){
+                        for(HistoricoAula h : historicoAulaRepository.findAll()){
+                            if(h.getCursoHistorico().equals(curso.getId().toString())){
+                                h.setAulaHistorico(a.getId().toString());
+                                historicoAulaRepository.save(h);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void updateModulo(Modulo modulo, Modulo m) {

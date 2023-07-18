@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="https://thymeleaf.org">
+<html lang="pt-br" xmlns:th="https://thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,61 +12,63 @@
 </head>
 <body>
 
-    <div class="containerMenu">
-        <h2 class="logo">uai<span>guitar</span></h2>
-        <nav id="naveBar" class="naveBar">
-            <a class="linkMenu" th:href="@{/usuario/conta}">Meus Cursos</a>
-            <a class="linkMenu" th:href="@{/curso/todos}">Todos os Cursos</a>
-            <a class="linkMenu" th:href="@{/curso/editar/cursos}">Editar Cursos</a>
-        </nav>
+<div class="containerMenu">
+    <h2 class="logo">uai<span>guitar</span></h2>
+    <nav id="naveBar" class="naveBar" th:each="curso : ${aula.curso}">
+        <a class="linkMenu" th:href="@{/usuario/conta}">Meus Cursos</a>
+        <a class="linkMenu" th:href="@{/curso/todos}">Todos os Cursos</a>
+        <form sec:authorize="hasRole('USER')" th:action="@{/curso/editar}" th:object="${curso}" method="post">
+            <input type="hidden" name="id" th:value="${curso.id}">
+            <input class="linkMenu" type="submit" value="Editar Curso">
+        </form>
+    </nav>
 
-        <div class="containerBtnSvg">
-            <svg id="svgAbrirMenu" class="svgAbrirMenu" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z"/></svg>
-            <svg id="svgFecharMenu" class="svgFecharMenu" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"/></svg>
-            <a class="btnLogout" th:href="@{/logout}">Sair</a>
-        </div>
+    <div class="containerBtnSvg">
+        <svg id="svgAbrirMenu" class="svgAbrirMenu" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z"/></svg>
+        <svg id="svgFecharMenu" class="svgFecharMenu" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"/></svg>
+        <a class="btnLogout" th:href="@{/logout}">Sair</a>
     </div>
+</div>
 
-    <div class="container" th:each="aula : ${aula}">
-        <aside id="sideBar" class="sideBar">
-            <div class="ContainerCurso" th:each="curso : ${aula.curso}">
-                <div class="containerCurso1" th:each="modulo : ${#lists.sort(curso.modulo)}">
-                    <h3 class="nomeModulo" th:text="${modulo.nome}">modulo</h3>
-                    <div class="aula" th:each="aula : ${#lists.sort(modulo.aulas)}">
-                        <form th:action="@{/historico}" th:object="${historicoAula}" method="post">
-                            <input type="hidden" name="nomeAula" th:value="${aula.nome}">
-                            <input type="hidden" name="nomeCurso" th:value="${curso.nome}">
-                            <input type="hidden" name="aulaHistorico" th:value="${aula.id}">
-                            <input type="hidden" name="cursoHistorico" th:value="${curso.id}">
-                            <input class="btnNomeAula" type="submit" th:value="${aula.nome}">
-                        </form>
-                    </div>
+<div class="container" th:each="aula : ${aula}">
+    <aside id="sideBar" class="sideBar">
+        <div class="ContainerCurso" th:each="curso : ${aula.curso}">
+            <div class="containerCurso1" th:each="modulo : ${#lists.sort(curso.modulo)}">
+                <h3 class="nomeModulo" th:text="${modulo.nome}">modulo</h3>
+                <div class="aula" th:each="aula : ${#lists.sort(modulo.aulas)}">
+                    <form th:action="@{/historico}" th:object="${historicoAula}" method="post">
+                        <input type="hidden" name="nomeAula" th:value="${aula.nome}">
+                        <input type="hidden" name="nomeCurso" th:value="${curso.nome}">
+                        <input type="hidden" name="aulaHistorico" th:value="${aula.id}">
+                        <input type="hidden" name="cursoHistorico" th:value="${curso.id}">
+                        <input class="btnNomeAula" type="submit" th:value="${aula.nome}">
+                    </form>
                 </div>
             </div>
-        </aside>
+        </div>
+    </aside>
 
-        <div class="containerConteudo">
-            <svg id="svgAbrir" class="svgAbrir" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z"/></svg>
-            <svg id="svgFechar" class="svgFechar" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"/></svg>
-            <h4 th:text="${aula.nome}">nome aula</h4>
-            <div class="containerVideo">
-                <div class="video">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/7ch_LpkNqQE"
-                            title="YouTube video player"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen>
-                    </iframe>
-                </div>
+    <div class="containerConteudo">
+        <svg id="svgAbrir" class="svgAbrir" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z"/></svg>
+        <svg id="svgFechar" class="svgFechar" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"/></svg>
+        <h4 th:text="${aula.nome}">nome aula</h4>
+        <div class="containerVideo">
+            <div class="video">
+                <iframe width="560" height="315" th:src="${aula.video}"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+                </iframe>
             </div>
-
         </div>
 
     </div>
-    <footer class="rodape">
-        <span class="direitos">Todos os direitos reservados - <a th:href="@{/home}">UAI<span class="logoRed">GUITAR</span></a></span>
-    </footer>
-    <script th:src="@{/assets/js/aula.js}" type="text/javascript"></script>
-    <script src="/static/assets/js/aula.js" type="text/javascript"></script>
+
+</div>
+<footer class="rodape">
+    <span class="direitos">Todos os direitos reservados - <a th:href="@{/home}">UAI<span class="logoRed">GUITAR</span></a></span>
+</footer>
+<script th:src="@{/assets/js/aula.js}" type="text/javascript"></script>
+<script src="/static/assets/js/aula.js" type="text/javascript"></script>
 </body>
 </html>

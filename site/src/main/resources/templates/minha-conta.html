@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="https://thymeleaf.org">
+<html lang="pt-br" xmlns:th="https://thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,22 +10,23 @@
     <title>Minha Conta</title>
 </head>
 <body>
-    <div class="containerLink">
-        <a class="linkMenu" th:href="@{/criar-curso}">Criar Curso</a>
-        <a class="linkMenu" th:href="@{/curso/todos}">Todos os Cursos</a>
-        <a class="linkMenu" th:href="@{/logout}">Sair</a>
-    </div>
+<div class="containerLink">
+    <a sec:authorize="hasRole('ADMIN')" class="linkMenu" th:href="@{/criar-curso}">Criar Curso</a>
+    <a sec:authorize="hasRole('ADMIN')" class="linkMenu" th:href="@{/curso/editar/cursos}">Editar Cursos</a>
+    <a class="linkMenu" th:href="@{/curso/todos}">Todos os Cursos</a>
+    <a class="linkMenu" th:href="@{/logout}">Sair</a>
+</div>
 
-    <div class="container">
-        <main class="containerMain">
-            <h1>Meus Cursos</h1>
-            <h2>Seja bem vindo(a): <span th:text="${usuario.username}">usuario</span></h2>
-        </main>
+<div class="container">
+    <main class="containerMain">
+        <h1>Meus Cursos</h1>
+        <h2>Seja bem vindo(a): <span th:text="${usuario.username}">usuario</span></h2>
+    </main>
 
-        <h3 class="tituloCurso">Cursos Comprados</h3>
-        <div class="ContainerConteudo" th:each="historico : ${usuario.historicoAula}">
-            <a class="nomeCurso" th:href="'/aula/' + ${historico.aulaHistorico}"><span th:text="${historico.nomeCurso}">curso aqui</span></a>
-        </div>
+    <h3 class="tituloCurso">Cursos Comprados</h3>
+    <div class="ContainerConteudo" th:each="historico : ${usuario.historicoAula}">
+        <a class="nomeCurso" th:href="'/aula/' + ${historico.aulaHistorico}"><span th:text="${historico.nomeCurso}">curso aqui</span></a>
     </div>
+</div>
 </body>
 </html>
