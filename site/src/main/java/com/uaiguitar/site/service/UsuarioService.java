@@ -56,7 +56,6 @@ public class UsuarioService{
 
         List<UsuarioDto> usuarioDtoList = new ArrayList<>();
         List<Usuario> usuarioList = usuarioRepository.findAll();
-
         for(Usuario u: usuarioList){
             usuarioDtoList.add(usuarioToUsuarioDtoConverter(u, new UsuarioDto()));
         }
@@ -68,7 +67,6 @@ public class UsuarioService{
 
         UsuarioDto usuarioDto = new UsuarioDto();
         Optional<Usuario> userOpt = usuarioRepository.findById(id);
-
         usuarioDto = usuarioToUsuarioDtoConverter(userOpt.get(), usuarioDto);
 
         return usuarioDto;
@@ -81,9 +79,7 @@ public class UsuarioService{
         }catch(Exception e){
             attributes.addFlashAttribute("mensagem", "Nome de Usuario: " + user.getUsername() + 
                                         " já existe.");
-            // System.out.println("----- erro criação Servico");
         }
-
     }
 
     public void updateUsuario(UUID id, Usuario user){
@@ -92,13 +88,10 @@ public class UsuarioService{
         usuarioRepository.save(usuario);
     }
 
-
-
     public void deleteUsuario(UUID id){
         usuarioRepository.deleteById(id);
     }
 
-//    CURSOS COMPRADAS ADD.
     public void cursoComprado(UUID id, Curso curso1, HistoricoAula historico){
         Curso curso = cursoService.findByIdCurso(curso1.getId());
         Usuario usuario = usuarioRepository.findById(id).get();
@@ -163,12 +156,9 @@ public class UsuarioService{
                 }
             }
         }
-
         usuario.setHistoricoAula(hList);
         usuarioRepository.save(usuario);
     }
-
-//    Metodos para converter Usuarios.
 
     private void updateUser(Usuario usuario, Usuario user) {
         usuario.setUsername(user.getUsername());
@@ -176,8 +166,6 @@ public class UsuarioService{
         usuario.setEmail(user.getEmail());
         usuario.setSenha(user.getSenha());
         usuario.setHistoricoAula(user.getHistoricoAula());
-
-        
     }
 
     public UsuarioDto usuarioToUsuarioDtoConverter(Usuario usuario, UsuarioDto usuarioDto){

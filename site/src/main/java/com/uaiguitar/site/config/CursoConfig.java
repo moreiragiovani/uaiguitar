@@ -52,7 +52,7 @@
 //         Set<Role> roles = new HashSet<>();
 ////
 ////
-//         Role role2 = new Role(null, RoleNome.ROLE_GRATIS);
+//         Role role2 = new Role(null, RoleNome.ROLE_ADMIN);
 //         roleRepository.save(role2);
 //         roles.add(role2);
 //////

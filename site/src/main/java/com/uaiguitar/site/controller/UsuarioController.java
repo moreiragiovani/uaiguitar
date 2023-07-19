@@ -1,13 +1,17 @@
 package com.uaiguitar.site.controller;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 import com.uaiguitar.site.entidades.*;
+import com.uaiguitar.site.enums.RoleNome;
 import com.uaiguitar.site.repository.HistoricoAulaRepository;
+import com.uaiguitar.site.repository.RoleRepository;
 import com.uaiguitar.site.service.CursoService;
 import com.uaiguitar.site.service.HistoricoAulaService;
+import com.uaiguitar.site.util.FindFirstAula;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -40,6 +44,9 @@ public class UsuarioController {
     @Autowired
     HistoricoAulaService historicoAulaService;
 
+    @Autowired
+    RoleRepository roleRepository;
+
     public UsuarioDetails logado (){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String nomeUsuario = auth.getName();
@@ -68,7 +75,12 @@ public class UsuarioController {
 
     @PostMapping("/criar")
     public String createUsuario(Usuario usuario, RedirectAttributes attributes){
-        System.out.println(usuario.getUsername() + "!!!!!!!!!!!!!!");
+        Role role = new Role();
+        role.setRoleNome(RoleNome.ROLE_USER);
+        roleRepository.save(role);
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        usuario.setRoles(roles);
         service.createUsuario(usuario, attributes);
         return "redirect:/login";
     }
@@ -85,32 +97,18 @@ public class UsuarioController {
 
     @PostMapping("/comprar")
     public String comprandoCurso(Curso curso, Model model) {
+        FindFirstAula fD = new FindFirstAula();
         HistoricoAula hist = new HistoricoAula();
+        Curso c1 = cursoService.findByIdCurso(curso.getId());
+
         if (usuarioLogado() == null) {
             return "redirect:/formulario";
         }
-        Curso c1 = cursoService.findByIdCurso(curso.getId());
-        int n = 1000;
-        for(Modulo m: c1.getModulo()){
-            if(m.getIndiceModulo() < n){
-                n = m.getIndiceModulo();
-            }
-        }
 
-        int p = 1000;
         for(Modulo m : c1.getModulo()){
-            if(m.getIndiceModulo().equals(n)){
+            if(m.getIndiceModulo() == fD.indiceAulaMinimo(c1)[0]){
                 for(Aula a : m.getAulas()){
-                    if(a.getIndiceDaAula() < p){
-                        p = a.getIndiceDaAula();
-                    }
-                }
-            }
-        }
-        for(Modulo m : c1.getModulo()){
-            if(m.getIndiceModulo() == n){
-                for(Aula a : m.getAulas()){
-                    if(a.getIndiceDaAula() == p){
+                    if(a.getIndiceDaAula() == fD.indiceAulaMinimo(c1)[1]){
                         hist.setAulaHistorico(a.getId().toString());
                         hist.setCursoHistorico(c1.getId().toString());
                         hist.setNomeCurso(c1.getNome());
@@ -119,6 +117,7 @@ public class UsuarioController {
                 }
             }
         }
+
         service.cursoComprado(logado().getId(), c1, hist);
         return "redirect:/aula/"+hist.getAulaHistorico();
     }

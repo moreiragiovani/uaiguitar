@@ -2,24 +2,20 @@ package com.uaiguitar.site.controller;
 
 import java.util.*;
 
-import com.uaiguitar.site.entidades.Curso;
 import com.uaiguitar.site.entidades.Modulo;
 import com.uaiguitar.site.service.CursoService;
 import com.uaiguitar.site.service.ModuloService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.uaiguitar.site.entidades.Aula;
 import com.uaiguitar.site.service.AulaService;
-import util.LinkVideoConverter;
+import com.uaiguitar.site.util.LinkVideoConverter;
 
 @Controller
 @RequestMapping("/aula")
@@ -33,7 +29,6 @@ public class AulaController {
     ModuloService moduloService;
     @Autowired
     CursoController cursoController;
-
     LinkVideoConverter lv = new LinkVideoConverter();
 
     @GetMapping
@@ -53,12 +48,13 @@ public class AulaController {
         String  url = lv.converterLinkVideoToIframe(aula.getVideo());
         Aula aula1 = aula;
         aula1.setVideo(url);
-
         Set<Aula> aulasList = new HashSet<>();
         Modulo modulo = moduloService.findByIdModulo(aula1.getModuloId());
+
         for(Aula a: modulo.getAulas()){
             aulasList.add(a);
         }
+
         aula1.setIndiceDaAula(modulo.getAulas().size() + 1);
         aula1.setCurso(cursoService.findByIdCurso(modulo.getCursoId()));
         aulasList.add(aula1);
@@ -67,6 +63,7 @@ public class AulaController {
         moduloService.updateModulo(aula1.getModuloId(), modulo);
         UUID id = modulo.getCursoId();
         model.addAttribute("curso", cursoService.findByIdCurso(id));
+
         return "editar-conteudo";
     }
 
@@ -88,14 +85,17 @@ public class AulaController {
         Set<Aula> aulaSet = new HashSet<>();
         model.addAttribute("curso", cursoService.findByIdCurso(aulaService.findByIdAula(aula.getId()).getCurso().getId()));
         Modulo modulo = moduloService.findByIdModulo(aula.getModuloId());
+
         for(Aula a: modulo.getAulas()){
             if(!a.getId().equals(aula.getId())){
                 aulaSet.add(a);
             }
         }
+
         modulo.setAulas(aulaSet);
         moduloService.updateModulo(modulo.getId(), modulo);
         aulaService.deleteAula(aula.getId());
+
         return "editar-conteudo";
     }
 }

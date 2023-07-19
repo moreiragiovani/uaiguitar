@@ -60,7 +60,6 @@ public class Usuario implements Serializable{
         this.cursosComprados = cursosComprados;
         this.roles = roles;
         this.historicoAula = historicoAula;
-
     }
 
     public UUID getId() {

@@ -26,5 +26,6 @@ public class HistoricoAulaService {
     public  HistoricoAula findByIdHistorico(UUID id){
         return repository.findById(id).get();
     }
+
     public void deleteById(UUID id){repository.deleteById(id);}
 }

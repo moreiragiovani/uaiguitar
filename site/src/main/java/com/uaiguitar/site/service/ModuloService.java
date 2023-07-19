@@ -7,6 +7,7 @@ import com.uaiguitar.site.entidades.Curso;
 import com.uaiguitar.site.entidades.HistoricoAula;
 import com.uaiguitar.site.repository.AulaRepository;
 import com.uaiguitar.site.repository.HistoricoAulaRepository;
+import com.uaiguitar.site.util.FindFirstAula;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +49,7 @@ public class ModuloService {
     }
 
     public void deleteModulo(UUID id, UUID cursoId){
+        FindFirstAula fD = new FindFirstAula();
         Set<Modulo> modulos = new HashSet<>();
         Set<Aula> aulas =  new HashSet<>();
 
@@ -62,36 +64,19 @@ public class ModuloService {
                 }
             }
         }
-        curso.setModulo(modulos);
-        cursoService.createCurso(curso);
-        moduloRepository.deleteById(id);
 
+        curso.setModulo(modulos);
+        cursoService.updateCurso(curso.getId(), curso);
+        moduloRepository.deleteById(id);
         aulaRepository.deleteAll(aulas);
 
-        int n = 1000;
-
-        for(Modulo m: curso.getModulo()){
-            if(m.getIndiceModulo() < n){
-                n = m.getIndiceModulo();
-            }
-        }
-
-        int p = 1000;
         for(Modulo m : curso.getModulo()){
-            if(m.getIndiceModulo().equals(n)){
+            if(m.getIndiceModulo() == fD.indiceAulaMinimo(curso)[0]){
                 for(Aula a : m.getAulas()){
-                    if(a.getIndiceDaAula() < p){
-                        p = a.getIndiceDaAula();
-                    }
-                }
-            }
-        }
-        for(Modulo m : curso.getModulo()){
-            if(m.getIndiceModulo() == n){
-                for(Aula a : m.getAulas()){
-                    if(a.getIndiceDaAula() == p){
+                    if(a.getIndiceDaAula() == fD.indiceAulaMinimo(curso)[1]){
                         for(HistoricoAula h : historicoAulaRepository.findAll()){
                             if(h.getCursoHistorico().equals(curso.getId().toString())){
+                                h.setNomeAula(a.getNome());
                                 h.setAulaHistorico(a.getId().toString());
                                 historicoAulaRepository.save(h);
                             }
@@ -107,5 +92,4 @@ public class ModuloService {
         modulo.setAulas(m.getAulas());
         modulo.setNome(m.getNome());
     }
-
 }

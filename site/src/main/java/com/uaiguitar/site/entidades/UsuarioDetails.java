@@ -118,7 +118,6 @@ public class UsuarioDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles;
-       
     }
 
     @Override
@@ -129,7 +128,6 @@ public class UsuarioDetails implements UserDetails {
     @Override
     public String getUsername() {
         return this.username;
-        
     }
 
     @Override

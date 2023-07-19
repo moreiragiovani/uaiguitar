@@ -25,6 +25,7 @@ public class CursoCompradoController {
     public List<CursoComprado> findAllCursoComprado(){
         return cursoCompradoService.findAllCursoComprado();
     }
+
     public void deleteCursoComprado(UUID id){
         cursoCompradoService.deleteCursoComprado(id);
     }

@@ -29,6 +29,7 @@ public class HistoricoAulaController {
     public String criarHistorico(HistoricoAula historicoAula) {
         Usuario usuario = usuarioController.findByIdUsuario(usuarioController.logado().getId());
         int temp = 0;
+
         if(!usuario.getHistoricoAula().isEmpty()){
             for(HistoricoAula h : usuario.getHistoricoAula()){
                 if(h.getCursoHistorico().equals(historicoAula.getCursoHistorico())){
@@ -40,10 +41,10 @@ public class HistoricoAulaController {
                     temp = 1;
                 }
             }
+
             if(temp == 0){
                 usuarioController.historicoAula(usuarioController.logado().getId(), service.criarHistorico(historicoAula));
             }
-
         }else{
             usuarioController.historicoAula(usuarioController.logado().getId(), service.criarHistorico(historicoAula));
         }

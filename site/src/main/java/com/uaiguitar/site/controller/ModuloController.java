@@ -52,15 +52,18 @@ public class ModuloController {
         Modulo modulo1 = modulo;
         UUID id = modulo1.getCursoId();
         Curso curso = cursoService.findByIdCurso(id);
+
         for(Modulo m: curso.getModulo()){
             moduloList.add(m);
         }
+
         modulo1.setIndiceModulo(curso.getModulo().size() + 1);
         Modulo m1 = moduloService.createModulo(modulo1);
         moduloList.add(modulo1);
         curso.setModulo(moduloList);
         cursoService.updateCurso(id, curso);
         model.addAttribute("modulo", m1);
+
         return "criar-aula";
     }
 
@@ -77,18 +80,20 @@ public class ModuloController {
         m.setDescricao(modulo.getDescricao());
         moduloService.updateModulo(m.getId(), m);
         model.addAttribute("curso", cursoService.findByIdCurso(m.getCursoId()));
-        return "editar-conteudo";    }
+        return "editar-conteudo";
+    }
 
     @PostMapping("/editar")
     public String editarAula(Modulo modulo, Model model){
         model.addAttribute("modulo", moduloService.findByIdModulo(modulo.getId()));
         return "editar-modulo";
     }
+
     @PostMapping("/apagar")
     public String deleteModulo(Modulo m, Model model){
         Modulo modulo = moduloService.findByIdModulo(m.getId());
         model.addAttribute("curso", cursoService.findByIdCurso(modulo.getCursoId()));
-        moduloService.deleteModulo(m.getId(), modulo.getCursoId());
+        moduloService.deleteModulo(modulo.getId(), modulo.getCursoId());
         return "editar-conteudo";
     }
 }

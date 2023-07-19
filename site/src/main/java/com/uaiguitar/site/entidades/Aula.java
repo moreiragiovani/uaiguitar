@@ -28,7 +28,6 @@ public class Aula implements Serializable, Comparable<Aula>{
     private String completoPdf;
     private String imgVideo;
     private String video;
-
     private UUID moduloId;
 
     @ManyToOne
@@ -158,7 +157,6 @@ public class Aula implements Serializable, Comparable<Aula>{
             return false;
         return true;
     }
-
 
     @Override
     public int compareTo(Aula aulas) {

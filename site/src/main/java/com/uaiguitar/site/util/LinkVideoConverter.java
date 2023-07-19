@@ -1,7 +1,4 @@
-package util;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.uaiguitar.site.util;
 
 public class LinkVideoConverter {
 

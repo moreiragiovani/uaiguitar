@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class LoginAndLogout {
+
+    @GetMapping("/")
+    public String home(){
+        return "login";
+    }
     
     @GetMapping("/logout")
     public String logout() {
@@ -16,8 +21,7 @@ public class LoginAndLogout {
     public String login() {
 	    return "login";
     }
-
-
+    
     @GetMapping("/formulario")
     public String formulario(){
         return "formulario";

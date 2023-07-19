@@ -65,6 +65,7 @@ public class CursoController {
         model.addAttribute("curso", cursoService.findByIdCurso(curso.getId()));
         return "editar-curso";
     }
+
     @PostMapping("/deletar")
     public String deleteCurso(Curso curso, Model model){
         Usuario usuario = usuarioController.findByIdUsuario(usuarioController.logado().getId());
@@ -90,5 +91,4 @@ public class CursoController {
         model.addAttribute("curso", cursoService.findByIdCurso(curso.getId()));
         return "criar-modulo";
     }
-
 }

@@ -70,7 +70,6 @@ public class CursoService {
         Curso curso = cursoRepository.findById(id).get();
         Usuario user = usuarioRepository.findById(idUser).get();
 
-
         for (Modulo m : curso.getModulo()) {
             for (Aula a : m.getAulas()) {
                 a.setCurso(null);
@@ -127,6 +126,5 @@ public class CursoService {
         for (HistoricoAula h : listHistoricoDelete) {
             historicoAulaRepository.deleteById(h.getId());
         }
-        
     }
 }
