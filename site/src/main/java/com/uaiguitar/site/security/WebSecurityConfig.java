@@ -34,6 +34,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/curso/meus-cursos").hasRole("USER")
                                 .requestMatchers("/usuario/conta").hasAnyRole("USER", "ADMIN")
                                 .requestMatchers("/usuario/comprar").hasRole("USER")
+                                .requestMatchers("/usuario/formulario").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/usuario/criar").permitAll()
                                 .requestMatchers("/criar-curso").hasRole("ADMIN")
                                 .requestMatchers("/criar-modulo").hasRole("ADMIN")

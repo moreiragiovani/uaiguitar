@@ -72,13 +72,12 @@ public class UsuarioService{
         return usuarioDto;
     }
 
-    public void createUsuario(Usuario user, RedirectAttributes attributes){
+    public void createUsuario(Usuario user){
         try{
             user.setSenha(new BCryptPasswordEncoder().encode(user.getSenha()));
             usuarioRepository.save(user);
         }catch(Exception e){
-            attributes.addFlashAttribute("mensagem", "Nome de Usuario: " + user.getUsername() + 
-                                        " já existe.");
+            System.out.printf("Exception usuario existente " + e.getMessage());
         }
     }
 

@@ -11,15 +11,19 @@
 <body>
     <h2 class="titulo">Criar Conta</h2>
     <div class="container">
-        <form class="formulario" th:action="@{/usuario/criar}" th:object="${Usuario}" method="post">
+        <form class="formulario" th:action="@{/usuario/criar}" th:object="${usuario}" method="post">
             <label>Nome usuario</label>
-            <input type="text" placeholder="Nome de Usuario" name="username" autocomplete="none">
+            <input type="text" placeholder="Nome de Usuario" name="username" th:value="${usuario.username}">
+            <p class="erroAlert" th:if="${#fields.hasErrors('username')}" th:errorclass="error" th:errors="*{username}" />
             <label>Nome Completo</label>
-            <input type="text" placeholder="Nome" name="nomeCompleto" autocomplete="none">
+            <input type="text" placeholder="Nome" name="nomeCompleto" th:value="${usuario.nomeCompleto}" autocomplete="none">
+            <p class="erroAlert" th:if="${#fields.hasErrors('nomeCompleto')}" th:errorclass="error" th:errors="*{nomeCompleto}" />
             <label>Email</label>
-            <input type="text" placeholder="Email" name="email" autocomplete="none">
+            <input type="text" placeholder="Email" name="email" th:value="${usuario.email}" >
+            <p class="erroAlert" th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" />
             <label>Senha</label>
             <input type="password" placeholder="Senha" name="senha">
+            <p class="erroAlert" th:if="${#fields.hasErrors('senha')}" th:errorclass="error" th:errors="*{senha}" />
             <input class="btnEntrar" type="submit" value="Criar Conta">
         </form>
         <a th:href="@{/login}" class="linkCriaConta">Já tenho uma Conta!</a>

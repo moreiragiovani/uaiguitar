@@ -12,6 +12,7 @@ import com.uaiguitar.site.repository.RoleRepository;
 import com.uaiguitar.site.service.CursoService;
 import com.uaiguitar.site.service.HistoricoAulaService;
 import com.uaiguitar.site.util.FindFirstAula;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -19,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,15 +75,19 @@ public class UsuarioController {
         return service.findbyid(id);
     }
 
+    @GetMapping("/formulario")
+    public String formulario(Usuario usuario){
+        return "formulario";
+    }
+
     @PostMapping("/criar")
-    public String createUsuario(Usuario usuario, RedirectAttributes attributes){
-        Role role = new Role();
-        role.setRoleNome(RoleNome.ROLE_USER);
-        roleRepository.save(role);
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        usuario.setRoles(roles);
-        service.createUsuario(usuario, attributes);
+    public String createUsuario(@Valid Usuario usuario, BindingResult result, Model model){
+
+        if(result.hasErrors()){
+            model.addAttribute("usuario", usuario);
+            return "/formulario";
+        }
+        service.createUsuario(usuario);
         return "redirect:/login";
     }
 
@@ -102,7 +108,7 @@ public class UsuarioController {
         Curso c1 = cursoService.findByIdCurso(curso.getId());
 
         if (usuarioLogado() == null) {
-            return "redirect:/formulario";
+            return "redirect:formulario";
         }
 
         for(Modulo m : c1.getModulo()){

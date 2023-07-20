@@ -8,6 +8,9 @@ import java.util.UUID;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.UniqueElements;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -19,17 +22,19 @@ public class Usuario implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     
-    @NotBlank(message = "Digite um nome de usuario")
+    @NotEmpty(message = "Digite um nome de usuario")
     @Column(nullable = false, unique = true)
     private String username;
 
-    @NotBlank(message = "Digite um nome de usuario")
+    @NotEmpty(message = "Nome vazio")
     private String nomeCompleto;
 
+    @NotEmpty(message = "Email obrigatório")
     @Email(message = "Digite um email válido.")
     private String email;
 
-    @NotBlank(message = "Você precisa criar uma senha.")
+    @NotEmpty(message = "Senha obrigatória.")
+    @Size(min = 6, max = 15)
     private String senha;
 
     @OneToMany

@@ -13,6 +13,7 @@ body{
     background-color: #919191;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     margin: auto 0;
     align-items: center;
@@ -80,9 +81,12 @@ input{
 }.btnEntrar2:hover{
     background-color: #919191;
     color: #252525;
-
 }
-
+.alert{
+}
+.alert span{
+    color: red;
+}
 @media (max-width: 358px) {
     .container{
         margin: 20px;

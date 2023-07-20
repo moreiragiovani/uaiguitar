@@ -1,5 +1,6 @@
 package com.uaiguitar.site.controller;
 
+import com.uaiguitar.site.entidades.Usuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,13 +19,8 @@ public class LoginAndLogout {
 	    return "logout";
     }
     @GetMapping("/login")
-    public String login() {
+    public String login(Usuario usuario) {
 	    return "login";
-    }
-    
-    @GetMapping("/formulario")
-    public String formulario(){
-        return "formulario";
     }
 
     @GetMapping("/minha-conta")

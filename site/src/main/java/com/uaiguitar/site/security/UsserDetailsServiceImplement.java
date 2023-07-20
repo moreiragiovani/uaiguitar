@@ -1,6 +1,7 @@
 package com.uaiguitar.site.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -33,8 +34,12 @@ public class UsserDetailsServiceImplement implements UserDetailsService{
             true, usuario.getAuthorities());
     
             return user;
-        }catch(Exception e){
-            System.out.println("------->>> Usuario não existe. " + e.getMessage() +"\n\n");
+        }catch (InternalAuthenticationServiceException e){
+            System.out.printf("Usuario não encontrado " + e.getMessage());
+            return null;
+        }
+        catch(Exception e){
+            System.out.printf("Usuario não encontrado " + e.getMessage());
             return null;
         }
         
