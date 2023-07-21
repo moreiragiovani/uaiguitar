@@ -34,7 +34,6 @@ public class Usuario implements Serializable{
     private String email;
 
     @NotEmpty(message = "Senha obrigatória.")
-    @Size(min = 6, max = 15)
     private String senha;
 
     @OneToMany

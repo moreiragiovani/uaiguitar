@@ -19,19 +19,19 @@
             <input  type="hidden" name="id" th:value="${aula.id}">
 
             <label>Nome:</label>
-            <input  type="text" name="nome" th:placeholder="${aula.nome}">
+            <input  type="text" name="nome" th:placeholder="${aula.nome}" th:value="${aula.nome}">
 
-            <label>Descrição:</label>
-            <textarea  type="text" name="descricao" th:text="${aula.descricao}"></textarea>
+<!--            <label>Descrição:</label>-->
+<!--            <textarea  type="text" name="descricao" th:text="${aula.descricao}"></textarea>-->
 
-            <label>Pdf:</label>
-            <input type="text" name="completoPdf" >
+<!--            <label>Pdf:</label>-->
+<!--            <input type="text" name="completoPdf" >-->
 
-            <label>Url Imagem:</label>
-            <input  type="text" name="imgVideo">
+<!--            <label>Url Imagem:</label>-->
+<!--            <input  type="text" name="imgVideo">-->
 
             <label>Url Video:</label>
-            <input  type="text" name="video">
+            <input  type="text" name="video" th:value="${aula.video}">
 
             <input type="hidden" name="moduloId" th:value="${aula.moduloId}">
 

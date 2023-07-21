@@ -21,16 +21,16 @@
 
                <input type="hidden" name="id" th:value="${curso.id}">
                <label>Nome do curso</label>
-               <input type="text" name="nome" th:placeholder="${curso.nome}">
+               <input type="text" name="nome" th:placeholder="${curso.nome}" th:value="${curso.nome}">
 
-               <label>Descrição do curso</label>
-               <textarea class="descricaoIn"  cols="30" rows="10" th:placeholder="${curso.descricao}" name="descricao"></textarea>
+<!--               <label>Descrição do curso</label>-->
+<!--               <textarea class="descricaoIn"  cols="30" rows="10" th:placeholder="${curso.descricao}" name="descricao"></textarea>-->
 
-               <label>Capa</label>
-               <input class="file" type="file" name="imagem">
+<!--               <label>Capa</label>-->
+<!--               <input class="file" type="file" name="imagem">-->
 
-               <label>URL do video de apresentação</label>
-               <input type="url" name="videoApresentacao" th:placeholder="${curso.videoApresentacao}">
+<!--               <label>URL do video de apresentação</label>-->
+<!--               <input type="url" name="videoApresentacao" th:placeholder="${curso.videoApresentacao}">-->
 
                <input class="btnCriar" type="submit" value="Editar Curso">
            </form>

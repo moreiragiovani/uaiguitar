@@ -45,9 +45,11 @@ public class AulaController {
 
     @PostMapping("/adicionar")
     public String createAula(Aula aula, Model model){
-        String  url = lv.converterLinkVideoToIframe(aula.getVideo());
         Aula aula1 = aula;
-        aula1.setVideo(url);
+        if(!aula.getVideo().isEmpty()){
+            String  url = lv.converterLinkVideoToIframe(aula.getVideo());
+            aula1.setVideo(url);
+        }
         Set<Aula> aulasList = new HashSet<>();
         Modulo modulo = moduloService.findByIdModulo(aula1.getModuloId());
 
@@ -75,6 +77,10 @@ public class AulaController {
 
     @PostMapping("/update")
     public String updateAula(Aula aula, Model model){
+        if(!aula.getVideo().isEmpty()){
+            String  url = lv.converterLinkVideoToIframe(aula.getVideo());
+            aula.setVideo(url);
+        }
         aulaService.updateAula(aula.getId(), aula);
         model.addAttribute("curso", cursoService.findByIdCurso(aulaService.findByIdAula(aula.getId()).getCurso().getId()));
         return "editar-conteudo";

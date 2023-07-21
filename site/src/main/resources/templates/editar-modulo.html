@@ -22,12 +22,12 @@
 
             <input type="hidden" name="id" th:value="${modulo.id}">
             <label>Nome do modulo</label>
-            <input type="text" name="nome" th:placeholder="${modulo.nome}">
+            <input type="text" name="nome" th:placeholder="${modulo.nome}" th:value="${modulo.nome}">
 
             <input type="hidden" name="cursoId" th:value="${modulo.cursoId}">
 
-            <label>Descrição do modulo</label>
-            <textarea class="descricaoIn" th:placeholder="${modulo.descricao}" name="descricao"></textarea>
+<!--            <label>Descrição do modulo</label>-->
+<!--            <textarea class="descricaoIn" th:placeholder="${modulo.descricao}" name="descricao"></textarea>-->
 
             <input class="btnCriar" type="submit" value="Editar Modulo">
 

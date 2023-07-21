@@ -17,7 +17,7 @@
     <nav id="naveBar" class="naveBar" th:each="curso : ${aula.curso}">
         <a class="linkMenu" th:href="@{/usuario/conta}">Meus Cursos</a>
         <a class="linkMenu" th:href="@{/curso/todos}">Todos os Cursos</a>
-        <form sec:authorize="hasRole('USER')" th:action="@{/curso/editar}" th:object="${curso}" method="post">
+        <form sec:authorize="hasRole('ADMIN')" th:action="@{/curso/criar/conteudo}" th:object="${curso}" method="post">
             <input type="hidden" name="id" th:value="${curso.id}">
             <input class="linkMenu" type="submit" value="Editar Curso">
         </form>

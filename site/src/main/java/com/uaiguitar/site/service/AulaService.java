@@ -41,9 +41,9 @@ public class AulaService {
     }
 
     public void updateAula(UUID id, Aula a){
-        Aula curso = aulaRepository.getReferenceById(id);
-        updateAula(curso, a);
-        aulaRepository.save(curso);
+        Aula aula = aulaRepository.getReferenceById(id);
+        updateAula(aula, a);
+        aulaRepository.save(aula);
     }
 
     public void deleteAula(UUID id){

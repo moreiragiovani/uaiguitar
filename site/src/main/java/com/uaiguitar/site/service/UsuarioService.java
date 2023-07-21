@@ -4,7 +4,9 @@ import java.util.*;
 
 import com.uaiguitar.site.controller.CursoCompradoController;
 import com.uaiguitar.site.entidades.*;
+import com.uaiguitar.site.enums.RoleNome;
 import com.uaiguitar.site.repository.CursoCompradoRepository;
+import com.uaiguitar.site.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ public class UsuarioService{
 
     @Autowired
     HistoricoAulaService historicoAulaService;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
@@ -74,6 +79,13 @@ public class UsuarioService{
 
     public void createUsuario(Usuario user){
         try{
+            Set<Role> roles = new HashSet<>();
+            for (Role r : roleRepository.findAll()){
+                if(r.getRoleNome().equals(RoleNome.ROLE_USER)){
+                    roles.add(r);
+                }
+            }
+            user.setRoles(roles);
             user.setSenha(new BCryptPasswordEncoder().encode(user.getSenha()));
             usuarioRepository.save(user);
         }catch(Exception e){
