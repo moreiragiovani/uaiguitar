@@ -16,6 +16,7 @@
 
     <div class="container" th:each="aula : ${aula}">
         <form class="containerForm" th:action="@{/aula/update}" th:object="${aula}" method="post">
+
             <input  type="hidden" name="id" th:value="${aula.id}">
 
             <label>Nome:</label>

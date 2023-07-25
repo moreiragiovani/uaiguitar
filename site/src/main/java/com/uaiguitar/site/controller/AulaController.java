@@ -26,10 +26,7 @@ public class AulaController {
     @Autowired
     AulaService aulaService;
     @Autowired
-    ModuloService moduloService;
-    @Autowired
     CursoController cursoController;
-    LinkVideoConverter lv = new LinkVideoConverter();
 
     @GetMapping
     public String findAlAulas(Model model){
@@ -45,27 +42,7 @@ public class AulaController {
 
     @PostMapping("/adicionar")
     public String createAula(Aula aula, Model model){
-        Aula aula1 = aula;
-        if(!aula.getVideo().isEmpty()){
-            String  url = lv.converterLinkVideoToIframe(aula.getVideo());
-            aula1.setVideo(url);
-        }
-        Set<Aula> aulasList = new HashSet<>();
-        Modulo modulo = moduloService.findByIdModulo(aula1.getModuloId());
-
-        for(Aula a: modulo.getAulas()){
-            aulasList.add(a);
-        }
-
-        aula1.setIndiceDaAula(modulo.getAulas().size() + 1);
-        aula1.setCurso(cursoService.findByIdCurso(modulo.getCursoId()));
-        aulasList.add(aula1);
-        aulaService.createAula(aula1);
-        modulo.setAulas(aulasList);
-        moduloService.updateModulo(aula1.getModuloId(), modulo);
-        UUID id = modulo.getCursoId();
-        model.addAttribute("curso", cursoService.findByIdCurso(id));
-
+        model.addAttribute("curso", cursoService.findByIdCurso(aulaService.createAula(aula).getCurso().getId()));
         return "editar-conteudo";
     }
 
@@ -77,31 +54,14 @@ public class AulaController {
 
     @PostMapping("/update")
     public String updateAula(Aula aula, Model model){
-        if(!aula.getVideo().isEmpty()){
-            String  url = lv.converterLinkVideoToIframe(aula.getVideo());
-            aula.setVideo(url);
-        }
-        aulaService.updateAula(aula.getId(), aula);
-        model.addAttribute("curso", cursoService.findByIdCurso(aulaService.findByIdAula(aula.getId()).getCurso().getId()));
+        model.addAttribute("curso", cursoService.findByIdCurso(aulaService.updateAula(aula).getCurso().getId()));
         return "editar-conteudo";
     }
 
     @PostMapping("/apagar")
     public String deleteAula(Aula aula, Model model){
-        Set<Aula> aulaSet = new HashSet<>();
         model.addAttribute("curso", cursoService.findByIdCurso(aulaService.findByIdAula(aula.getId()).getCurso().getId()));
-        Modulo modulo = moduloService.findByIdModulo(aula.getModuloId());
-
-        for(Aula a: modulo.getAulas()){
-            if(!a.getId().equals(aula.getId())){
-                aulaSet.add(a);
-            }
-        }
-
-        modulo.setAulas(aulaSet);
-        moduloService.updateModulo(modulo.getId(), modulo);
-        aulaService.deleteAula(aula.getId());
-
+        aulaService.deleteAula(aula);
         return "editar-conteudo";
     }
 }

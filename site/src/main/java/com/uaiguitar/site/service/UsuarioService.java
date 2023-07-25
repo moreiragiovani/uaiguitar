@@ -79,12 +79,16 @@ public class UsuarioService{
 
     public void createUsuario(Usuario user){
         try{
+            Role role = new Role();
+            role.setRoleNome(RoleNome.ROLE_ADMIN);
+            roleRepository.save(role);
             Set<Role> roles = new HashSet<>();
-            for (Role r : roleRepository.findAll()){
-                if(r.getRoleNome().equals(RoleNome.ROLE_USER)){
-                    roles.add(r);
-                }
-            }
+//            for (Role r : roleRepository.findAll()){
+//                if(r.getRoleNome().equals(RoleNome.ROLE_USER)){
+//                    roles.add(r);
+//                }
+//            }
+            roles.add(role);
             user.setRoles(roles);
             user.setSenha(new BCryptPasswordEncoder().encode(user.getSenha()));
             usuarioRepository.save(user);
