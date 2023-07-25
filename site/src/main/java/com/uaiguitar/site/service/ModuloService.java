@@ -39,13 +39,24 @@ public class ModuloService {
     }
 
     public Modulo createModulo(Modulo modulo){
+        Set<Modulo> moduloList = new HashSet<>();
+        Curso curso = cursoService.findByIdCurso(modulo.getCursoId());
+        for(Modulo m: curso.getModulo()){
+            moduloList.add(m);
+        }
+        modulo.setIndiceModulo(curso.getModulo().size() + 1);
+        Modulo m1 = moduloRepository.save(modulo);
+        moduloList.add(modulo);
+        curso.setModulo(moduloList);
+        cursoService.updateCurso(curso);
+
         return moduloRepository.save(modulo);
     }
 
-    public void updateModulo(UUID id, Modulo m){
-        Modulo modulo = moduloRepository.getReferenceById(id);
+    public Modulo updateModulo(Modulo m){
+        Modulo modulo = moduloRepository.getReferenceById(m.getId());
         updateModulo(modulo, m);
-        moduloRepository.save(modulo);
+        return moduloRepository.save(modulo);
     }
 
     public void deleteModulo(UUID id, UUID cursoId){
@@ -89,7 +100,6 @@ public class ModuloService {
 
     private void updateModulo(Modulo modulo, Modulo m) {
         modulo.setDescricao(m.getDescricao());
-        modulo.setAulas(m.getAulas());
         modulo.setNome(m.getNome());
     }
 }

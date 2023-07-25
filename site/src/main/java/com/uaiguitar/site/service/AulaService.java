@@ -53,7 +53,7 @@ public class AulaService {
         aulasList.add(aula);
         aulaRepository.save(aula);
         modulo.setAulas(aulasList);
-        moduloService.updateModulo(aula.getModuloId(), modulo);
+        moduloService.updateModulo(modulo);
         return aula;
     }
 
@@ -82,7 +82,7 @@ public class AulaService {
         }
 
         modulo.setAulas(aulaSet);
-        moduloService.updateModulo(modulo.getId(), modulo);
+        moduloService.updateModulo(modulo);
 
         FindFirstAula fD = new FindFirstAula();
         Aula aula = aulaRepository.findById(a.getId()).get();

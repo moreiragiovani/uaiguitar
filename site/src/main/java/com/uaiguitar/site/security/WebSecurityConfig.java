@@ -50,6 +50,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/aula/**").hasAnyRole("USER", "ADMIN")
                                 .requestMatchers("/aula/adicionar").hasRole("ADMIN")
                                 .requestMatchers("/curso/aula").hasRole("ADMIN")
+                                .requestMatchers("/curso/editar").hasRole("ADMIN")
                                 .requestMatchers("/modulo/update").hasRole("ADMIN")
 
 

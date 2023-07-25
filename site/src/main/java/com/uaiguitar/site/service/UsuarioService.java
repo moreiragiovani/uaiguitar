@@ -7,6 +7,7 @@ import com.uaiguitar.site.entidades.*;
 import com.uaiguitar.site.enums.RoleNome;
 import com.uaiguitar.site.repository.CursoCompradoRepository;
 import com.uaiguitar.site.repository.RoleRepository;
+import com.uaiguitar.site.util.FindFirstAula;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -107,7 +108,9 @@ public class UsuarioService{
         usuarioRepository.deleteById(id);
     }
 
-    public void cursoComprado(UUID id, Curso curso1, HistoricoAula historico){
+    public HistoricoAula cursoComprado(UUID id, Curso curso1){
+        FindFirstAula fD = new FindFirstAula();
+        HistoricoAula hist = new HistoricoAula();
         Curso curso = cursoService.findByIdCurso(curso1.getId());
         Usuario usuario = usuarioRepository.findById(id).get();
         CursoComprado cursoComprado = new CursoComprado();
@@ -115,6 +118,18 @@ public class UsuarioService{
         Set<CursoComprado> listC = new HashSet<>();
         Set<HistoricoAula> listHistorico = new HashSet<>();
 
+        for(Modulo m : curso.getModulo()){
+            if(m.getIndiceModulo() == fD.indiceAulaMinimo(curso)[0]){
+                for(Aula a : m.getAulas()){
+                    if(a.getIndiceDaAula() == fD.indiceAulaMinimo(curso)[1]){
+                        hist.setAulaHistorico(a.getId().toString());
+                        hist.setCursoHistorico(curso.getId().toString());
+                        hist.setNomeCurso(curso.getNome());
+                        hist.setNomeAula(a.getNome());
+                    }
+                }
+            }
+        }
         int temp = 0;
 
         if(!usuario.getCursosComprados().isEmpty()){
@@ -136,13 +151,13 @@ public class UsuarioService{
                 usuarioRepository.save(usuario);
             }
             for (HistoricoAula h: usuario.getHistoricoAula()){
-                if(h.getCursoHistorico().equals(historico.getCursoHistorico())){
-                    h.setAulaHistorico(historico.getAulaHistorico());
-                    h.setNomeAula(historico.getNomeAula());
+                if(h.getCursoHistorico().equals(hist.getCursoHistorico())){
+                    h.setAulaHistorico(hist.getAulaHistorico());
+                    h.setNomeAula(hist.getNomeAula());
                     historicoAulaService.criarHistorico(h);
                 }
                 else {
-                    historicoAulaService.criarHistorico(historico);
+                    historicoAulaService.criarHistorico(hist);
                 }
             }
 
@@ -153,11 +168,12 @@ public class UsuarioService{
             for (HistoricoAula a: usuarioRepository.findById(usuario.getId()).get().getHistoricoAula()){
                 listHistorico.add(a);
             }
-            listHistorico.add(historicoAulaService.criarHistorico(historico));
+            listHistorico.add(historicoAulaService.criarHistorico(hist));
             usuario.setHistoricoAula(listHistorico);
             usuario.setCursosComprados(listC);
             usuarioRepository.save(usuario);
         }
+        return hist;
     }
 
     public void historicoAulaAtualizado(UUID id, HistoricoAula historicoAula){

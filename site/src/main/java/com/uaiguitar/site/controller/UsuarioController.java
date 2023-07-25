@@ -82,7 +82,6 @@ public class UsuarioController {
 
     @PostMapping("/criar")
     public String createUsuario(@Valid Usuario usuario, BindingResult result, Model model){
-
         if(result.hasErrors()){
             model.addAttribute("usuario", usuario);
             return "/formulario";
@@ -103,29 +102,7 @@ public class UsuarioController {
 
     @PostMapping("/comprar")
     public String comprandoCurso(Curso curso, Model model) {
-        FindFirstAula fD = new FindFirstAula();
-        HistoricoAula hist = new HistoricoAula();
-        Curso c1 = cursoService.findByIdCurso(curso.getId());
-
-        if (usuarioLogado() == null) {
-            return "redirect:formulario";
-        }
-
-        for(Modulo m : c1.getModulo()){
-            if(m.getIndiceModulo() == fD.indiceAulaMinimo(c1)[0]){
-                for(Aula a : m.getAulas()){
-                    if(a.getIndiceDaAula() == fD.indiceAulaMinimo(c1)[1]){
-                        hist.setAulaHistorico(a.getId().toString());
-                        hist.setCursoHistorico(c1.getId().toString());
-                        hist.setNomeCurso(c1.getNome());
-                        hist.setNomeAula(a.getNome());
-                    }
-                }
-            }
-        }
-
-        service.cursoComprado(logado().getId(), c1, hist);
-        return "redirect:/aula/"+hist.getAulaHistorico();
+        return "redirect:/aula/"+service.cursoComprado(logado().getId(), curso).getAulaHistorico();
     }
 
     public void historicoAula(UUID id, HistoricoAula historicoAula){
