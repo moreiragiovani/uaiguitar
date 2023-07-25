@@ -66,7 +66,7 @@ public class ModuloService {
         }
 
         curso.setModulo(modulos);
-        cursoService.updateCurso(curso.getId(), curso);
+        cursoService.updateCurso(curso);
         moduloRepository.deleteById(id);
         aulaRepository.deleteAll(aulas);
 

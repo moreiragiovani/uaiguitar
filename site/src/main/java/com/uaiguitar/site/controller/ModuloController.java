@@ -61,7 +61,7 @@ public class ModuloController {
         Modulo m1 = moduloService.createModulo(modulo1);
         moduloList.add(modulo1);
         curso.setModulo(moduloList);
-        cursoService.updateCurso(id, curso);
+        cursoService.updateCurso(curso);
         model.addAttribute("modulo", m1);
 
         return "criar-aula";

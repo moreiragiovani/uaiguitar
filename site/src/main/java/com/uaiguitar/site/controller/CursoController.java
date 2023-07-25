@@ -43,20 +43,13 @@ public class CursoController {
 
     @PostMapping
     public String createCurso(Curso curso, Model model){
-        String nomeCurso = curso.getNome();
         cursoService.createCurso(curso);
         return editarCurso(model);
     }
 
     @PostMapping("/update")
     public String updateCurso(Curso curso, Model model){
-        Curso c = cursoService.findByIdCurso(curso.getId());
-        c.setNome(curso.getNome());
-        c.setDescricao(curso.getDescricao());
-        c.setImagem(curso.getImagem());
-        c.setVideoApresentacao(curso.getVideoApresentacao());
-        cursoService.updateCurso(c.getId(), c);
-        model.addAttribute("curso", cursoService.findByIdCurso(c.getId()));
+        model.addAttribute("curso", cursoService.updateCurso(curso));
         return "editar-conteudo";
     }
 

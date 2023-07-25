@@ -47,16 +47,16 @@ public class CursoService {
         cursoRepository.save(user);
     }
 
-    public void updateCurso(UUID id, Curso c){
-        Curso curso = cursoRepository.getReferenceById(id);
+    public Curso updateCurso(Curso c){
+        Curso curso = cursoRepository.getReferenceById(c.getId());
         updateUser(curso, c);
         cursoRepository.save(curso);
+        return curso;
     }
     private void updateUser (Curso curso, Curso c){
         curso.setNome(c.getNome());
         curso.setDescricao(c.getDescricao());
         curso.setImagem(c.getImagem());
-        curso.setModulo(c.getModulo());
         curso.setVideoApresentacao(c.getVideoApresentacao());
     }
 
